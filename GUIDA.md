@@ -7,10 +7,15 @@ tipici di Unreal mentre scrivi. Funziona anche con l'editor di Unreal chiuso.
 ## Installare e aggiornare
 
 1. Chiudi Visual Studio.
-2. Doppio clic sul file `UnrealSense-<versione>.vsix`.
+2. Scarica `UnrealSense-<versione>.vsix` dalle [release](https://github.com/AssoAndrea/Unreal-Sense/releases) e fai
+   doppio clic sul file.
 3. Nella finestra che si apre spunta le versioni di Visual Studio in cui la vuoi (2022, 2026) e premi **Install**.
 
 Per aggiornare si fa la stessa cosa con il file nuovo: non serve disinstallare.
+
+**Aggiornamenti automatici**: in Visual Studio apri Tools › Options › Environment › Extensions, in *Additional Extension
+Galleries* premi **Add**, scrivi un nome (UnrealSense) e come URL `https://assoandrea.github.io/Unreal-Sense/gallery/atom.xml`,
+poi **Apply**. Da quel momento Visual Studio trova da solo le versioni nuove e le installa quando lo chiudi.
 
 Se nell'elenco non compare la tua versione di Visual Studio, metti `Install-UnrealSense.ps1` nella stessa cartella del
 `.vsix` e fai clic destro sullo script › **Esegui con PowerShell**: usa l'installer della versione più recente.

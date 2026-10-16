@@ -171,13 +171,21 @@
   <div class="card">
     <ol class="steps">
       <li>Chiudi Visual Studio.</li>
-      <li>Fai doppio clic sul file <code>UnrealSense-&lt;versione&gt;.vsix</code>.</li>
+      <li>Scarica <code>UnrealSense-&lt;versione&gt;.vsix</code> dalle
+        <a href="https://github.com/AssoAndrea/Unreal-Sense/releases">release</a> e fai doppio clic sul file.</li>
       <li>Spunta le versioni di Visual Studio in cui la vuoi (2022, 2026) e premi <span class="menu">Install</span>.</li>
     </ol>
     <p class="note">
       Per aggiornare si fa la stessa cosa con il file nuovo, senza disinstallare. Se nell'elenco non compare la tua
       versione di Visual Studio, metti <code>Install-UnrealSense.ps1</code> accanto al <code>.vsix</code> e fai clic
       destro sullo script › <span class="menu">Esegui con PowerShell</span>.
+    </p>
+    <p class="note">
+      <strong>Aggiornamenti automatici</strong>: in Visual Studio apri
+      <span class="menu">Tools › Options › Environment › Extensions</span>, in <em>Additional Extension Galleries</em>
+      premi <span class="menu">Add</span>, scrivi un nome (UnrealSense) e come URL
+      <code>https://assoandrea.github.io/Unreal-Sense/gallery/atom.xml</code>, poi <span class="menu">Apply</span>.
+      Da quel momento Visual Studio trova da solo le versioni nuove e le installa quando lo chiudi.
     </p>
   </div>
 
