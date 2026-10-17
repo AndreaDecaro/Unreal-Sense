@@ -1,5 +1,29 @@
 # UnrealSense changelog
 
+## 1.0.19
+
+UnrealSense 1.0.19: all changes from 1.0.12 to 1.0.19.
+
+License and updates
+- UnrealSense is free. The license agreement (LICENSE.txt, shown on install) lets the author require a paid license key in the future, also for installed copies. To know, the extension reads a small signed public file about every 12 hours; nothing about you, your PC or your projects is sent, and without network it keeps working.
+- The same file can ask a version with a security problem to be updated: an info bar links the new release, and after the announced date that version's features stay off until it is updated.
+- New command Extensions › UnrealSense › License... (also in the Quick Menu): license state and key field. Log lines start with "License:".
+
+Completion and code checks
+- Name completion no longer waits for Visual Studio's C++ list: where UnrealSense has names, its list shows as soon as the own index answers (option Code completion › Don't wait for Visual Studio's C++ list).
+- New check: access to a private or protected member from outside the class.
+- Faster lists while typing in a header with very large projects.
+
+Index and performance
+- Saving a file that declares nothing new reuses the previous symbol table: Lyra with the whole engine about 1 s instead of 2 s.
+- Less memory between index builds (Lyra + engine: 2.4 GB instead of up to 3.7 GB).
+
+Settings and install
+- Visual Studio 2026: the options are on the new Settings page (Unified Settings).
+- Automatic updates: add https://assoandrea.github.io/Unreal-Sense/gallery/atom.xml under Tools › Options › Environment › Extensions › Additional Extension Galleries.
+
+Install: run Install-UnrealSense.ps1 next to the .vsix, or open the .vsix.
+
 ## 1.0.12
 
 UnrealSense 1.0.12: all changes from 1.0.0 to 1.0.12.

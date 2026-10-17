@@ -20,6 +20,16 @@ poi **Apply**. Da quel momento Visual Studio trova da solo le versioni nuove e l
 Se nell'elenco non compare la tua versione di Visual Studio, metti `Install-UnrealSense.ps1` nella stessa cartella del
 `.vsix` e fai clic destro sullo script › **Esegui con PowerShell**: usa l'installer della versione più recente.
 
+## Licenza
+
+UnrealSense è gratuita. La licenza (`LICENSE.txt`, la vedi quando la installi) permette all'autore di chiedere in futuro
+una chiave di licenza a pagamento, anche per le copie già installate. Per saperlo, circa ogni 12 ore l'estensione scarica
+un piccolo file pubblico firmato (`license-policy.json` sulle GitHub Pages del progetto): la richiesta non contiene niente
+su di te, sul PC o sui tuoi progetti. Senza rete continua a funzionare. Se un giorno servirà una chiave, una barra in
+Visual Studio te lo dirà con i giorni che restano, e la chiave si inserisce in **Extensions › UnrealSense › License...**.
+Lo stesso file può chiedere di aggiornare una versione con un problema di sicurezza: la barra ti porta alla versione
+nuova e, dopo la data indicata, quella versione resta spenta finché non la aggiorni.
+
 ## Primo avvio
 
 Apri la soluzione del tuo progetto come fai di solito. UnrealSense riconosce il progetto da solo e in pochi secondi
@@ -354,6 +364,10 @@ pagina classica. Le più utili:
   completamento dei nomi mentre li scrivi, dopo `::` e dentro `#include`.
 - **Add missing #include** (sezione *Code completion*): accesa di default; spenta, scegliere un nome non aggiunge
   l'include che manca.
+- **Don't wait for Visual Studio's C++ list** (sezione *Code completion*): accesa di default; dove UnrealSense propone
+  i nomi non chiede la lista di IntelliSense, quindi la lista compare appena risponde il nostro indice invece di aspettare
+  IntelliSense (lento dopo una modifica a un header o con molti progetti caricati). Dove il nostro indice non ha niente si
+  apre la lista di Visual Studio. Spenta, la lista unisce di nuovo le due (e aspetta IntelliSense). Visual Assist non cambia.
 - **UI theme**: `Unreal` di default (stile dell'editor di Unreal); `Classic` usa i colori di Visual Studio e ne segue il tema.
 - **UnrealSense colorization** e **Semantic colours from the own index** (sezione *Colorization*): accese di default.
   - La prima spegne tutti i colori di UnrealSense (tornano quelli di Visual Studio): vale subito per i file aperti, appena

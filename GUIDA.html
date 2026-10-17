@@ -189,6 +189,22 @@
     </p>
   </div>
 
+  <h2>Licenza</h2>
+  <div class="card">
+    <p>
+      UnrealSense è gratuita. La licenza (<code>LICENSE.txt</code>, la vedi quando la installi) permette all'autore di
+      chiedere in futuro una chiave di licenza a pagamento, anche per le copie già installate.
+    </p>
+    <p class="note">
+      Per saperlo, circa ogni 12 ore l'estensione scarica un piccolo file pubblico firmato (<code>license-policy.json</code>
+      sulle GitHub Pages del progetto): la richiesta non contiene niente su di te, sul PC o sui tuoi progetti. Senza rete
+      continua a funzionare. Se un giorno servirà una chiave, una barra in Visual Studio te lo dirà con i giorni che
+      restano, e la chiave si inserisce in <span class="menu">Extensions › UnrealSense › License...</span>.
+      Lo stesso file può chiedere di aggiornare una versione con un problema di sicurezza: la barra ti porta alla
+      versione nuova e, dopo la data indicata, quella versione resta spenta finché non la aggiorni.
+    </p>
+  </div>
+
   <h2>Primo avvio</h2>
   <div class="card">
     <p>
@@ -727,6 +743,10 @@
       <tr>
         <td>Add missing #include</td>
         <td>Accesa di default: spenta, scegliere un nome non aggiunge l'include che manca.</td>
+      </tr>
+      <tr>
+        <td>Don't wait for Visual Studio's C++ list</td>
+        <td>Accesa di default: dove UnrealSense propone i nomi non chiede la lista di IntelliSense, quindi la lista compare appena risponde il nostro indice invece di aspettare IntelliSense (lento dopo una modifica a un header o con molti progetti caricati). Dove il nostro indice non ha niente si apre la lista di Visual Studio. Spenta, la lista unisce di nuovo le due (e aspetta IntelliSense). Visual Assist non cambia.</td>
       </tr>
       <tr>
         <td>UI theme</td>

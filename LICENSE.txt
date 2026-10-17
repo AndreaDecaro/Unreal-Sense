@@ -1,0 +1,51 @@
+UnrealSense - End User License Agreement
+
+Copyright (c) 2026 Andrea Decaro. All rights reserved.
+
+By installing or using UnrealSense (the "Software") you accept this agreement. If you do not accept it, do not
+install or use the Software.
+
+1. License. The author grants you a personal, non-exclusive, non-transferable and revocable license to install and
+   use the Software with Microsoft Visual Studio. The Software is licensed, not sold.
+
+2. Free of charge for now; paid licenses later. The Software is currently offered free of charge. The author may at
+   any time, at their sole discretion, require a paid license key for continued use of the Software, including
+   copies that are already installed, and for versions released before that decision. When that happens the
+   Software will tell you inside Visual Studio, keep working for the notice period then announced, and afterwards
+   keep its features turned off until a valid license key is entered. Free use granted before that moment does not
+   entitle you to free use afterwards. The author may also make the Software free again.
+
+3. License check and required updates. To know whether a license key is required, and whether your version must be
+   updated (for example to fix a security problem), the Software periodically downloads a small public,
+   digitally signed file from the author's public repository (GitHub). The request contains no personal data, no
+   identifier of you or of your computer and no information about your projects; like any web request, it reveals
+   your IP address to the hosting service. The Software stores the last file it read and any license key you enter
+   in your local application data folder. When a version must be updated, the Software tells you inside Visual Studio
+   and, after the date then announced (or at once when the problem requires it), keeps its features turned off until a
+   newer version is installed, whether or not you hold a license key.
+
+4. Restrictions. You may not: remove, disable, bypass or tamper with the license check or the license keys; create,
+   distribute or use license keys not issued by the author; sell, rent, sublicense or redistribute the Software;
+   or decompile, disassemble or reverse engineer it, except where applicable law expressly permits it despite this
+   restriction.
+
+5. Ownership. The Software and all copies of it remain the property of the author. Unreal Engine, Visual Studio and
+   other names mentioned by the Software are trademarks of their respective owners; the Software is not affiliated
+   with or endorsed by them.
+
+6. Termination. This license ends automatically if you breach this agreement, and may be ended by the author as
+   described in section 2. When it ends you must stop using the Software.
+
+7. No warranty. THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT
+   LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT.
+
+8. Limitation of liability. TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, IN NO EVENT SHALL THE AUTHOR BE LIABLE
+   FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT
+   OF OR IN CONNECTION WITH THE SOFTWARE OR ITS USE. Nothing in this agreement limits rights that cannot be limited
+   under the law that applies to you.
+
+9. Changes. The author may update this agreement; the version shipped with each release of the Software applies to
+   that release.
+
+10. Law. This agreement is governed by the laws of Italy, without prejudice to the mandatory consumer protection
+    rules of your country of residence.
