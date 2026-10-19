@@ -1,5 +1,25 @@
 # UnrealSense changelog
 
+## 1.0.21
+
+UnrealSense 1.0.21: all changes from 1.0.20 to 1.0.21.
+
+Code templates
+- Live templates: at the start of a statement the name list offers uelog, uewarn, ueerror (UE_LOG with verbosity Log, Warning, Error), uelogf (UE_LOG with a %s argument) and screenmsg (if (GEngine) GEngine->AddOnScreenDebugMessage(...), adding #include "Engine/Engine.h" when the file lacks it).
+- Postfix templates: after a value, .log, .warn, .error and .screen (at the bottom of the member list) print it with the format its type needs: %d for int32, %lld for int64, %f for float, true/false for a bool, *Name for an FString, *X.ToString() for FName/FVector/FRotator, the object's name for a UObject pointer, Num() for an array. An unknown type leaves the argument as a field to check.
+- The log category starts as one the module declares that the file already includes (or a DEFINE_LOG_CATEGORY_STATIC of the same file), otherwise LogTemp; no include is added for it by itself. A category picked from the list in the field brings its #include.
+- The fields are boxed: Tab / Shift+Tab move between them, Enter ends the edit, Esc leaves the caret where it is, one Ctrl+Z removes everything.
+- Option: Code completion › Code templates (uelog, screenmsg, .log), on by default.
+
+What's new
+- The first time Visual Studio starts after an update, a small "What's new in UnrealSense" window sums up the important changes since the version you had, once (minor fixes in one short line; Full changelog opens all the details). Not shown on a fresh install.
+
+Guide and install
+- The user guide (GUIDE.html) has the Unreal Editor look and an illustration in every section.
+- UnrealSense is on the Visual Studio Marketplace (Extensions › Manage Extensions, search for UnrealSense); the .vsix and Install-UnrealSense.ps1 stay on the GitHub releases for offline PCs. Problems and requests go to GitHub issues.
+
+Install: run Install-UnrealSense.ps1 next to the .vsix, or open the .vsix.
+
 ## 1.0.20
 
 UnrealSense 1.0.20: all changes from 1.0.19 to 1.0.20.

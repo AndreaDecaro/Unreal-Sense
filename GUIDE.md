@@ -13,7 +13,9 @@ UnrealSense is on the [Visual Studio Marketplace](https://marketplace.visualstud
 3. Close Visual Studio: the installation finishes and UnrealSense is there when you open it again.
 
 Updates arrive like those of any Marketplace extension: Visual Studio finds them by itself (**Extensions › Manage
-Extensions › Updates** shows them) and installs them when you close it.
+Extensions › Updates** shows them) and installs them when you close it. The first time Visual Studio starts after an
+update, a small **What's new in UnrealSense** window sums up the important changes, once (minor fixes in one short line;
+**Full changelog** opens all the details).
 
 ![Manage Extensions with UnrealSense found on the Marketplace](guide-img/install.svg?v=8ce7b894)
 
@@ -154,6 +156,31 @@ The list does not open while you are declaring something (`FVector Position`), i
 **Ctrl+Space** opens it too.
 
 ![Name completion and the #include added automatically](guide-img/name-completion.svg?v=96d18712)
+
+### Log and on-screen message templates
+
+No need to remember the syntax of `UE_LOG` or `AddOnScreenDebugMessage`. At the start of a line inside a function, type
+one of these short names and pick it from the list:
+
+| Type | You get |
+|---|---|
+| `uelog`, `uewarn`, `ueerror` | `UE_LOG(LogMyGame, Log, TEXT("Message"));` (verbosity `Log`, `Warning`, `Error`) |
+| `uelogf` | `UE_LOG(LogMyGame, Log, TEXT("Message: %s"), *Value);` |
+| `screenmsg` | `if (GEngine) { GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Yellow, TEXT("Message")); }` |
+
+After a value, type `.` and pick **log**, **warn**, **error** or **screen** (at the bottom of the list): `Health.log`
+becomes `UE_LOG(LogMyGame, Log, TEXT("Health = %f"), Health);`. The `%` part and the argument suit the value's type:
+`%d` for `int32`, `%lld` for `int64`, `%f` for `float`, `true`/`false` for a `bool`, `*Name` for an `FString`,
+`*Location.ToString()` for an `FVector`/`FName`/`FRotator`, the object's name for an Actor or another UObject pointer,
+`Num()` for an array. When the type is unknown, the argument is highlighted so you can check it.
+
+The log category starts as one your module declares (`DECLARE_LOG_CATEGORY_EXTERN`, or a `DEFINE_LOG_CATEGORY_STATIC`
+in the same file) that the file already includes, otherwise `LogTemp`: the template never adds an include for it by
+itself. To use another category, type it in the field (`LogMy...`) and pick it from the list: if the file does not
+include its header yet, the `#include` is added then. Once the template is inserted its fields are boxed and the first
+is selected: type to replace it, **Tab** / **Shift+Tab** move between the fields (category, message, time, colour),
+**Enter** ends the edit and puts the caret after it, **Esc** leaves the caret where it is. On-screen messages add `#include "Engine/Engine.h"` when the file lacks
+it. One Ctrl+Z removes everything.
 
 ### Warnings and quick fixes
 
@@ -429,6 +456,8 @@ The most useful ones:
   completion as you type, after `::` and inside `#include`.
 - **Add missing #include** (*Code completion* section): on by default; off, picking a name does not add the missing
   include.
+- **Code templates (uelog, screenmsg, .log)** (*Code completion* section): on by default; off, the log and on-screen
+  message templates are not offered.
 - **Don't wait for Visual Studio's C++ list** (*Code completion* section): on by default; where UnrealSense offers names
   it does not ask for IntelliSense's list, so the list appears as soon as our index answers instead of waiting for
   IntelliSense (slow after a header change or with many projects loaded). Where our index has nothing, Visual Studio's

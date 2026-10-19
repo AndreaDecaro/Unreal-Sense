@@ -212,6 +212,7 @@
     <li class="sub"><a href="#specifiers">Specifier suggestions</a></li>
     <li class="sub"><a href="#member-completion">Member completion</a></li>
     <li class="sub"><a href="#name-completion">Name completion</a></li>
+    <li class="sub"><a href="#log-templates">Log and on-screen message templates</a></li>
     <li class="sub"><a href="#warnings">Warnings and quick fixes</a></li>
     <li class="sub"><a href="#go-to-definition">Go to definition</a></li>
     <li class="sub"><a href="#colours">Code colours</a></li>
@@ -254,6 +255,9 @@
     <p class="note">
       Updates arrive like those of any Marketplace extension: Visual Studio finds them by itself
       (<span class="menu">Extensions › Manage Extensions › Updates</span> shows them) and installs them when you close it.
+      The first time Visual Studio starts after an update, a small <span class="menu">What's new in UnrealSense</span> window
+      sums up the important changes, once (minor fixes in one short line; <span class="menu">Full changelog</span> opens all
+      the details).
     </p>
     <figure>
       <img src="guide-img/install.svg?v=8ce7b894" width="760" height="250" loading="lazy"
@@ -477,6 +481,44 @@
           <img src="guide-img/name-completion.svg?v=96d18712" width="760" height="330" loading="lazy"
                alt="Typing UGameplaySt lists engine classes, a local and a parameter; picking the class adds its #include at the top">
         </figure>
+      </div>
+    </div>
+
+    <div class="card feature">
+      <div class="icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 4H6a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h2"/><path d="M16 4h2a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-2"/><path d="M9 12h6"/></svg>
+      </div>
+      <div>
+        <h3 id="log-templates">Log and on-screen message templates</h3>
+        <p>
+          No need to remember the syntax of <code>UE_LOG</code> or <code>AddOnScreenDebugMessage</code>. At the start of a
+          line inside a function, type one of these short names and pick it from the list:
+        </p>
+        <table>
+          <tr><th>Type</th><th>You get</th></tr>
+          <tr><td><code>uelog</code>, <code>uewarn</code>, <code>ueerror</code></td><td><code>UE_LOG(LogMyGame, Log, TEXT("Message"));</code> (verbosity <code>Log</code>, <code>Warning</code>, <code>Error</code>)</td></tr>
+          <tr><td><code>uelogf</code></td><td><code>UE_LOG(LogMyGame, Log, TEXT("Message: %s"), *Value);</code></td></tr>
+          <tr><td><code>screenmsg</code></td><td><code>if (GEngine) { GEngine-&gt;AddOnScreenDebugMessage(-1, 5.f, FColor::Yellow, TEXT("Message")); }</code></td></tr>
+        </table>
+        <p>
+          After a value, type <code>.</code> and pick <b>log</b>, <b>warn</b>, <b>error</b> or <b>screen</b> (at the bottom
+          of the list): <code>Health.log</code> becomes <code>UE_LOG(LogMyGame, Log, TEXT("Health = %f"), Health);</code>.
+          The <code>%</code> part and the argument suit the value's type: <code>%d</code> for <code>int32</code>,
+          <code>%lld</code> for <code>int64</code>, <code>%f</code> for <code>float</code>, <code>true</code>/<code>false</code>
+          for a <code>bool</code>, <code>*Name</code> for an <code>FString</code>, <code>*Location.ToString()</code> for an
+          <code>FVector</code>/<code>FName</code>/<code>FRotator</code>, the object's name for an Actor or another UObject
+          pointer, <code>Num()</code> for an array. When the type is unknown, the argument is highlighted so you can check it.
+        </p>
+        <p>
+          The log category starts as one your module declares (<code>DECLARE_LOG_CATEGORY_EXTERN</code>, or a
+          <code>DEFINE_LOG_CATEGORY_STATIC</code> in the same file) that the file already includes, otherwise
+          <code>LogTemp</code>: the template never adds an include for it by itself. To use another category, type it in the
+          field and pick it from the list: if the file does not include its header yet, the <code>#include</code> is added
+          then. Once the template is inserted its fields are boxed and the first is selected: type to replace it,
+          <kbd>Tab</kbd> / <kbd>Shift</kbd>+<kbd>Tab</kbd> move between the fields (category, message, time, colour),
+          <kbd>Enter</kbd> ends the edit and puts the caret after it, <kbd>Esc</kbd> leaves the caret where it is. On-screen messages add <code>#include "Engine/Engine.h"</code> when the file lacks it. One
+          <kbd>Ctrl</kbd>+<kbd>Z</kbd> removes everything.
+        </p>
       </div>
     </div>
 
@@ -932,6 +974,10 @@
       <tr>
         <td>Add missing #include</td>
         <td>On by default: off, picking a name does not add the missing include.</td>
+      </tr>
+      <tr>
+        <td>Code templates (uelog, screenmsg, .log)</td>
+        <td>On by default: off, the log and on-screen message templates are not offered.</td>
       </tr>
       <tr>
         <td>Don't wait for Visual Studio's C++ list</td>
