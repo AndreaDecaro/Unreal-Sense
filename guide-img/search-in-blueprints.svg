@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 310" width="760" height="310" role="img" aria-label="Search in Blueprints window: a text found in node pins, comments and widgets">
+<style>.ui{font-family:Roboto, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;font-size:12px}.code{font-family:Consolas, 'Cascadia Mono', Menlo, 'DejaVu Sans Mono', monospace;font-size:13px}</style>
+<rect width="760" height="310" rx="10" fill="#151515"/>
+<rect x="20" y="20" width="720" height="270" rx="4" fill="#242424" stroke="#3F3F46" stroke-width="1"/><rect x="21" y="21" width="718" height="24" rx="0" fill="#2D2D30"/><text class="ui" x="30" y="37" fill="#F1F1F1" font-weight="600" xml:space="preserve">Search in Blueprints</text>
+<rect x="30" y="54" width="200" height="26" rx="4" fill="#0F0F0F" stroke="#0070E0" stroke-width="1"/><circle cx="43" cy="66" r="4.5" fill="none" stroke="#8C8C8C" stroke-width="1.5"/><line x1="46.5" y1="69.5" x2="50" y2="73" stroke="#8C8C8C" stroke-width="1.5"/><text class="ui" x="58" y="71.5" fill="#FFFFFF" xml:space="preserve">Game Over</text><line x1="117.6" y1="60" x2="117.6" y2="74" stroke="#FFFFFF" stroke-width="1"/>
+<rect x="246" y="62" width="13" height="13" rx="2" fill="#0F0F0F" stroke="#4C4C4C" stroke-width="1"/><text class="ui" x="266" y="73" fill="#C0C0C0" xml:space="preserve">Match case</text>
+<rect x="344.0" y="62" width="13" height="13" rx="2" fill="#0F0F0F" stroke="#4C4C4C" stroke-width="1"/><text class="ui" x="364.0" y="73" fill="#C0C0C0" xml:space="preserve">Whole word</text>
+<rect x="442.0" y="62" width="13" height="13" rx="2" fill="#0F0F0F" stroke="#4C4C4C" stroke-width="1"/><text class="ui" x="462.0" y="73" fill="#C0C0C0" xml:space="preserve">Names</text>
+<rect x="509.0" y="62" width="13" height="13" rx="2" fill="#0F0F0F" stroke="#4C4C4C" stroke-width="1"/><text class="ui" x="529.0" y="73" fill="#C0C0C0" xml:space="preserve">All assets</text>
+<rect x="607.0" y="62" width="13" height="13" rx="2" fill="#0F0F0F" stroke="#4C4C4C" stroke-width="1"/><text class="ui" x="627.0" y="73" fill="#C0C0C0" xml:space="preserve">Editor caches</text>
+<text class="ui" x="32" y="106" fill="#FFFFFF" font-weight="600" xml:space="preserve">“Game Over”: 4 matches in 3 assets</text>
+<rect x="21" y="116" width="718" height="24" rx="0" fill="#2F2F2F"/>
+<text class="ui" x="32" y="132" fill="#C0C0C0" font-weight="600" xml:space="preserve">Asset</text>
+<text class="ui" x="168" y="132" fill="#C0C0C0" font-weight="600" xml:space="preserve">Found as</text>
+<text class="ui" x="294" y="132" fill="#C0C0C0" font-weight="600" xml:space="preserve">Where</text>
+<text class="ui" x="604" y="132" fill="#C0C0C0" font-weight="600" xml:space="preserve">Text</text>
+<rect x="21" y="140" width="718" height="26" rx="0" fill="#242424"/>
+<text class="ui" x="32" y="157" fill="#C0C0C0" xml:space="preserve">WBP_GameOver</text>
+<text class="ui" x="168" y="157" fill="#C0C0C0" xml:space="preserve">Widget text</text>
+<text class="ui" x="294" y="157" fill="#C0C0C0" xml:space="preserve">Widget TitleText › Text</text>
+<text class="ui" x="604" y="157" fill="#C0C0C0" xml:space="preserve">GAME OVER</text>
+<rect x="21" y="166" width="718" height="26" rx="0" fill="#0070E0"/>
+<text class="ui" x="32" y="183" fill="#FFFFFF" xml:space="preserve">BP_ArenaGameMode</text>
+<text class="ui" x="168" y="183" fill="#FFFFFF" xml:space="preserve">Pin value</text>
+<text class="ui" x="294" y="183" fill="#FFFFFF" xml:space="preserve">EventGraph › Call PrintString › pin In String</text>
+<text class="ui" x="604" y="183" fill="#FFFFFF" xml:space="preserve">Game Over: ...</text>
+<rect x="21" y="192" width="718" height="26" rx="0" fill="#242424"/>
+<text class="ui" x="32" y="209" fill="#C0C0C0" xml:space="preserve">BP_ArenaGameMode</text>
+<text class="ui" x="168" y="209" fill="#C0C0C0" xml:space="preserve">Comment</text>
+<text class="ui" x="294" y="209" fill="#C0C0C0" xml:space="preserve">EventGraph › comment box</text>
+<text class="ui" x="604" y="209" fill="#C0C0C0" xml:space="preserve">Game Over flow ...</text>
+<rect x="21" y="218" width="718" height="26" rx="0" fill="#1F1F1F"/>
+<text class="ui" x="32" y="235" fill="#C0C0C0" xml:space="preserve">ST_Messages</text>
+<text class="ui" x="168" y="235" fill="#C0C0C0" xml:space="preserve">String Table entry</text>
+<text class="ui" x="294" y="235" fill="#C0C0C0" xml:space="preserve">Key GameOver</text>
+<text class="ui" x="604" y="235" fill="#C0C0C0" xml:space="preserve">Game Over</text>
+<rect x="30" y="256" width="132" height="24" rx="3" fill="#383838"/><text class="ui" x="96" y="272" fill="#C0C0C0" text-anchor="middle" xml:space="preserve">Open in Unreal Editor</text>
+<rect x="170" y="256" width="132" height="24" rx="3" fill="#383838"/><text class="ui" x="236" y="272" fill="#C0C0C0" text-anchor="middle" xml:space="preserve">Show in Explorer</text>
+<rect x="310" y="256" width="132" height="24" rx="3" fill="#383838"/><text class="ui" x="376" y="272" fill="#C0C0C0" text-anchor="middle" xml:space="preserve">Copy reference</text>
+<rect x="450" y="256" width="132" height="24" rx="3" fill="#383838"/><text class="ui" x="516" y="272" fill="#C0C0C0" text-anchor="middle" xml:space="preserve">Copy text</text>
+</svg>

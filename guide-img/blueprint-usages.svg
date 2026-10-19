@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 290" width="760" height="290" role="img" aria-label="Blueprint Usages window listing the Blueprints that use a function">
+<style>.ui{font-family:Roboto, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;font-size:12px}.code{font-family:Consolas, 'Cascadia Mono', Menlo, 'DejaVu Sans Mono', monospace;font-size:13px}</style>
+<rect width="760" height="290" rx="10" fill="#151515"/>
+<rect x="20" y="20" width="720" height="250" rx="4" fill="#242424" stroke="#3F3F46" stroke-width="1"/><rect x="21" y="21" width="718" height="24" rx="0" fill="#2D2D30"/><text class="ui" x="30" y="37" fill="#F1F1F1" font-weight="600" xml:space="preserve">Blueprint Usages</text>
+<rect x="30" y="52" width="160" height="24" rx="3" fill="#383838"/><text class="ui" x="40" y="68" fill="#C0C0C0" xml:space="preserve">▶  Open in Unreal Editor</text>
+<rect x="196" y="52" width="128" height="24" rx="3" fill="#242424"/><text class="ui" x="206" y="68" fill="#C0C0C0" xml:space="preserve">▤  Show in Explorer</text>
+<rect x="330" y="52" width="118" height="24" rx="3" fill="#242424"/><text class="ui" x="340" y="68" fill="#C0C0C0" xml:space="preserve">⎘  Copy reference</text>
+<text class="ui" x="32" y="100" fill="#FFFFFF" font-weight="600" xml:space="preserve">AMyCharacter::StartFire: 3 usages in 3 assets</text>
+<rect x="21" y="112" width="718" height="24" rx="0" fill="#2F2F2F"/>
+<text class="ui" x="32" y="128" fill="#C0C0C0" font-weight="600" xml:space="preserve">Usage</text>
+<text class="ui" x="122" y="128" fill="#C0C0C0" font-weight="600" xml:space="preserve">Asset</text>
+<text class="ui" x="262" y="128" fill="#C0C0C0" font-weight="600" xml:space="preserve">Type</text>
+<text class="ui" x="372" y="128" fill="#C0C0C0" font-weight="600" xml:space="preserve">Detail</text>
+<text class="ui" x="472" y="128" fill="#C0C0C0" font-weight="600" xml:space="preserve">Package</text>
+<rect x="21" y="136" width="718" height="26" rx="0" fill="#0070E0"/>
+<text class="ui" x="32" y="153" fill="#FFFFFF" xml:space="preserve">Called in</text>
+<text class="ui" x="122" y="153" fill="#FFFFFF" xml:space="preserve">BP_Hero</text>
+<text class="ui" x="262" y="153" fill="#FFFFFF" xml:space="preserve">Blueprint</text>
+<text class="ui" x="372" y="153" fill="#FFFFFF" xml:space="preserve">EventGraph</text>
+<text class="ui" x="472" y="153" fill="#FFFFFF" xml:space="preserve">/Game/Characters/Hero/BP_Hero</text>
+<rect x="21" y="162" width="718" height="26" rx="0" fill="#1F1F1F"/>
+<text class="ui" x="32" y="179" fill="#C0C0C0" xml:space="preserve">Called in</text>
+<text class="ui" x="122" y="179" fill="#C0C0C0" xml:space="preserve">BP_HeroAI</text>
+<text class="ui" x="262" y="179" fill="#C0C0C0" xml:space="preserve">Blueprint</text>
+<text class="ui" x="372" y="179" fill="#C0C0C0" xml:space="preserve">Fire Weapon</text>
+<text class="ui" x="472" y="179" fill="#C0C0C0" xml:space="preserve">/Game/Characters/AI/BP_HeroAI</text>
+<rect x="21" y="188" width="718" height="26" rx="0" fill="#242424"/>
+<text class="ui" x="32" y="205" fill="#C0C0C0" xml:space="preserve">Called in</text>
+<text class="ui" x="122" y="205" fill="#C0C0C0" xml:space="preserve">WBP_TouchControls</text>
+<text class="ui" x="262" y="205" fill="#C0C0C0" xml:space="preserve">WidgetBlueprint</text>
+<text class="ui" x="372" y="205" fill="#C0C0C0" xml:space="preserve">EventGraph</text>
+<text class="ui" x="472" y="205" fill="#C0C0C0" xml:space="preserve">/Game/UI/Touch/WBP_TouchControls</text>
+<text class="ui" x="32" y="252" fill="#8C8C8C" font-size="11.5" xml:space="preserve">Double-click a row: the asset opens in the running Unreal Editor.</text>
+</svg>

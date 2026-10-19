@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 400" width="760" height="400" role="img" aria-label="Override Virtual Functions dialog with the functions inherited from the engine">
+<style>.ui{font-family:Roboto, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;font-size:12px}.code{font-family:Consolas, 'Cascadia Mono', Menlo, 'DejaVu Sans Mono', monospace;font-size:13px}</style>
+<rect width="760" height="400" rx="10" fill="#151515"/>
+<rect x="130" y="20" width="500" height="360" rx="6" fill="#242424" stroke="#0F0F0F" stroke-width="1"/><path d="M130,50 v-24 a6,6 0 0 1 6,-6 h488 a6,6 0 0 1 6,6 v24 z" fill="#0F0F0F"/><text class="ui" x="144" y="39.5" fill="#C0C0C0" font-weight="600" xml:space="preserve">Override Virtual Functions of AMyCharacter</text><line x1="606" y1="31" x2="614" y2="39" stroke="#8C8C8C" stroke-width="1.4"/><line x1="614" y1="31" x2="606" y2="39" stroke="#8C8C8C" stroke-width="1.4"/>
+<rect x="142" y="60" width="476" height="26" rx="4" fill="#0F0F0F" stroke="#383838" stroke-width="1"/><circle cx="155" cy="72" r="4.5" fill="none" stroke="#8C8C8C" stroke-width="1.5"/><line x1="158.5" y1="75.5" x2="162" y2="79" stroke="#8C8C8C" stroke-width="1.5"/><text class="ui" x="170" y="77.5" fill="#8C8C8C" xml:space="preserve">Filter functions</text>
+<rect x="142" y="98" width="476" height="20" rx="2" fill="#2F2F2F"/><text class="ui" x="150" y="112" fill="#FFA733" font-weight="600" xml:space="preserve">ACharacter</text>
+<rect x="154" y="125" width="13" height="13" rx="2" fill="#0F0F0F" stroke="#4C4C4C" stroke-width="1"/>
+<text class="code" x="176" y="136" fill="#C0C0C0" font-size="12.5" xml:space="preserve">Landed(const FHitResult&amp; Hit)</text>
+<rect x="154" y="148" width="13" height="13" rx="2" fill="#0F0F0F" stroke="#4C4C4C" stroke-width="1"/>
+<text class="code" x="176" y="159" fill="#C0C0C0" font-size="12.5" xml:space="preserve">OnJumped_Implementation()</text>
+<rect x="142" y="167" width="476" height="20" rx="2" fill="#2F2F2F"/><text class="ui" x="150" y="181" fill="#FFA733" font-weight="600" xml:space="preserve">APawn</text>
+<rect x="154" y="194" width="13" height="13" rx="2" fill="#0070E0" stroke="#0070E0" stroke-width="1"/><path d="M157,200.5 l3,3 l5,-6" fill="none" stroke="#FFFFFF" stroke-width="1.8"/>
+<text class="code" x="176" y="205" fill="#FFFFFF" font-size="12.5" xml:space="preserve">PossessedBy(AController* NewController)</text>
+<rect x="154" y="217" width="13" height="13" rx="2" fill="#0070E0" stroke="#0070E0" stroke-width="1"/><path d="M157,223.5 l3,3 l5,-6" fill="none" stroke="#FFFFFF" stroke-width="1.8"/>
+<text class="code" x="176" y="228" fill="#FFFFFF" font-size="12.5" xml:space="preserve">SetupPlayerInputComponent(UInputComponent* ...)</text>
+<rect x="142" y="236" width="476" height="20" rx="2" fill="#2F2F2F"/><text class="ui" x="150" y="250" fill="#FFA733" font-weight="600" xml:space="preserve">AActor</text>
+<rect x="154" y="263" width="13" height="13" rx="2" fill="#0070E0" stroke="#0070E0" stroke-width="1"/><path d="M157,269.5 l3,3 l5,-6" fill="none" stroke="#FFFFFF" stroke-width="1.8"/>
+<text class="code" x="176" y="274" fill="#FFFFFF" font-size="12.5" xml:space="preserve">BeginPlay()</text>
+<rect x="154" y="286" width="13" height="13" rx="2" fill="#0F0F0F" stroke="#4C4C4C" stroke-width="1"/>
+<text class="code" x="176" y="297" fill="#C0C0C0" font-size="12.5" xml:space="preserve">EndPlay(const EEndPlayReason::Type EndPlayReason)</text>
+<rect x="154" y="309" width="13" height="13" rx="2" fill="#0F0F0F" stroke="#4C4C4C" stroke-width="1"/>
+<text class="code" x="176" y="320" fill="#C0C0C0" font-size="12.5" xml:space="preserve">Tick(float DeltaSeconds)</text>
+<rect x="144" y="336" width="13" height="13" rx="2" fill="#0070E0" stroke="#0070E0" stroke-width="1"/><path d="M147,342.5 l3,3 l5,-6" fill="none" stroke="#FFFFFF" stroke-width="1.8"/><text class="ui" x="164" y="347" fill="#C0C0C0" xml:space="preserve">Add definitions to MyCharacter.cpp (calling Super)</text>
+<rect x="448" y="334" width="80" height="26" rx="4" fill="#0070E0"/><text class="ui" x="488.0" y="351" fill="#FFFFFF" font-weight="600" text-anchor="middle" xml:space="preserve">OK (3)</text><rect x="536" y="334" width="80" height="26" rx="4" fill="#383838"/><text class="ui" x="576.0" y="351" fill="#C0C0C0" text-anchor="middle" xml:space="preserve">Cancel</text>
+</svg>

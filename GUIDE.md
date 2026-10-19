@@ -21,6 +21,8 @@ added the old address `https://assoandrea.github.io/...`, replace it with this o
 If your Visual Studio version is not in the list, put `Install-UnrealSense.ps1` in the same folder as the `.vsix` and
 right-click the script › **Run with PowerShell**: it uses the installer of the newest version.
 
+![VSIX Installer and the UnrealSense extension gallery](guide-img/install.svg)
+
 ## License
 
 UnrealSense is free. The license (`LICENSE.txt`, shown when you install it) lets the author ask for a paid license key
@@ -33,10 +35,16 @@ with the days left, and the key goes in **Extensions › UnrealSense › License
 version with a security problem: the bar takes you to the new version and, after the stated date, that version stays
 off until you update it.
 
+![The information bar shown when a license key is needed](guide-img/license.svg)
+*This bar appears only if a key is ever needed: today UnrealSense is free.*
+
 ## First start
 
 Open your project's solution as usual. UnrealSense recognises the project by itself and reads the C++ classes and the
 Blueprints in a few seconds (the first time it can take a little longer). From then on everything works automatically.
+**View › Output**, *Show output from: UnrealSense*, shows what it is doing.
+
+![The Output window on the UnrealSense pane](guide-img/first-start.svg)
 
 ## What you get in the code
 
@@ -47,11 +55,15 @@ Next to classes, functions and properties exposed to Blueprints a grey label app
 
 The count also includes Blueprints that derive from other Blueprints or from child C++ classes (marked "via …").
 
+![Grey labels with the number of Blueprints next to a class and a function](guide-img/hints.svg)
+
 ### Find usages in Blueprints
 
 Put the caret on the name of a class, function or property and press **Alt+Shift+B** (or right-click ›
-**Find Blueprint Usages**). The **Blueprint Usages** window opens with the list: double-click a row to show the asset
-file in File Explorer.
+**Find Blueprint Usages**). The **Blueprint Usages** window opens with the list: double-click a row to open the asset in the running Unreal
+Editor; the toolbar also has *Show in Explorer* and *Copy reference*.
+
+![The Blueprint Usages window](guide-img/blueprint-usages.svg)
 
 ### Search text inside Blueprints
 
@@ -73,16 +85,22 @@ there are also *Show in Explorer*, *Copy reference* and *Copy text*. Options: *M
 regenerates by itself, such as engine pin tooltips or compiler messages, hidden by default). The search reads the assets
 straight from disk (with the editor closed too) and on a project like Lyra takes under a second.
 
+![The Search in Blueprints window](guide-img/search-in-blueprints.svg)
+
 ### Information on hover
 
 Hover a specifier (e.g. `BlueprintReadWrite`) to read its explanation, or the name of a class/function/property to see
 where it is used in Blueprints.
+
+![Tool tips on a specifier and on a class](guide-img/quick-info.svg)
 
 ### Suggestions as you type
 
 Inside `UPROPERTY(...)`, `UFUNCTION(...)`, `UCLASS(...)` etc. Visual Studio offers the specifiers valid for your Unreal
 version, with their explanation. It works for values too, for example the `Category` names already used in the project
 or the function to use in `ReplicatedUsing`.
+
+![Completion of UPROPERTY specifiers](guide-img/specifiers.svg)
 
 ### Member completion (`.` and `->`)
 
@@ -98,6 +116,8 @@ engine base classes), and the list narrows as you type. It works on local variab
 It also works in engine and plugin files: when you open one, UnrealSense adds it to the index with its headers (a few
 seconds). A member just added in a `.h` shows up in the `.cpp` right away, even before you save the header. It uses the
 UnrealSense C++ index (see the settings): if you turn it off, there is no completion.
+
+![Member completion on a TWeakObjectPtr](guide-img/member-completion.svg)
 
 ### Name completion (locals, members, types, macros)
 
@@ -131,6 +151,8 @@ Ctrl+Z removes both name and include. With a forward declaration `class X;` in t
 The list does not open while you are declaring something (`FVector Position`), in comments and in strings.
 **Ctrl+Space** opens it too.
 
+![Name completion and the #include added automatically](guide-img/name-completion.svg)
+
 ### Warnings and quick fixes
 
 Typical Unreal mistakes are underlined as you type, before compiling: missing or wrong `.generated.h` include, missing
@@ -144,6 +166,8 @@ When the **light bulb** appears you can apply the fix with a click (for example 
 the `.cpp`, or adds `UPROPERTY()` with `TObjectPtr`). Errors are underlined in red, warnings in yellow and suggestions
 in blue (colours in *Tools › Options › Fonts and Colors*, entries "UnrealSense - ..."). Errors and warnings are also in
 the Error List.
+
+![A warning with its light bulb fixes](guide-img/warnings.svg)
 
 Visual Studio's IntelliSense, on the other hand, reports many errors in Unreal code that do not exist. UnrealSense hides
 them (squiggles and Error List) when it recognises them as false:
@@ -175,6 +199,8 @@ Visual Studio's (or Visual Assist's) normal Go To Definition runs. With Alt+G, i
 switches to the matching file (like Alt+O). If there are several possible targets it opens the first and the status bar
 says so.
 
+![Ctrl+click on a call opens its implementation](guide-img/go-to-definition.svg)
+
 ### Code colours
 
 UnrealSense colours the project's C++ files by itself, with its own colours. It does not depend on IntelliSense or
@@ -196,6 +222,8 @@ Visual Assist.
 Until the index has answered, names are coloured by their Unreal prefix.
 
 Members exposed to Blueprints (BlueprintCallable, BlueprintReadWrite…) are in **bold**.
+
+![UnrealSense code colours with a legend](guide-img/code-colours.svg)
 
 **Changing the colours:** Tools › Options › Environment › Fonts and Colors, entries `UnrealSense - …`. The default
 colours follow the theme (dark or light) active when Visual Studio starts.
@@ -221,6 +249,8 @@ and the function they belong to). With no text it shows the whole file in order,
 `Tick::` shows only the locals of `Tick`. Locals come from the UnrealSense C++ index: if it is off or still building,
 the bar at the bottom says so and the list shows only declarations.
 
+![The Go to Symbol window](guide-img/go-to-symbol.svg)
+
 ### All commands in one menu (Alt+Shift+Q)
 
 Press **Alt+Shift+Q** (or Extensions › UnrealSense › **Quick Menu**): a menu opens where the mouse is, with all the
@@ -238,11 +268,15 @@ UI theme**: **Unreal** (default, the Unreal Engine 5 editor style, the same with
 **Classic** (Visual Studio's colours, font and title bars, following the dark, light, blue or custom theme right away).
 Open windows switch theme when you save the options.
 
+![The Quick Menu](guide-img/quick-menu.svg)
+
 ### Switch between .h and .cpp
 
 Press **Alt+O** (or right-click › **Switch Header/Source**) to open the `.cpp` of the header you are looking at, or the
 header of the `.cpp`. It follows the Unreal module layout (`Public\Ui\Menu.h` ⇄ `Private\Ui\Menu.cpp`, also `Classes`)
 and works in engine and plugin files too. If the matching file does not exist, the status bar at the bottom says so.
+
+![Alt+O between header and source](guide-img/switch-header-source.svg)
 
 ### Override virtual functions
 
@@ -251,6 +285,8 @@ right-click › **Override Virtual Functions...**): the list of virtual function
 engine, plugins, the project and interfaces). Tick the ones you want: UnrealSense adds the declarations in the `.h` and,
 if you leave it ticked, definitions calling `Super::` in the `.cpp`. Engine classes load in the background when you open
 the project; if you press Alt+Shift+V right after, the status bar says they are loading.
+
+![The Override Virtual Functions dialog](guide-img/override.svg)
 
 ### Create a function's implementation (Create Implementation)
 
@@ -267,6 +303,8 @@ Unreal's rules:
 - a constructor with `const FObjectInitializer&` gets `: Super(ObjectInitializer)`;
 - `BlueprintImplementableEvent`, pure and inline functions and interface events have no definition: the status bar
   explains why. If the definition already exists, the caret goes there.
+
+![Create Implementation on a Server RPC](guide-img/create-implementation.svg)
 
 ### Declare a delegate
 
@@ -289,6 +327,8 @@ all. **Copy** copies the same code to the clipboard without touching the file. U
 the chosen kind is for, and **Usage example** expands with an example of how to bind, call and unbind it, written with
 your delegate's names.
 
+![The Declare Delegate dialog](guide-img/declare-delegate.svg)
+
 ### Class hierarchy
 
 With the caret on the name of a class or struct open **Alt+Shift+Q › Class Hierarchy...** (or Extensions › UnrealSense ›
@@ -304,6 +344,8 @@ always complete, engine derived classes are those of those headers (all of them 
 classes of very common classes such as `UObject` stop at 2,000. While the index builds, only the project's
 UCLASS/USTRUCT classes appear.
 
+![The Class Hierarchy drop-down](guide-img/class-hierarchy.svg)
+
 ### Base function and overrides
 
 With the caret on a `virtual` function, an `override` or a `UFUNCTION` event, the Quick Menu shows
@@ -315,6 +357,8 @@ subclasses, as a tree. A `BlueprintNativeEvent` is followed through its `_Implem
 those you get back to the `UFUNCTION`. For events the **Blueprints implementing them** appear too; on a
 `BlueprintImplementableEvent` the entry is called **Blueprint Implementations of X...**. Clicking a function opens its
 file, clicking a Blueprint opens it in the Unreal Editor. It needs the UnrealSense C++ index.
+
+![The Base and Overrides drop-down](guide-img/base-and-overrides.svg)
 
 ### Add an #include or a forward declaration
 
@@ -328,10 +372,14 @@ In a header **Add Forward Declaration** appears too: it writes `class UMyCompone
 Templates, nested classes and enums without an underlying type cannot be declared this way: the status bar says so. It
 needs the UnrealSense C++ index.
 
+![Add #include and Add Forward Declaration](guide-img/add-include.svg)
+
 ### Unreal Explorer
 
 Menu **Extensions › UnrealSense › Unreal Explorer** (or **View › Other Windows**). It shows the project's modules, the
 plugins, the Blueprints grouped by their C++ parent class and the config files, with a search box.
+
+![The Unreal Explorer window](guide-img/unreal-explorer.svg)
 
 ### Create a new Unreal class
 
@@ -357,11 +405,15 @@ Widget), a checkbox offers to add it to the `.Build.cs`.
 The new files' includes stay underlined in red until you run **Generate Project Files**: it is a limit of the projects
 Unreal generates, building works anyway. The `.generated.h` file exists only after the first build.
 
+![The New Unreal Class dialog](guide-img/new-unreal-class.svg)
+
 ## Settings
 
 **Tools › Options › UnrealSense**. In Visual Studio 2026 it is a page of the new settings window (*All Settings ›
 UnrealSense*, split into sections, with the values you already had); in Visual Studio 2022 it stays the classic page.
 The most useful ones:
+
+![Tools › Options › UnrealSense](guide-img/settings.svg)
 
 - **Show Blueprint usage hints**: turns the grey labels in the code on/off.
 - **Show hints for unused Blueprint API**: also shows "no Blueprint usages" on functions and properties exposed to
@@ -417,3 +469,5 @@ The most useful ones:
   UnrealSense is not to blame. It says whether the freeze was in UnrealSense code and, with the `WHOLE PROCESS STALLED`
   line, whether the whole process stopped (usually memory: every line reports Visual Studio's memory and the PC's free
   memory).
+
+![The UnrealSense Logs folder](guide-img/logs.svg)

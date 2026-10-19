@@ -5,161 +5,233 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>UnrealSense — Quick guide</title>
 <style>
+  /* Unreal Editor 5 look: the colours of the extension's "Unreal" UI theme (UnrealStyle.cs). Always dark, like the editor. */
   :root {
-    --bg: #f6f7f9;
-    --surface: #ffffff;
-    --text: #1d2330;
-    --muted: #5d6677;
-    --border: #e2e5eb;
-    --accent: #2f6fde;
-    --accent-soft: #e8f0fd;
-    --code-bg: #1e1f24;
-    --code-text: #d7dae0;
-    --code-type: #4ec9b0;
-    --code-macro: #c586c0;
+    color-scheme: dark;
+    --title: #0f0f0f;
+    --bg: #151515;
+    --recessed: #1a1a1a;
+    --row-alt: #1f1f1f;
+    --panel: #242424;
+    --header: #2f2f2f;
+    --dropdown: #383838;
+    --outline: #4c4c4c;
+    --hover: #575757;
+    --text: #c0c0c0;
+    --dim: #8c8c8c;
+    --bright: #ffffff;
+    --primary: #0070e0;
+    --primary-hover: #0e86ff;
+    --link: #4da3ff;
+    --accent: #ffa733;
+    --code-text: #e0e0e0;
+    --code-type: #4fc1d8;
+    --code-macro: #f0a33d;
+    --code-keyword: #6c95eb;
     --code-hint: #8a8f98;
-    --kbd-bg: #ffffff;
-    --kbd-border: #c9ced8;
-    --shadow: 0 1px 2px rgba(20, 30, 50, .06), 0 4px 16px rgba(20, 30, 50, .05);
-  }
-  @media (prefers-color-scheme: dark) {
-    :root:not([data-theme="light"]) {
-      --bg: #14161b;
-      --surface: #1c1f26;
-      --text: #e6e8ec;
-      --muted: #9aa2b1;
-      --border: #2c313b;
-      --accent: #6aa1ff;
-      --accent-soft: #1f2b40;
-      --code-bg: #111216;
-      --kbd-bg: #262a33;
-      --kbd-border: #3a404c;
-      --shadow: 0 1px 2px rgba(0, 0, 0, .3), 0 4px 16px rgba(0, 0, 0, .25);
-    }
-  }
-  :root[data-theme="dark"] {
-    --bg: #14161b;
-    --surface: #1c1f26;
-    --text: #e6e8ec;
-    --muted: #9aa2b1;
-    --border: #2c313b;
-    --accent: #6aa1ff;
-    --accent-soft: #1f2b40;
-    --code-bg: #111216;
-    --kbd-bg: #262a33;
-    --kbd-border: #3a404c;
-    --shadow: 0 1px 2px rgba(0, 0, 0, .3), 0 4px 16px rgba(0, 0, 0, .25);
   }
 
   * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; scroll-padding-top: 64px; }
   body {
     margin: 0;
     background: var(--bg);
     color: var(--text);
-    font: 16px/1.6 "Segoe UI", system-ui, -apple-system, Roboto, Helvetica, Arial, sans-serif;
+    font: 15px/1.6 Roboto, "Segoe UI", system-ui, -apple-system, Helvetica, Arial, sans-serif;
   }
-  .page { max-width: 860px; margin: 0 auto; padding: 40px 16px 64px; }
+  a { color: var(--link); text-decoration: none; }
+  a:hover { color: var(--primary-hover); text-decoration: underline; }
+  strong, b { color: var(--bright); font-weight: 600; }
 
-  header { margin-bottom: 32px; }
-  .brand { display: flex; align-items: center; gap: 12px; }
+  /* title bar, like the editor's window title */
+  .titlebar {
+    position: sticky; top: 0; z-index: 10;
+    background: var(--title);
+    border-bottom: 1px solid #000;
+    height: 48px;
+    display: flex; align-items: center; gap: 12px;
+    padding: 0 16px;
+  }
   .logo {
-    width: 44px; height: 44px; border-radius: 11px; flex: none;
-    background: linear-gradient(135deg, var(--accent), #8b5cf6);
-    display: grid; place-items: center; color: #fff; font-weight: 700; font-size: 20px;
+    width: 30px; height: 30px; border-radius: 6px; flex: none;
+    background: var(--primary);
+    display: grid; place-items: center; color: #fff; font-weight: 700; font-size: 16px;
   }
-  h1 { font-size: 30px; line-height: 1.2; margin: 0; }
-  .subtitle { color: var(--muted); margin: 14px 0 0; font-size: 17px; }
+  .titlebar .name { color: var(--bright); font-weight: 600; font-size: 15px; }
+  .titlebar .tab {
+    margin-left: 8px; padding: 4px 12px; border-radius: 4px 4px 0 0;
+    background: var(--panel); color: var(--text); font-size: 13px;
+    border-top: 2px solid var(--primary);
+  }
+  .titlebar .links { margin-left: auto; display: flex; gap: 6px; }
+  .titlebar .links a {
+    color: var(--text); font-size: 13px; padding: 5px 12px; border-radius: 4px; background: var(--dropdown);
+  }
+  .titlebar .links a:hover { background: var(--hover); color: var(--bright); text-decoration: none; }
 
-  h2 { font-size: 20px; margin: 40px 0 14px; }
-  h3 { font-size: 17px; margin: 0 0 6px; }
+  .layout { max-width: 1180px; margin: 0 auto; display: grid; grid-template-columns: 230px minmax(0, 1fr); gap: 28px; padding: 24px 16px 64px; }
+
+  /* table of contents, like the Outliner */
+  nav.outliner {
+    position: sticky; top: 72px; align-self: start;
+    max-height: calc(100vh - 96px); overflow-y: auto;
+    background: var(--panel); border: 1px solid var(--title); border-radius: 4px;
+    font-size: 13px;
+  }
+  nav.outliner .head {
+    background: var(--header); color: var(--bright); font-weight: 600; padding: 7px 12px; border-radius: 4px 4px 0 0;
+  }
+  nav.outliner ul { list-style: none; margin: 0; padding: 4px 0; }
+  nav.outliner li a { display: block; padding: 3px 12px; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  nav.outliner li a:hover { background: var(--header); color: var(--bright); text-decoration: none; }
+  nav.outliner li.sub a { padding-left: 26px; color: var(--dim); }
+  nav.outliner li.sub a:hover { color: var(--bright); }
+  nav.outliner li:nth-child(even) > a { background: var(--row-alt); }
+  nav.outliner li:nth-child(even) > a:hover { background: var(--header); }
+
+  main { min-width: 0; }
+  header.intro { margin-bottom: 8px; }
+  h1 { font-size: 28px; line-height: 1.2; margin: 0; color: var(--bright); font-weight: 600; }
+  .subtitle { color: var(--text); margin: 12px 0 0; font-size: 16px; }
+
+  /* section headers, like the categories of the Details panel */
+  h2 {
+    font-size: 15px; font-weight: 600; color: var(--bright);
+    background: var(--header); border: 1px solid var(--title); border-radius: 4px;
+    margin: 36px 0 12px; padding: 8px 14px;
+  }
+  h2::before { content: "\25BE"; color: var(--dim); margin-right: 10px; font-size: 12px; }
+  h3 { font-size: 16px; margin: 0 0 6px; color: var(--bright); font-weight: 600; }
+  h3:not(:first-child) { margin-top: 22px; }
   p { margin: 0 0 10px; }
   p:last-child { margin-bottom: 0; }
+  ul { margin: 0 0 10px; padding-left: 22px; }
+  li { margin: 2px 0; }
+  li::marker { color: var(--accent); }
 
   .card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 20px 22px;
-    box-shadow: var(--shadow);
+    background: var(--panel);
+    border: 1px solid var(--title);
+    border-radius: 4px;
+    padding: 18px 20px;
   }
-  .grid { display: grid; gap: 14px; }
+  .grid { display: grid; gap: 12px; }
 
   ol.steps { list-style: none; counter-reset: step; margin: 0; padding: 0; }
-  ol.steps li { counter-increment: step; position: relative; padding: 2px 0 12px 44px; }
+  ol.steps li { counter-increment: step; position: relative; padding: 2px 0 12px 42px; }
   ol.steps li:last-child { padding-bottom: 0; }
   ol.steps li::before {
     content: counter(step);
     position: absolute; left: 0; top: 0;
-    width: 28px; height: 28px; border-radius: 50%;
-    background: var(--accent-soft); color: var(--accent);
-    display: grid; place-items: center; font-weight: 700; font-size: 14px;
+    width: 26px; height: 26px; border-radius: 4px;
+    background: var(--primary); color: #fff;
+    display: grid; place-items: center; font-weight: 700; font-size: 13px;
   }
-  .note { color: var(--muted); font-size: 15px; margin-top: 14px; }
+  .note { color: var(--dim); font-size: 14px; margin-top: 14px; }
 
   kbd {
-    font: 600 13px/1 "Segoe UI", system-ui, sans-serif;
-    background: var(--kbd-bg);
-    border: 1px solid var(--kbd-border);
+    font: 600 12px/1 Roboto, "Segoe UI", system-ui, sans-serif;
+    color: var(--bright);
+    background: var(--dropdown);
+    border: 1px solid var(--outline);
     border-bottom-width: 2px;
-    border-radius: 6px;
+    border-radius: 4px;
     padding: 3px 7px;
     white-space: nowrap;
   }
   code {
-    font: 14px/1.4 Consolas, "Cascadia Mono", ui-monospace, monospace;
-    background: var(--accent-soft);
-    padding: 1px 6px;
-    border-radius: 5px;
-  }
-  .menu { font-weight: 600; }
-
-  .editor {
-    background: var(--code-bg);
+    font: 13.5px/1.4 Consolas, "Cascadia Mono", ui-monospace, monospace;
     color: var(--code-text);
-    border-radius: 10px;
-    padding: 14px 16px;
-    margin: 14px 0 6px;
-    font: 14px/1.7 Consolas, "Cascadia Mono", ui-monospace, monospace;
-    overflow-x: auto;
+    background: var(--title);
+    border: 1px solid var(--dropdown);
+    padding: 0 5px;
+    border-radius: 3px;
   }
-  .editor .line { white-space: pre; }
-  .editor .macro { color: var(--code-macro); }
-  .editor .type { color: var(--code-type); }
-  .editor .hint { color: var(--code-hint); font-style: italic; margin-left: 18px; }
-  .caption { color: var(--muted); font-size: 14px; }
+  h3 code { font-size: 14px; }
+  .menu { font-weight: 600; color: var(--bright); }
 
-  .feature { display: grid; grid-template-columns: 40px 1fr; gap: 14px; align-items: start; }
+  figure { margin: 16px 0 6px; }
+  figure img { display: block; width: 100%; height: auto; border-radius: 6px; border: 1px solid var(--title); }
+  figcaption { color: var(--dim); font-size: 13px; margin-top: 6px; }
+
+  .feature { display: grid; grid-template-columns: 36px minmax(0, 1fr); gap: 16px; align-items: start; }
   .icon {
-    width: 40px; height: 40px; border-radius: 10px;
-    background: var(--accent-soft); color: var(--accent);
+    width: 36px; height: 36px; border-radius: 4px;
+    background: var(--dropdown); color: var(--accent);
     display: grid; place-items: center;
   }
-  .icon svg { width: 22px; height: 22px; }
+  .icon svg { width: 20px; height: 20px; }
 
-  .settings { width: 100%; border-collapse: collapse; }
-  .settings td { padding: 12px 0; border-top: 1px solid var(--border); vertical-align: top; }
-  .settings tr:first-child td { border-top: 0; padding-top: 0; }
-  .settings td:first-child { font-weight: 600; padding-right: 20px; width: 40%; }
+  .settings { width: 100%; border-collapse: collapse; font-size: 14px; }
+  .settings td { padding: 9px 12px; vertical-align: top; border-top: 1px solid var(--title); }
+  .settings tr:nth-child(odd) td { background: var(--recessed); }
+  .settings td:first-child { font-weight: 600; color: var(--bright); width: 34%; }
 
-  footer { margin-top: 48px; color: var(--muted); font-size: 14px; text-align: center; }
+  footer { margin-top: 48px; color: var(--dim); font-size: 13px; text-align: center; }
 
+  @media (max-width: 900px) {
+    .layout { grid-template-columns: minmax(0, 1fr); }
+    nav.outliner { display: none; }
+    .titlebar .tab { display: none; }
+  }
   @media (max-width: 560px) {
-    h1 { font-size: 26px; }
-    .settings td { display: block; width: auto; padding: 0; }
-    .settings td:first-child { padding: 12px 0 2px; }
-    .settings tr:first-child td:first-child { padding-top: 0; }
-    .settings td:last-child { border-top: 0; padding-bottom: 4px; }
+    h1 { font-size: 24px; }
+    .feature { grid-template-columns: minmax(0, 1fr); }
+    .icon { display: none; }
+    .settings td { display: block; width: auto; }
+    .settings td:first-child { padding-bottom: 0; }
+    .settings td:last-child { border-top: 0; padding-top: 2px; }
+    .titlebar .links a:not(:first-child) { display: none; }
   }
 </style>
 </head>
 <body>
-<div class="page">
+<div class="titlebar">
+  <div class="logo" aria-hidden="true">U</div>
+  <span class="name">UnrealSense</span>
+  <span class="tab">Quick guide</span>
+  <div class="links">
+    <a href="https://github.com/AndreaDecaro/Unreal-Sense/releases">Download</a>
+    <a href="https://github.com/AndreaDecaro/Unreal-Sense">GitHub</a>
+  </div>
+</div>
 
-  <header>
-    <div class="brand">
-      <div class="logo" aria-hidden="true">U</div>
-      <h1>UnrealSense — quick guide</h1>
-    </div>
+<div class="layout">
+<nav class="outliner" aria-label="Contents">
+  <div class="head">Contents</div>
+  <ul>
+    <li><a href="#install">Install and update</a></li>
+    <li><a href="#license">License</a></li>
+    <li><a href="#first-start">First start</a></li>
+    <li><a href="#code">What you get in the code</a></li>
+    <li class="sub"><a href="#blueprint-hints">Blueprint counters</a></li>
+    <li class="sub"><a href="#blueprint-usages">Find usages in Blueprints</a></li>
+    <li class="sub"><a href="#search-blueprints">Search text in Blueprints</a></li>
+    <li class="sub"><a href="#hover">Information on hover</a></li>
+    <li class="sub"><a href="#specifiers">Specifier suggestions</a></li>
+    <li class="sub"><a href="#member-completion">Member completion</a></li>
+    <li class="sub"><a href="#name-completion">Name completion</a></li>
+    <li class="sub"><a href="#warnings">Warnings and quick fixes</a></li>
+    <li class="sub"><a href="#go-to-definition">Go to definition</a></li>
+    <li class="sub"><a href="#colours">Code colours</a></li>
+    <li class="sub"><a href="#go-to-symbol">Find a symbol or a file</a></li>
+    <li class="sub"><a href="#quick-menu">Quick Menu</a></li>
+    <li class="sub"><a href="#switch">Header and source</a></li>
+    <li class="sub"><a href="#override">Override virtual functions</a></li>
+    <li class="sub"><a href="#create-implementation">Create Implementation</a></li>
+    <li class="sub"><a href="#delegate">Declare a delegate</a></li>
+    <li class="sub"><a href="#hierarchy">Class hierarchy</a></li>
+    <li class="sub"><a href="#include">#include and forward declaration</a></li>
+    <li class="sub"><a href="#explorer">Unreal Explorer</a></li>
+    <li class="sub"><a href="#new-class">New Unreal class</a></li>
+    <li><a href="#settings">Settings</a></li>
+    <li><a href="#problems">If something goes wrong</a></li>
+  </ul>
+</nav>
+<main>
+
+  <header class="intro">
+    <h1>UnrealSense — quick guide</h1>
     <p class="subtitle">
       Help for Unreal projects in Visual Studio 2022 and 2026: it tells you <strong>where your C++ classes are used in
       Blueprints</strong>, suggests <code>UPROPERTY</code>/<code>UFUNCTION</code> specifiers and flags typical Unreal
@@ -167,7 +239,7 @@
     </p>
   </header>
 
-  <h2>Install and update</h2>
+  <h2 id="install">Install and update</h2>
   <div class="card">
     <ol class="steps">
       <li>Close Visual Studio.</li>
@@ -189,9 +261,13 @@
       If you had added the old address <code>https://assoandrea.github.io/...</code>, replace it with this one:
       the old one no longer answers.
     </p>
+    <figure>
+      <img src="guide-img/install.svg" width="760" height="300" loading="lazy"
+           alt="The VSIX Installer with Visual Studio 2022 and 2026 ticked, and the UnrealSense gallery added under Additional Extension Galleries">
+    </figure>
   </div>
 
-  <h2>License</h2>
+  <h2 id="license">License</h2>
   <div class="card">
     <p>
       UnrealSense is free. The license (<code>LICENSE.txt</code>, shown when you install it) lets the author ask for a
@@ -207,18 +283,28 @@
       The same file can ask you to update a version with a security problem: the bar takes you to the new version and,
       after the stated date, that version stays off until you update it.
     </p>
+    <figure>
+      <img src="guide-img/license.svg" width="760" height="150" loading="lazy"
+           alt="A Visual Studio information bar: a license key is required, with the days left and the Enter license key link">
+      <figcaption>This bar appears only if a key is ever needed: today UnrealSense is free.</figcaption>
+    </figure>
   </div>
 
-  <h2>First start</h2>
+  <h2 id="first-start">First start</h2>
   <div class="card">
     <p>
       Open the project's solution as usual. UnrealSense recognises the project by itself and reads the C++ classes and
       the Blueprints in a few seconds (the first time it can take a little longer). From then on everything works
-      automatically.
+      automatically. <span class="menu">View › Output</span>, <em>Show output from: UnrealSense</em>, shows what it is
+      doing.
     </p>
+    <figure>
+      <img src="guide-img/first-start.svg" width="760" height="230" loading="lazy"
+           alt="The Output window on the UnrealSense pane: the version loaded, the project, the C++ index ready">
+    </figure>
   </div>
 
-  <h2>What you get in the code</h2>
+  <h2 id="code">What you get in the code</h2>
   <div class="grid">
 
     <div class="card feature">
@@ -226,19 +312,16 @@
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19V5"/><path d="M4 19h16"/><path d="M8 15v-4"/><path d="M12 15V8"/><path d="M16 15v-6"/></svg>
       </div>
       <div>
-        <h3>How many Blueprints use a class</h3>
+        <h3 id="blueprint-hints">How many Blueprints use a class</h3>
         <p>
           Next to classes, functions and properties exposed to Blueprints a grey label appears. <strong>Click it</strong>
           to see the list of Blueprints.
         </p>
-        <div class="editor" aria-label="Example">
-          <div class="line"><span class="macro">UCLASS</span>()</div>
-          <div class="line"><span class="macro">class</span> <span class="type">AMyCharacter</span> : <span class="macro">public</span> <span class="type">ACharacter</span><span class="hint">12 derived Blueprints</span></div>
-          <div class="line">{</div>
-          <div class="line">    <span class="macro">UFUNCTION</span>(BlueprintCallable)</div>
-          <div class="line">    <span class="macro">void</span> Jump();<span class="hint">3 Blueprint usages</span></div>
-        </div>
-        <p class="caption">The count also includes Blueprints that derive from other Blueprints or from child C++ classes (marked "via …").</p>
+        <figure>
+          <img src="guide-img/hints.svg" width="760" height="230" loading="lazy"
+               alt="A header with the grey labels 12 derived Blueprints next to the class and 3 Blueprint usages next to a function">
+          <figcaption>The count also includes Blueprints that derive from other Blueprints or from child C++ classes (marked "via …").</figcaption>
+        </figure>
       </div>
     </div>
 
@@ -247,12 +330,18 @@
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
       </div>
       <div>
-        <h3>Find usages in Blueprints</h3>
+        <h3 id="blueprint-usages">Find usages in Blueprints</h3>
         <p>
           Put the caret on the name of a class, function or property and press <kbd>Alt</kbd>+<kbd>Shift</kbd>+<kbd>B</kbd>
           (or right-click › <span class="menu">Find Blueprint Usages</span>). The
-          <span class="menu">Blueprint Usages</span> window opens: double-click a row to show the asset file in File Explorer.
+          <span class="menu">Blueprint Usages</span> window opens: double-click a row to open the asset in the running
+          Unreal Editor; the toolbar also has <span class="menu">Show in Explorer</span> and
+          <span class="menu">Copy reference</span>.
         </p>
+        <figure>
+          <img src="guide-img/blueprint-usages.svg" width="760" height="290" loading="lazy"
+               alt="The Blueprint Usages window: three Blueprints that call a function, with asset, type, detail and package">
+        </figure>
       </div>
     </div>
 
@@ -261,7 +350,7 @@
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16"/><path d="M4 12h9"/><path d="M4 18h6"/><circle cx="17" cy="16" r="3"/><path d="m21 20-1.8-1.8"/></svg>
       </div>
       <div>
-        <h3>Search text inside Blueprints</h3>
+        <h3 id="search-blueprints">Search text inside Blueprints</h3>
         <p>
           <span class="menu">Extensions › UnrealSense › Search Text in Blueprints...</span> (or the Quick Menu) opens the
           <span class="menu">Search in Blueprints</span> window: type any text and it lists every Blueprint and data asset
@@ -276,6 +365,10 @@
           regenerates by itself, hidden by default). Assets are read from disk, with the editor closed too: under a second
           on Lyra.
         </p>
+        <figure>
+          <img src="guide-img/search-in-blueprints.svg" width="760" height="310" loading="lazy"
+               alt="The Search in Blueprints window: a text found in a widget, a node pin, a comment box and a String Table">
+        </figure>
       </div>
     </div>
 
@@ -284,11 +377,15 @@
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
       </div>
       <div>
-        <h3>Information on hover</h3>
+        <h3 id="hover">Information on hover</h3>
         <p>
           Hover a specifier (e.g. <code>BlueprintReadWrite</code>) to read its explanation, or the name of a class,
           function or property to see where it is used in Blueprints.
         </p>
+        <figure>
+          <img src="guide-img/quick-info.svg" width="760" height="280" loading="lazy"
+               alt="Two tool tips: the meaning of BlueprintReadWrite, and the Blueprints that derive from or reference a class">
+        </figure>
       </div>
     </div>
 
@@ -297,13 +394,17 @@
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m16 18 6-6-6-6"/><path d="m8 6-6 6 6 6"/></svg>
       </div>
       <div>
-        <h3>Suggestions as you type</h3>
+        <h3 id="specifiers">Suggestions as you type</h3>
         <p>
           Inside <code>UPROPERTY(...)</code>, <code>UFUNCTION(...)</code>, <code>UCLASS(...)</code> etc. Visual Studio
           offers the specifiers valid for your Unreal version, with their explanation. It works for values too, for
           example the <code>Category</code> names already used in the project or the function to use in
           <code>ReplicatedUsing</code>.
         </p>
+        <figure>
+          <img src="guide-img/specifiers.svg" width="760" height="260" loading="lazy"
+               alt="Completion inside UPROPERTY: EditAnywhere, EditDefaultsOnly and the other Edit specifiers with an explanation">
+        </figure>
       </div>
     </div>
 
@@ -312,7 +413,7 @@
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
       </div>
       <div>
-        <h3>Member completion (<code>.</code> and <code>-&gt;</code>)</h3>
+        <h3 id="member-completion">Member completion (<code>.</code> and <code>-&gt;</code>)</h3>
         <p>
           Type a variable name and a dot: Visual Studio lists the functions and variables of its class (including those
           of the engine base classes), and the list narrows as you type. It works on local variables, parameters,
@@ -324,6 +425,10 @@
           the pointed object, and picking one of the latter turns the dot into <code>-&gt;</code>. It also works in engine
           and plugin files (they are added to the index when you open them).
         </p>
+        <figure>
+          <img src="guide-img/member-completion.svg" width="760" height="280" loading="lazy"
+               alt="Completion after a dot on a TWeakObjectPtr: Get, IsValid, Reset and the members of the pointed component marked with an arrow">
+        </figure>
       </div>
     </div>
 
@@ -332,7 +437,7 @@
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16"/><path d="M4 12h10"/><path d="M4 18h7"/></svg>
       </div>
       <div>
-        <h3>Name completion (locals, members, types, macros)</h3>
+        <h3 id="name-completion">Name completion (locals, members, types, macros)</h3>
         <p>
           Wherever you start typing a name, in <code>.cpp</code> and <code>.h</code> files (function or class body, file
           level, parameters, template arguments such as <code>TArray&lt;TS</code>, bases <code>: public AAc</code>,
@@ -363,6 +468,10 @@
           both name and include. The list does not open while you declare something (<code>FVector Position</code>), in
           comments and in strings; <kbd>Ctrl</kbd>+<kbd>Space</kbd> opens it anyway.
         </p>
+        <figure>
+          <img src="guide-img/name-completion.svg" width="760" height="330" loading="lazy"
+               alt="Typing UGameplaySt lists engine classes, a local and a parameter; picking the class adds its #include at the top">
+        </figure>
       </div>
     </div>
 
@@ -371,7 +480,7 @@
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6"/><path d="M10 22h4"/><path d="M12 2a7 7 0 0 0-4 12.7c.6.5 1 1.3 1 2.3h6c0-1 .4-1.8 1-2.3A7 7 0 0 0 12 2Z"/></svg>
       </div>
       <div>
-        <h3>Warnings and quick fixes</h3>
+        <h3 id="warnings">Warnings and quick fixes</h3>
         <p>
           Typical Unreal mistakes are underlined before you compile: missing or wrong <code>.generated.h</code> include,
           missing <code>GENERATED_BODY()</code>, wrong A/U/F/E/I prefixes, missing <code>_Implementation</code>, UObject
@@ -389,6 +498,10 @@
           (colours in <em>Tools › Options › Fonts and Colors</em>, entries "UnrealSense - ..."). Errors and warnings are
           also in the Error List.
         </p>
+        <figure>
+          <img src="guide-img/warnings.svg" width="760" height="270" loading="lazy"
+               alt="A raw AActor pointer underlined, with its explanation and the light bulb fixes: add UPROPERTY with TObjectPtr, or use TWeakObjectPtr">
+        </figure>
         <p>
           Visual Studio's IntelliSense, on the other hand, reports many errors in Unreal code that do not exist.
           UnrealSense hides them (squiggles and Error List) when it recognises them as false:
@@ -416,7 +529,7 @@
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg>
       </div>
       <div>
-        <h3>Go to definition</h3>
+        <h3 id="go-to-definition">Go to definition</h3>
         <p>
           <kbd>Ctrl</kbd>+click a name (or the key chosen in Tools › Options › Text Editor › General › "Enable mouse click to
           perform Go to Definition", for example <kbd>Alt</kbd>; or <kbd>F12</kbd>, or <kbd>Alt</kbd>+<kbd>G</kbd>): from a
@@ -428,6 +541,10 @@
           there, Visual Studio's Go To Definition runs; with <kbd>Alt</kbd>+<kbd>G</kbd> outside a known name it switches
           to the matching file (like <kbd>Alt</kbd>+<kbd>O</kbd>).
         </p>
+        <figure>
+          <img src="guide-img/go-to-definition.svg" width="760" height="250" loading="lazy"
+               alt="Ctrl+click on a call to StartFire opens its implementation in the other .cpp">
+        </figure>
       </div>
     </div>
 
@@ -436,7 +553,7 @@
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="13.5" cy="6.5" r="1.5"/><circle cx="17.5" cy="10.5" r="1.5"/><circle cx="8.5" cy="7.5" r="1.5"/><circle cx="6.5" cy="12.5" r="1.5"/><path d="M12 2a10 10 0 0 0 0 20c1.1 0 2-.9 2-2 0-.5-.2-1-.5-1.3-.3-.4-.5-.8-.5-1.3 0-1.1.9-2 2-2h2.4A5.6 5.6 0 0 0 22 9.8C22 5.5 17.5 2 12 2Z"/></svg>
       </div>
       <div>
-        <h3>Code colours</h3>
+        <h3 id="colours">Code colours</h3>
         <p>
           UnrealSense colours the project's C++ files by itself, without depending on IntelliSense or Visual Assist.
         </p>
@@ -459,6 +576,11 @@
         <p>
           Members exposed to Blueprints are in bold.
         </p>
+        <figure>
+          <img src="guide-img/code-colours.svg" width="760" height="300" loading="lazy"
+               alt="A function coloured by UnrealSense, with a legend: UObject type, value type, function, field, local, parameter, macro, reflection macro, specifier">
+          <figcaption>The default colours of a dark Visual Studio theme.</figcaption>
+        </figure>
         <p>
           To change the colours: Tools › Options › Environment › Fonts and Colors, entries <code>UnrealSense - …</code>.
         </p>
@@ -470,7 +592,7 @@
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
       </div>
       <div>
-        <h3>Find a symbol or a file</h3>
+        <h3 id="go-to-symbol">Find a symbol or a file</h3>
         <p>
           <kbd>Alt</kbd>+<kbd>Shift</kbd>+<kbd>T</kbd> (<span class="menu">Go to Symbol...</span>) searches the classes,
           functions, variables, enum values, macros and delegates of the project, its plugins and the engine headers: the
@@ -488,6 +610,10 @@
           scattered letters (<code>GAL</code>, <code>shchar</code>) and typos (<code>charcter</code>); off, every word must
           appear as written.
         </p>
+        <figure>
+          <img src="guide-img/go-to-symbol.svg" width="760" height="330" loading="lazy"
+               alt="The Go to Symbol window: typing GAL finds GetActorLocation and other functions, with their class and header">
+        </figure>
         <p>
           <kbd>Alt</kbd>+<kbd>M</kbd> or <kbd>Alt</kbd>+<kbd>Shift</kbd>+<kbd>M</kbd> (<span class="menu">Go to Symbol in
           File...</span>) opens the same window on the In File tab and searches only the open file, including local
@@ -502,7 +628,7 @@
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M7 8h10"/><path d="M7 12h10"/><path d="M7 16h6"/></svg>
       </div>
       <div>
-        <h3>All commands in one menu</h3>
+        <h3 id="quick-menu">All commands in one menu</h3>
         <p>
           Press <kbd>Alt</kbd>+<kbd>Shift</kbd>+<kbd>Q</kbd> (or <span class="menu">Extensions › UnrealSense › Quick Menu</span>):
           a menu opens where the mouse is, with all the UnrealSense commands grouped into search, code, project and tools,
@@ -514,6 +640,10 @@
           <span class="menu">GoTo Implementation/Declaration</span> only on a function name. The shortcuts and the
           Extensions › UnrealSense menu work everywhere and, in the wrong place, the status bar explains why.
         </p>
+        <figure>
+          <img src="guide-img/quick-menu.svg" width="760" height="470" loading="lazy"
+               alt="The Quick Menu next to the caret: At caret StartFire, a filter box and the commands grouped into Search, Code and Project with their shortcuts">
+        </figure>
         <p>
           The UnrealSense windows (Unreal Explorer, Find Usages, Blueprint Usages, Go to Symbol/File, Quick Menu and the
           New Unreal Class, Override and Declare Delegate dialogs) have two themes, from
@@ -530,13 +660,17 @@
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3l4 4-4 4"/><path d="M3 7h18"/><path d="M7 21l-4-4 4-4"/><path d="M21 17H3"/></svg>
       </div>
       <div>
-        <h3>From .h to .cpp and back</h3>
+        <h3 id="switch">From .h to .cpp and back</h3>
         <p>
           Press <kbd>Alt</kbd>+<kbd>O</kbd> (or right-click › <span class="menu">Switch Header/Source</span>)
           to open the <code>.cpp</code> of the header you are looking at, or the header of the <code>.cpp</code>. It follows
           the Unreal module layout (<code>Public\Ui\Menu.h</code> ⇄ <code>Private\Ui\Menu.cpp</code>, also
           <code>Classes</code>) and works in engine and plugin files too.
         </p>
+        <figure>
+          <img src="guide-img/switch-header-source.svg" width="760" height="160" loading="lazy"
+               alt="Alt+O switches between Public/UI/MainMenu.h and Private/UI/MainMenu.cpp">
+        </figure>
       </div>
     </div>
 
@@ -545,7 +679,7 @@
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16"/><path d="M4 12h10"/><path d="M4 18h7"/><path d="m15 16 2 2 4-4"/></svg>
       </div>
       <div>
-        <h3>Override virtual functions</h3>
+        <h3 id="override">Override virtual functions</h3>
         <p>
           With the caret inside a class (in the <code>.h</code>, or in one of its functions in the <code>.cpp</code>) press
           <kbd>Alt</kbd>+<kbd>Shift</kbd>+<kbd>V</kbd> (or right-click › <span class="menu">Override Virtual Functions...</span>):
@@ -554,6 +688,10 @@
           <code>Super::</code> in the <code>.cpp</code>. Engine classes load in the background when you open the project; if
           you press the key right after, the status bar says they are loading.
         </p>
+        <figure>
+          <img src="guide-img/override.svg" width="760" height="400" loading="lazy"
+               alt="The Override Virtual Functions dialog: the virtual functions of ACharacter, APawn and AActor with checkboxes">
+        </figure>
       </div>
     </div>
 
@@ -562,7 +700,7 @@
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h10"/><path d="M4 12h7"/><path d="M4 18h7"/><path d="M18 11v8"/><path d="M14 15h8"/></svg>
       </div>
       <div>
-        <h3>Create a function's implementation (Create Implementation)</h3>
+        <h3 id="create-implementation">Create a function's implementation (Create Implementation)</h3>
         <p>
           Write the declaration in the <code>.h</code>, leave the caret on the line (also on the
           <code>UFUNCTION(...)</code> one) and press <kbd>Alt</kbd>+<kbd>Shift</kbd>+<kbd>D</kbd>, or
@@ -581,6 +719,10 @@
           <li><code>BlueprintImplementableEvent</code>, pure and inline functions and interface events have no
             definition: the status bar explains why. If the definition already exists, the caret goes there.</li>
         </ul>
+        <figure>
+          <img src="guide-img/create-implementation.svg" width="760" height="380" loading="lazy"
+               alt="On a Server RPC declaration, Create implementation writes ServerFire_Implementation and ServerFire_Validate in the .cpp">
+        </figure>
       </div>
     </div>
 
@@ -589,7 +731,7 @@
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></svg>
       </div>
       <div>
-        <h3>Declare a delegate</h3>
+        <h3 id="delegate">Declare a delegate</h3>
         <p>
           Put the caret in the header where you want the member (usually an empty line in the <code>public:</code>
           section), and open <kbd>Alt</kbd>+<kbd>Shift</kbd>+<kbd>Q</kbd> › <span class="menu">Declare Delegate...</span> (or
@@ -614,6 +756,10 @@
           chosen kind is for, and <span class="menu">Usage example</span> expands with an example of how to bind, call and
           unbind it, written with your delegate's names.
         </p>
+        <figure>
+          <img src="guide-img/declare-delegate.svg" width="760" height="470" loading="lazy"
+               alt="The Declare Delegate dialog set to Dynamic Multicast with two parameters and the preview of the macro and the member">
+        </figure>
       </div>
     </div>
 
@@ -622,7 +768,7 @@
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="2" width="6" height="5" rx="1"/><rect x="3" y="17" width="6" height="5" rx="1"/><rect x="15" y="17" width="6" height="5" rx="1"/><path d="M12 7v5"/><path d="M6 17v-3h12v3"/></svg>
       </div>
       <div>
-        <h3>Class hierarchy</h3>
+        <h3 id="hierarchy">Class hierarchy</h3>
         <p>
           With the caret on the name of a class or struct open <kbd>Alt</kbd>+<kbd>Shift</kbd>+<kbd>Q</kbd> ›
           <span class="menu">Class Hierarchy...</span> (or <span class="menu">Extensions › UnrealSense › Class Hierarchy...</span>;
@@ -640,6 +786,10 @@
           <i>Index the whole engine</i>). Derived classes of very common classes such as <code>UObject</code> stop at 2,000.
           While the index builds, only the project's UCLASS/USTRUCT classes appear.
         </p>
+        <figure>
+          <img src="guide-img/class-hierarchy.svg" width="760" height="420" loading="lazy"
+               alt="The Class Hierarchy drop-down of AMyCharacter: its base classes up to UObject and its derived classes as a tree">
+        </figure>
         <h3>Base function and overrides</h3>
         <p>
           With the caret on a <code>virtual</code> function, an <code>override</code> or a <code>UFUNCTION</code> event, the
@@ -655,6 +805,10 @@
           <span class="menu">Blueprint Implementations of X...</span>. Clicking a function opens its file, clicking a
           Blueprint opens it in the Unreal Editor. It needs the UnrealSense C++ index.
         </p>
+        <figure>
+          <img src="guide-img/base-and-overrides.svg" width="760" height="400" loading="lazy"
+               alt="The Base and Overrides drop-down of BeginPlay: the base functions up to AActor::BeginPlay, marked origin, and the overrides in subclasses">
+        </figure>
       </div>
     </div>
 
@@ -663,7 +817,7 @@
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6"/><path d="M8 13h8"/><path d="M8 17h5"/></svg>
       </div>
       <div>
-        <h3>Add an #include or a forward declaration</h3>
+        <h3 id="include">Add an #include or a forward declaration</h3>
         <p>
           With the caret on a name open <kbd>Alt</kbd>+<kbd>Shift</kbd>+<kbd>Q</kbd> › <span class="menu">Add #include</span>:
           UnrealSense adds the <code>#include</code> of its header written as in Unreal code
@@ -678,6 +832,10 @@
           the other forward declarations. Templates, nested classes and enums without an underlying type cannot be declared
           this way: the status bar says so. It needs the UnrealSense C++ index.
         </p>
+        <figure>
+          <img src="guide-img/add-include.svg" width="760" height="250" loading="lazy"
+               alt="A header where Add #include inserted an include before the .generated.h and Add Forward Declaration wrote a class declaration">
+        </figure>
       </div>
     </div>
 
@@ -686,12 +844,16 @@
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M7 12h14"/><path d="M11 18h10"/><path d="M3 6v12"/></svg>
       </div>
       <div>
-        <h3>Unreal Explorer</h3>
+        <h3 id="explorer">Unreal Explorer</h3>
         <p>
           Menu <span class="menu">Extensions › UnrealSense › Unreal Explorer</span> (or <span class="menu">View › Other
           Windows</span>). It shows the project's modules, the plugins, the Blueprints grouped by their C++ parent class and
           the config files, with a search box.
         </p>
+        <figure>
+          <img src="guide-img/unreal-explorer.svg" width="760" height="370" loading="lazy"
+               alt="The Unreal Explorer window: modules, plugins, Blueprints by C++ parent and config, with a search box">
+        </figure>
       </div>
     </div>
 
@@ -700,7 +862,7 @@
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6"/><path d="M12 12v6"/><path d="M9 15h6"/></svg>
       </div>
       <div>
-        <h3>Create a new Unreal class</h3>
+        <h3 id="new-class">Create a new Unreal class</h3>
         <p>
           In Solution Explorer right-click a project or a folder › <span class="menu">Add › Unreal Class...</span>
           (or <span class="menu">Extensions › UnrealSense › Unreal Class...</span>, or the <b>New class</b> button of the
@@ -721,14 +883,22 @@
           example <code>UMG</code>), a checkbox offers to add it to the <code>.Build.cs</code>. Includes stay red until you
           run <b>Generate Project Files</b>; the <code>.generated.h</code> exists after the first build.
         </p>
+        <figure>
+          <img src="guide-img/new-unreal-class.svg" width="760" height="440" loading="lazy"
+               alt="The New Unreal Class dialog: Actor chosen among the common parent classes, the class name, Public or Private, and the path">
+        </figure>
       </div>
     </div>
 
   </div>
 
-  <h2>Settings</h2>
+  <h2 id="settings">Settings</h2>
   <div class="card">
     <p style="margin-bottom:14px">In <span class="menu">Tools › Options › UnrealSense</span>. In Visual Studio 2026 it is a page of the new settings window (<span class="menu">All Settings › UnrealSense</span>, split into sections, with the values you already had); in Visual Studio 2022 it stays the classic page. The most useful ones:</p>
+    <figure style="margin-bottom:16px">
+      <img src="guide-img/settings.svg" width="760" height="330" loading="lazy"
+           alt="The UnrealSense page of Tools, Options in Visual Studio 2022, with its categories and values">
+    </figure>
     <table class="settings">
       <tr>
         <td>Show Blueprint usage hints</td>
@@ -796,7 +966,36 @@
     </table>
   </div>
 
+  <h2 id="problems">If something goes wrong</h2>
+  <div class="card">
+    <ul>
+      <li><strong>I don't see the counters</strong>: wait a few seconds after the solution opens. If you have just saved
+        Blueprints in Unreal, use <span class="menu">Extensions › UnrealSense › Rebuild UnrealSense Index</span>.</li>
+      <li><strong>A counter looks wrong</strong>: note the class and a Blueprint that uses it, and send the log file
+        (below).</li>
+      <li><strong>Visual Studio's "Find All References" no longer works</strong>: if the Extensions › UnrealSense menu shows
+        <span class="menu">Restore Visual Studio Indexing</span>, run it and restart Visual Studio.</li>
+      <li><strong>A shortcut does nothing or something else</strong>: another extension uses the same key. In the log the
+        <code>KeyBindingCheck:</code> line says which command uses it; you can change the key in
+        <span class="menu">Tools › Options › Environment › Keyboard</span> by searching for <code>UnrealSense.</code>.</li>
+      <li><strong>Log to attach to a report</strong>: the <code>%LOCALAPPDATA%\UnrealSense\Logs</code> folder (paste the
+        path into File Explorer's address bar) has one file per Visual Studio session,
+        <code>UnrealSense_&lt;date&gt;_&lt;time&gt;_pid&lt;id&gt;.log</code>: attach the one of the session with the
+        problem (usually the newest). The last five sessions are kept. The current session's log is also in Visual Studio
+        under <span class="menu">Output › UnrealSense</span>.</li>
+      <li><strong>Visual Studio freezes or closes by itself</strong>: also attach
+        <code>Hangs_&lt;date&gt;_&lt;time&gt;_pid&lt;id&gt;.log</code> of the same session: for freezes of 5 seconds or
+        more it contains the UI thread's stack, which shows where Visual Studio is stuck even when UnrealSense is not to
+        blame, and with the <code>WHOLE PROCESS STALLED</code> line whether the whole process stopped.</li>
+    </ul>
+    <figure>
+      <img src="guide-img/logs.svg" width="760" height="210" loading="lazy"
+           alt="The UnrealSense Logs folder: the log and the hang log of the same session, and older sessions">
+    </figure>
+  </div>
+
   <footer>UnrealSense</footer>
+</main>
 </div>
 </body>
 </html>
