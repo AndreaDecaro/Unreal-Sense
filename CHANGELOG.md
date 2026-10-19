@@ -1,5 +1,19 @@
 # UnrealSense changelog
 
+## 1.0.20
+
+UnrealSense 1.0.20: all changes from 1.0.19 to 1.0.20.
+
+License
+- UnrealSense must now reach its small signed license file at least once every 48 hours (directly or through your proxy). A single failed check changes nothing; past 48 hours without a successful check, the features turn off until one succeeds, even with a license key. The info bar offers "Check now", and the project reopens as soon as a check succeeds.
+- The License... dialog shows the last successful check and the offline limit.
+- The project moved to the GitHub account AndreaDecaro: the extension reads the license file from the new addresses first. If you added the old update gallery address, replace it with https://andreadecaro.github.io/Unreal-Sense/gallery/atom.xml.
+
+Guide
+- The user guide is now in English (GUIDE.html); the old GUIDA.html address opens it.
+
+Install: run Install-UnrealSense.ps1 next to the .vsix, or open the .vsix.
+
 ## 1.0.19
 
 UnrealSense 1.0.19: all changes from 1.0.12 to 1.0.19.
@@ -20,7 +34,7 @@ Index and performance
 
 Settings and install
 - Visual Studio 2026: the options are on the new Settings page (Unified Settings).
-- Automatic updates: add https://assoandrea.github.io/Unreal-Sense/gallery/atom.xml under Tools › Options › Environment › Extensions › Additional Extension Galleries.
+- Automatic updates: add https://andreadecaro.github.io/Unreal-Sense/gallery/atom.xml under Tools › Options › Environment › Extensions › Additional Extension Galleries.
 
 Install: run Install-UnrealSense.ps1 next to the .vsix, or open the .vsix.
 

@@ -107,24 +107,26 @@ Fonts and Colors: keywords, strings, comments, macros, Unreal types, calls, memb
 ## Installing and updating
 
 Download `UnrealSense-<version>.vsix` and `Install-UnrealSense.ps1` from the
-[GitHub releases](https://github.com/AssoAndrea/Unreal-Sense/releases). Run the script (it picks the highest version
+[GitHub releases](https://github.com/AndreaDecaro/Unreal-Sense/releases). Run the script (it picks the highest version
 next to it and installs it into the newest Visual Studio), or double-click the `.vsix`; to update, install the new one
 over the old.
 
-**Automatic updates**: add `https://assoandrea.github.io/Unreal-Sense/gallery/atom.xml` under Tools › Options ›
+**Automatic updates**: add `https://andreadecaro.github.io/Unreal-Sense/gallery/atom.xml` under Tools › Options ›
 Environment › Extensions › Additional Extension Galleries. Visual Studio then finds every new release by itself and
-installs it when it closes (Extensions › Manage Extensions › Updates shows it earlier).
+installs it when it closes (Extensions › Manage Extensions › Updates shows it earlier). If you added the old
+`https://assoandrea.github.io/...` address, replace it with this one: the old address no longer answers.
 
-Italian guide: [GUIDA](https://assoandrea.github.io/Unreal-Sense/GUIDA.html). Bugs and requests:
-[issues](https://github.com/AssoAndrea/Unreal-Sense/issues).
+Guide: [GUIDE](https://andreadecaro.github.io/Unreal-Sense/GUIDE.html). Bugs and requests:
+[issues](https://github.com/AndreaDecaro/Unreal-Sense/issues).
 
 ## License
 
 UnrealSense is free to use. Its license agreement ([LICENSE.txt](LICENSE.txt), shown when you install it) lets the
 author require a paid license key in the future, also for copies already installed. To know whether one is needed, the
 extension downloads a small signed public file (`license-policy.json` on this repository's GitHub Pages) about every
-12 hours; the request carries nothing about you, your PC or your projects. Without network access it keeps working.
-If a key ever becomes required, an info bar in Visual Studio says so and how many days are left, and
+12 hours; the request carries nothing about you, your PC or your projects. A failed check changes nothing, but the
+extension must reach that file at least once every 48 hours (directly or through your proxy): past that, its features
+turn off until a check succeeds (the info bar has **Check now**), even with a license key. If a key ever becomes required, an info bar in Visual Studio says so and how many days are left, and
 **Extensions › UnrealSense › License...** is where the key goes. The same file can ask a version with a security problem
 to be updated: the info bar then links the new release, and after the announced date that version's features stay off
 until it is updated. Log lines start with `License:`.

@@ -22,7 +22,9 @@ install or use the Software.
    your IP address to the hosting service. The Software stores the last file it read and any license key you enter
    in your local application data folder. When a version must be updated, the Software tells you inside Visual Studio
    and, after the date then announced (or at once when the problem requires it), keeps its features turned off until a
-   newer version is installed, whether or not you hold a license key.
+   newer version is installed, whether or not you hold a license key. The Software must be able to download that file
+   at least once every 48 hours (or the interval the file sets); when it cannot for longer, it keeps its features
+   turned off until a download succeeds, whether or not you hold a license key.
 
 4. Restrictions. You may not: remove, disable, bypass or tamper with the license check or the license keys; create,
    distribute or use license keys not issued by the author; sell, rent, sublicense or redistribute the Software;
