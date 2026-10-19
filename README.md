@@ -106,15 +106,18 @@ Fonts and Colors: keywords, strings, comments, macros, Unreal types, calls, memb
 
 ## Installing and updating
 
-Download `UnrealSense-<version>.vsix` and `Install-UnrealSense.ps1` from the
-[GitHub releases](https://github.com/AndreaDecaro/Unreal-Sense/releases). Run the script (it picks the highest version
-next to it and installs it into the newest Visual Studio), or double-click the `.vsix`; to update, install the new one
-over the old.
+UnrealSense is on the
+[Visual Studio Marketplace](https://marketplace.visualstudio.com/items?itemName=AndreaDecaro.UnrealSense): in Visual
+Studio open Extensions › Manage Extensions, search for **UnrealSense**, press **Install** and close Visual Studio to
+finish. Updates arrive like those of any Marketplace extension.
 
-**Automatic updates**: add `https://andreadecaro.github.io/Unreal-Sense/gallery/atom.xml` under Tools › Options ›
-Environment › Extensions › Additional Extension Galleries. Visual Studio then finds every new release by itself and
-installs it when it closes (Extensions › Manage Extensions › Updates shows it earlier). If you added the old
-`https://assoandrea.github.io/...` address, replace it with this one: the old address no longer answers.
+Without access to the Marketplace (offline PCs, blocked sites), download `UnrealSense-<version>.vsix` and
+`Install-UnrealSense.ps1` from the [GitHub releases](https://github.com/AndreaDecaro/Unreal-Sense/releases). Run the
+script (it picks the highest version next to it and installs it into the newest Visual Studio), or double-click the
+`.vsix`; to update, install the new one over the old. For automatic updates without the Marketplace, add
+`https://andreadecaro.github.io/Unreal-Sense/gallery/atom.xml` under Tools › Options › Environment › Extensions ›
+Additional Extension Galleries (if you added the old `https://assoandrea.github.io/...` address, replace it: it no
+longer answers).
 
 Guide: [GUIDE](https://andreadecaro.github.io/Unreal-Sense/GUIDE.html). Bugs and requests:
 [issues](https://github.com/AndreaDecaro/Unreal-Sense/issues).

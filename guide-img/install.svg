@@ -1,23 +1,22 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 300" width="760" height="300" role="img" aria-label="VSIX Installer with the Visual Studio versions to install into, and the extension gallery address">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 250" width="760" height="250" role="img" aria-label="Manage Extensions in Visual Studio: UnrealSense found on the Marketplace, with its Install button">
 <style>.ui{font-family:Roboto, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;font-size:12px}.code{font-family:Consolas, 'Cascadia Mono', Menlo, 'DejaVu Sans Mono', monospace;font-size:13px}</style>
-<rect width="760" height="300" rx="10" fill="#151515"/>
-<rect x="20" y="20" width="400" height="260" rx="6" fill="#242424" stroke="#0F0F0F" stroke-width="1"/><path d="M20,50 v-24 a6,6 0 0 1 6,-6 h388 a6,6 0 0 1 6,6 v24 z" fill="#0F0F0F"/><text class="ui" x="34" y="39.5" fill="#C0C0C0" font-weight="600" xml:space="preserve">VSIX Installer</text><line x1="396" y1="31" x2="404" y2="39" stroke="#8C8C8C" stroke-width="1.4"/><line x1="404" y1="31" x2="396" y2="39" stroke="#8C8C8C" stroke-width="1.4"/>
-<rect x="40" y="68" width="40" height="40" rx="8" fill="#0070E0"/><text class="ui" x="60" y="94" fill="#FFFFFF" font-size="20" font-weight="700" text-anchor="middle" xml:space="preserve">U</text>
-<text class="ui" x="94" y="84" fill="#FFFFFF" font-size="15" font-weight="600" xml:space="preserve">UnrealSense</text>
-<text class="ui" x="94" y="102" fill="#8C8C8C" xml:space="preserve">Andrea Decaro</text>
-<text class="ui" x="40" y="138" fill="#C0C0C0" font-weight="600" xml:space="preserve">Install in:</text>
-<rect x="44" y="154" width="13" height="13" rx="2" fill="#0070E0" stroke="#0070E0" stroke-width="1"/><path d="M47,160.5 l3,3 l5,-6" fill="none" stroke="#FFFFFF" stroke-width="1.8"/><text class="ui" x="64" y="165" fill="#C0C0C0" xml:space="preserve">Visual Studio Community 2022</text>
-<rect x="44" y="178" width="13" height="13" rx="2" fill="#0070E0" stroke="#0070E0" stroke-width="1"/><path d="M47,184.5 l3,3 l5,-6" fill="none" stroke="#FFFFFF" stroke-width="1.8"/><text class="ui" x="64" y="189" fill="#C0C0C0" xml:space="preserve">Visual Studio Professional 2026</text>
-<rect x="216" y="234" width="90" height="26" rx="4" fill="#0070E0"/><text class="ui" x="261.0" y="251" fill="#FFFFFF" font-weight="600" text-anchor="middle" xml:space="preserve">Install</text><rect x="314" y="234" width="90" height="26" rx="4" fill="#383838"/><text class="ui" x="359.0" y="251" fill="#C0C0C0" text-anchor="middle" xml:space="preserve">Cancel</text>
-<rect x="36" y="148" width="270" height="50" rx="4" fill="none" stroke="#FFA733" stroke-width="1.5" stroke-dasharray="4 3"/>
-<rect x="440" y="20" width="300" height="260" rx="6" fill="#242424" stroke="#0F0F0F" stroke-width="1"/><path d="M440,50 v-24 a6,6 0 0 1 6,-6 h288 a6,6 0 0 1 6,6 v24 z" fill="#0F0F0F"/><text class="ui" x="454" y="39.5" fill="#C0C0C0" font-weight="600" xml:space="preserve">Additional Extension Galleries</text><line x1="716" y1="31" x2="724" y2="39" stroke="#8C8C8C" stroke-width="1.4"/><line x1="724" y1="31" x2="716" y2="39" stroke="#8C8C8C" stroke-width="1.4"/>
-<text class="ui" x="456" y="76" fill="#8C8C8C" xml:space="preserve">Name</text>
-<rect x="456" y="84" width="268" height="26" rx="4" fill="#0F0F0F" stroke="#383838" stroke-width="1"/><text class="ui" x="466" y="101.5" fill="#FFFFFF" xml:space="preserve">UnrealSense</text>
-<text class="ui" x="456" y="132" fill="#8C8C8C" xml:space="preserve">URL</text>
-<rect x="456" y="140" width="268" height="44" rx="4" fill="#0F0F0F" stroke="#0070E0" stroke-width="1"/>
-<text class="ui" x="464" y="157.5" fill="#FFFFFF" font-size="11.5" xml:space="preserve">https://andreadecaro.github.io/Unreal-</text>
-<text class="ui" x="464" y="174.5" fill="#FFFFFF" font-size="11.5" xml:space="preserve">Sense/gallery/atom.xml</text>
-<text class="ui" x="456" y="212" fill="#8C8C8C" font-size="11.5" xml:space="preserve">New versions install when</text>
-<text class="ui" x="456" y="228" fill="#8C8C8C" font-size="11.5" xml:space="preserve">Visual Studio closes.</text>
-<rect x="634" y="234" width="90" height="26" rx="4" fill="#0070E0"/><text class="ui" x="679.0" y="251" fill="#FFFFFF" font-weight="600" text-anchor="middle" xml:space="preserve">Apply</text>
+<rect width="760" height="250" rx="10" fill="#151515"/>
+<rect x="20" y="20" width="720" height="210" rx="6" fill="#242424" stroke="#0F0F0F" stroke-width="1"/><path d="M20,50 v-24 a6,6 0 0 1 6,-6 h708 a6,6 0 0 1 6,6 v24 z" fill="#0F0F0F"/><text class="ui" x="34" y="39.5" fill="#C0C0C0" font-weight="600" xml:space="preserve">Manage Extensions</text><line x1="716" y1="31" x2="724" y2="39" stroke="#8C8C8C" stroke-width="1.4"/><line x1="724" y1="31" x2="716" y2="39" stroke="#8C8C8C" stroke-width="1.4"/>
+<rect x="28" y="64" width="130" height="24" rx="3" fill="#383838"/><rect x="28" y="64" width="3" height="24" rx="0" fill="#0070E0"/>
+<text class="ui" x="40" y="80" fill="#FFFFFF" font-weight="600" xml:space="preserve">Browse</text>
+<text class="ui" x="40" y="108" fill="#8C8C8C" xml:space="preserve">Installed</text>
+<text class="ui" x="40" y="136" fill="#8C8C8C" xml:space="preserve">Updates</text>
+<rect x="170" y="64" width="558" height="26" rx="4" fill="#0F0F0F" stroke="#0070E0" stroke-width="1"/><circle cx="183" cy="76" r="4.5" fill="none" stroke="#8C8C8C" stroke-width="1.5"/><line x1="186.5" y1="79.5" x2="190" y2="83" stroke="#8C8C8C" stroke-width="1.5"/><text class="ui" x="198" y="81.5" fill="#FFFFFF" xml:space="preserve">UnrealSense</text><line x1="270.4" y1="70" x2="270.4" y2="84" stroke="#FFFFFF" stroke-width="1"/>
+<rect x="170" y="102" width="558" height="100" rx="4" fill="#2F2F2F" stroke="#4C4C4C" stroke-width="1"/>
+<rect x="184" y="118" width="44" height="44" rx="8" fill="#0070E0"/><text class="ui" x="206" y="146" fill="#FFFFFF" font-size="20" font-weight="700" text-anchor="middle" xml:space="preserve">U</text>
+<text class="ui" x="242" y="130" fill="#FFFFFF" font-size="14" font-weight="600" xml:space="preserve">UnrealSense</text>
+<text class="ui" x="330" y="130" fill="#8C8C8C" font-size="11.5" xml:space="preserve">Andrea Decaro</text>
+<text class="ui" x="242" y="150" fill="#C0C0C0" font-size="11.5" xml:space="preserve">Unreal Engine productivity for Visual Studio: reflection-aware</text>
+<text class="ui" x="242" y="166" fill="#C0C0C0" font-size="11.5" xml:space="preserve">completion for UCLASS/UPROPERTY/UFUNCTION specifiers and</text>
+<text class="ui" x="242" y="182" fill="#C0C0C0" font-size="11.5" xml:space="preserve">metadata, UHT inspections with quick fixes…</text>
+<rect x="632" y="116" width="82" height="26" rx="4" fill="#0070E0"/><text class="ui" x="673.0" y="133" fill="#FFFFFF" font-weight="600" text-anchor="middle" xml:space="preserve">Install</text>
+<rect x="626" y="110" width="94" height="38" rx="4" fill="none" stroke="#FFA733" stroke-width="1.5" stroke-dasharray="4 3"/>
+<text class="ui" x="673" y="166" fill="#FFA733" font-size="11.5" font-weight="600" text-anchor="middle" xml:space="preserve">then close</text>
+<text class="ui" x="673" y="181" fill="#FFA733" font-size="11.5" font-weight="600" text-anchor="middle" xml:space="preserve">Visual Studio</text>
+<text class="ui" x="170" y="230" fill="#8C8C8C" font-size="11.5" xml:space="preserve">Updates: Visual Studio finds new versions by itself and installs them when it closes.</text>
 </svg>

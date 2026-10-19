@@ -191,7 +191,8 @@
   <span class="name">UnrealSense</span>
   <span class="tab">Quick guide</span>
   <div class="links">
-    <a href="https://github.com/AndreaDecaro/Unreal-Sense/releases">Download</a>
+    <a href="https://marketplace.visualstudio.com/items?itemName=AndreaDecaro.UnrealSense">Marketplace</a>
+    <a href="https://github.com/AndreaDecaro/Unreal-Sense/issues">Report a problem</a>
     <a href="https://github.com/AndreaDecaro/Unreal-Sense">GitHub</a>
   </div>
 </div>
@@ -241,30 +242,34 @@
 
   <h2 id="install">Install and update</h2>
   <div class="card">
+    <p>
+      UnrealSense is on the
+      <a href="https://marketplace.visualstudio.com/items?itemName=AndreaDecaro.UnrealSense">Visual Studio Marketplace</a>.
+    </p>
     <ol class="steps">
-      <li>Close Visual Studio.</li>
-      <li>Download <code>UnrealSense-&lt;version&gt;.vsix</code> from the
-        <a href="https://github.com/AndreaDecaro/Unreal-Sense/releases">releases</a> and double-click the file.</li>
-      <li>Tick the Visual Studio versions you want it in (2022, 2026) and press <span class="menu">Install</span>.</li>
+      <li>In Visual Studio open <span class="menu">Extensions › Manage Extensions</span>.</li>
+      <li>Search for <span class="menu">UnrealSense</span> and press <span class="menu">Install</span>.</li>
+      <li>Close Visual Studio: the installation finishes and UnrealSense is there when you open it again.</li>
     </ol>
     <p class="note">
-      To update, do the same with the new file, without uninstalling. If your Visual Studio version is not in the list,
-      put <code>Install-UnrealSense.ps1</code> next to the <code>.vsix</code> and right-click the script ›
-      <span class="menu">Run with PowerShell</span>.
-    </p>
-    <p class="note">
-      <strong>Automatic updates</strong>: in Visual Studio open
-      <span class="menu">Tools › Options › Environment › Extensions</span>, under <em>Additional Extension Galleries</em>
-      press <span class="menu">Add</span>, enter a name (UnrealSense) and the URL
-      <code>https://andreadecaro.github.io/Unreal-Sense/gallery/atom.xml</code>, then <span class="menu">Apply</span>.
-      From then on Visual Studio finds new versions by itself and installs them when you close it.
-      If you had added the old address <code>https://assoandrea.github.io/...</code>, replace it with this one:
-      the old one no longer answers.
+      Updates arrive like those of any Marketplace extension: Visual Studio finds them by itself
+      (<span class="menu">Extensions › Manage Extensions › Updates</span> shows them) and installs them when you close it.
     </p>
     <figure>
-      <img src="guide-img/install.svg" width="760" height="300" loading="lazy"
-           alt="The VSIX Installer with Visual Studio 2022 and 2026 ticked, and the UnrealSense gallery added under Additional Extension Galleries">
+      <img src="guide-img/install.svg" width="760" height="250" loading="lazy"
+           alt="Manage Extensions in Visual Studio: searching UnrealSense on the Marketplace, with its Install button">
     </figure>
+    <p class="note">
+      <strong>Without the Marketplace</strong> (offline PCs, blocked sites): close Visual Studio, download
+      <code>UnrealSense-&lt;version&gt;.vsix</code> from the
+      <a href="https://github.com/AndreaDecaro/Unreal-Sense/releases">releases</a>, double-click it, tick the Visual Studio
+      versions (2022, 2026) and press <span class="menu">Install</span>; to update, do the same with the new file. If your
+      Visual Studio version is not in the list, put <code>Install-UnrealSense.ps1</code> next to the <code>.vsix</code> and
+      right-click the script › <span class="menu">Run with PowerShell</span>. For automatic updates without the
+      Marketplace, add <code>https://andreadecaro.github.io/Unreal-Sense/gallery/atom.xml</code> under
+      <span class="menu">Tools › Options › Environment › Extensions</span>, <em>Additional Extension Galleries</em> (if you
+      had added the old address <code>https://assoandrea.github.io/...</code>, replace it: it no longer answers).
+    </p>
   </div>
 
   <h2 id="license">License</h2>
@@ -968,10 +973,15 @@
 
   <h2 id="problems">If something goes wrong</h2>
   <div class="card">
+    <p style="margin-bottom:12px">
+      To report a problem or ask for something new, open an issue on GitHub:
+      <a href="https://github.com/AndreaDecaro/Unreal-Sense/issues">github.com/AndreaDecaro/Unreal-Sense/issues</a>. Attach the log (see below) when you can: it contains your projects'
+      paths and names, so read it first and remove what you don't want public.
+    </p>
     <ul>
       <li><strong>I don't see the counters</strong>: wait a few seconds after the solution opens. If you have just saved
         Blueprints in Unreal, use <span class="menu">Extensions › UnrealSense › Rebuild UnrealSense Index</span>.</li>
-      <li><strong>A counter looks wrong</strong>: note the class and a Blueprint that uses it, and send the log file
+      <li><strong>A counter looks wrong</strong>: note the class and a Blueprint that uses it, and open an issue with the log file
         (below).</li>
       <li><strong>Visual Studio's "Find All References" no longer works</strong>: if the Extensions › UnrealSense menu shows
         <span class="menu">Restore Visual Studio Indexing</span>, run it and restart Visual Studio.</li>

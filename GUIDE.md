@@ -6,22 +6,24 @@ type. It works with the Unreal Editor closed too.
 
 ## Install and update
 
-1. Close Visual Studio.
-2. Download `UnrealSense-<version>.vsix` from the [releases](https://github.com/AndreaDecaro/Unreal-Sense/releases) and
-   double-click the file.
-3. In the window that opens, tick the Visual Studio versions you want it in (2022, 2026) and press **Install**.
+UnrealSense is on the [Visual Studio Marketplace](https://marketplace.visualstudio.com/items?itemName=AndreaDecaro.UnrealSense).
 
-To update, do the same with the new file: no need to uninstall.
+1. In Visual Studio open **Extensions › Manage Extensions**.
+2. Search for **UnrealSense** and press **Install**.
+3. Close Visual Studio: the installation finishes and UnrealSense is there when you open it again.
 
-**Automatic updates**: in Visual Studio open Tools › Options › Environment › Extensions, under *Additional Extension
-Galleries* press **Add**, enter a name (UnrealSense) and the URL `https://andreadecaro.github.io/Unreal-Sense/gallery/atom.xml`,
-then **Apply**. From then on Visual Studio finds new versions by itself and installs them when you close it. If you had
-added the old address `https://assoandrea.github.io/...`, replace it with this one: the old one no longer answers.
+Updates arrive like those of any Marketplace extension: Visual Studio finds them by itself (**Extensions › Manage
+Extensions › Updates** shows them) and installs them when you close it.
 
-If your Visual Studio version is not in the list, put `Install-UnrealSense.ps1` in the same folder as the `.vsix` and
-right-click the script › **Run with PowerShell**: it uses the installer of the newest version.
+![Manage Extensions with UnrealSense found on the Marketplace](guide-img/install.svg)
 
-![VSIX Installer and the UnrealSense extension gallery](guide-img/install.svg)
+**Without the Marketplace** (offline PCs, blocked sites): close Visual Studio, download `UnrealSense-<version>.vsix` from
+the [releases](https://github.com/AndreaDecaro/Unreal-Sense/releases), double-click it, tick the Visual Studio versions
+(2022, 2026) and press **Install**; to update, do the same with the new file. If your Visual Studio version is not in the
+list, put `Install-UnrealSense.ps1` next to the `.vsix` and right-click the script › **Run with PowerShell**. For
+automatic updates without the Marketplace, add `https://andreadecaro.github.io/Unreal-Sense/gallery/atom.xml` under
+Tools › Options › Environment › Extensions › *Additional Extension Galleries* (if you had added the old address
+`https://assoandrea.github.io/...`, replace it: it no longer answers).
 
 ## License
 
@@ -452,9 +454,13 @@ The most useful ones:
 
 ## If something goes wrong
 
+To report a problem or ask for something new, open an issue on GitHub: [github.com/AndreaDecaro/Unreal-Sense/issues](https://github.com/AndreaDecaro/Unreal-Sense/issues).
+Attach the log (see below) when you can: it contains your projects' paths and names, so read it first and remove what
+you don't want public.
+
 - **I don't see the counters**: wait a few seconds after the solution opens. If you have just saved Blueprints in
   Unreal, use **Extensions › UnrealSense › Rebuild UnrealSense Index**.
-- **A counter looks wrong**: note the class and a Blueprint that uses it, and send the log file (below).
+- **A counter looks wrong**: note the class and a Blueprint that uses it, and open an issue with the log file (below).
 - **Visual Studio's "Find All References" no longer works**: if the Extensions › UnrealSense menu shows
   **Restore Visual Studio Indexing**, run it and restart Visual Studio.
 - **A shortcut (Alt+Shift+B, I, V, K, M) does nothing or something else**: another extension uses the same key. In the
