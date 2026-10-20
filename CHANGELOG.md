@@ -1,5 +1,17 @@
 # UnrealSense changelog
 
+## 1.0.22
+
+UnrealSense 1.0.22: all changes from 1.0.21 to 1.0.22.
+
+Navigation
+- Go to definition on a BlueprintNativeEvent or RPC UFUNCTION (its declaration or a call) goes to its Name_Implementation (and Name_Validate with WithValidation) in the .cpp, and from Name_Implementation/Name_Validate back to the UFUNCTION, now for engine and plugin classes too (the own C++ index knows them; before, only the project's own modules were resolved and the click could land on UHT's .gen.cpp thunk).
+
+Install
+- UnrealSense is published to the Visual Studio Marketplace with each release.
+
+Install: run Install-UnrealSense.ps1 next to the .vsix, or open the .vsix.
+
 ## 1.0.21
 
 UnrealSense 1.0.21: all changes from 1.0.20 to 1.0.21.
