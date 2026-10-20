@@ -259,6 +259,17 @@
       sums up the important changes, once (minor fixes in one short line; <span class="menu">Full changelog</span> opens all
       the details).
     </p>
+    <p class="note">
+      Visual Studio looks for updates only now and then, so UnrealSense also checks for itself when Visual Studio starts.
+      If a newer version is out, the <span class="menu">UnrealSense update available</span> window says so:
+      <span class="menu">Open Manage Extensions</span> (the update is in the <em>Updates</em> tab and installs when you
+      close Visual Studio), <span class="menu">Later</span> (asks again at the next start) or
+      <span class="menu">Skip this version</span> (no more reminders until an even newer version comes out). If Manage
+      Extensions does not list the update yet, the <span class="menu">Download the .vsix</span> link gets the file: close
+      Visual Studio and double-click it. If an update comes out while Visual Studio is open, a bar at the top of the
+      editor offers the same choices instead of the window (it checks every hour). To turn the reminder off: <span class="menu">Tools › Options › UnrealSense ›
+      Updates</span>.
+    </p>
     <figure>
       <img src="guide-img/install.svg?v=8ce7b894" width="760" height="250" loading="lazy"
            alt="Manage Extensions in Visual Studio: searching UnrealSense on the Marketplace, with its Install button">
@@ -958,6 +969,10 @@
       <tr>
         <td>Unreal project</td>
         <td>Set it only if UnrealSense opens the wrong project (it happens with solutions containing more than one).</td>
+      </tr>
+      <tr>
+        <td>Tell me when an update is available</td>
+        <td>On by default (<em>Updates</em> section); off, the update window never opens.</td>
       </tr>
       <tr>
         <td>IntelliSense errors in Unreal files</td>

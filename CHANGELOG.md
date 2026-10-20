@@ -1,5 +1,16 @@
 # UnrealSense changelog
 
+## 1.0.23
+
+UnrealSense 1.0.23: all changes from 1.0.22 to 1.0.23.
+
+Updates
+- Visual Studio looks for extension updates only now and then, so UnrealSense now checks the latest release itself (the update feed on GitHub Pages) every time Visual Studio starts. When a newer version exists, the "UnrealSense update available" window offers Open Manage Extensions (where Visual Studio installs it when closed), Later (asks again at the next start) and Skip this version (no reminder until a newer version comes out), plus a link to download the .vsix directly when Manage Extensions does not list it yet.
+- While Visual Studio stays open the check runs every hour: a release published meanwhile shows an info bar with the same choices instead of the window. Each version is offered once per session.
+- Option: Tools > Options > UnrealSense > Updates > Tell me when an update is available (on by default). Log lines start with "Update:".
+
+Install: run Install-UnrealSense.ps1 next to the .vsix, or open the .vsix.
+
 ## 1.0.22
 
 UnrealSense 1.0.22: all changes from 1.0.21 to 1.0.22.

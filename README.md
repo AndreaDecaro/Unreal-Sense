@@ -112,6 +112,12 @@ UnrealSense is on the
 Studio open Extensions › Manage Extensions, search for **UnrealSense**, press **Install** and close Visual Studio to
 finish. Updates arrive like those of any Marketplace extension; after one, the first Visual Studio start shows a short
 **What's new in UnrealSense** window, once (only the important changes; the full changelog is linked).
+Visual Studio looks for extension updates only now and then, so UnrealSense also checks the latest release itself at
+startup: when a newer version exists, an **UnrealSense update available** window opens Manage Extensions, reminds you
+at the next start, or skips that version (a link downloads the `.vsix` when Manage Extensions does not list it yet).
+While Visual Studio stays open it checks again every hour, and a release published meanwhile shows an info bar with the
+same choices. Option: Updates › Tell me when an update is available. Log lines start with
+`Update:`.
 
 Without access to the Marketplace (offline PCs, blocked sites), download `UnrealSense-<version>.vsix` and
 `Install-UnrealSense.ps1` from the [GitHub releases](https://github.com/AndreaDecaro/Unreal-Sense/releases). Run the

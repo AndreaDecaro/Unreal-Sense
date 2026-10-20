@@ -17,6 +17,17 @@ Extensions › Updates** shows them) and installs them when you close it. The fi
 update, a small **What's new in UnrealSense** window sums up the important changes, once (minor fixes in one short line;
 **Full changelog** opens all the details).
 
+Visual Studio looks for updates only now and then, so UnrealSense also checks for itself when Visual Studio starts. If a
+newer version is out, the **UnrealSense update available** window says so:
+
+- **Open Manage Extensions**: the update is in the *Updates* tab; it installs when you close Visual Studio.
+- **Later**: asks again the next time Visual Studio starts.
+- **Skip this version**: no more reminders until an even newer version comes out.
+
+If Manage Extensions does not list the update yet, the **Download the .vsix** link in the same window gets the file:
+close Visual Studio and double-click it. If an update comes out while Visual Studio is open, a bar at the top of the
+editor offers the same choices instead of the window (it checks every hour). To turn the reminder off: Tools › Options › UnrealSense › *Updates*.
+
 ![Manage Extensions with UnrealSense found on the Marketplace](guide-img/install.svg?v=8ce7b894)
 
 **Without the Marketplace** (offline PCs, blocked sites): close Visual Studio, download `UnrealSense-<version>.vsix` from
@@ -462,6 +473,7 @@ The most useful ones:
   it does not ask for IntelliSense's list, so the list appears as soon as our index answers instead of waiting for
   IntelliSense (slow after a header change or with many projects loaded). Where our index has nothing, Visual Studio's
   list opens. Off, the list merges the two again (and waits for IntelliSense). Visual Assist is unaffected.
+- **Tell me when an update is available** (*Updates* section): on by default; off, the update window never opens.
 - **UI theme**: `Unreal` by default (Unreal Editor style); `Classic` uses Visual Studio's colours and follows its theme.
 - **UnrealSense colorization** and **Semantic colours from the own index** (*Colorization* section): on by default.
   - The first turns off all UnrealSense colours (Visual Studio's come back): it applies to open files right away, as soon
