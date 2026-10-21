@@ -15,6 +15,7 @@ specifier suggestions, Unreal-aware completion, navigation and warnings. It work
 | **Alt+M** (or **Alt+Shift+M**) | Go to Symbol in File |
 | **Alt+Shift+V** | Override virtual functions |
 | **Alt+Shift+D** | Create implementation |
+| **Alt+Shift+R** | Rename symbol |
 
 Everything else is in **Extensions › UnrealSense** and in the Quick Menu.
 
@@ -66,8 +67,10 @@ graphs, **overrides** change its value in Class Defaults, levels or data assets.
 
 ### Find usages in Blueprints
 
-Caret on a class, function or property, **Alt+Shift+B** (or right-click › **Find Blueprint Usages**). Double-click a row
-to open the asset in the running Unreal Editor; the toolbar has *Show in Explorer* and *Copy reference*.
+Caret on a class, function or property, **Alt+Shift+B** (or right-click › **Find Blueprint Usages**). For calls,
+events and variable get/set nodes, the **Detail** column says where the node is (`EventGraph › Call Fire`). Double-click
+a row to open the asset in the running Unreal Editor (the status bar repeats where to look); the toolbar has *Show in
+Explorer* and *Copy reference*.
 
 For a property, the **Value** column shows the value each Blueprint gives it (`600 (from BP_Base)` when inherited,
 `C++ default` when unchanged), the values on placed actors in levels (`3 actors: 600, 800, 1200`, World Partition
@@ -176,7 +179,8 @@ Works on unsaved code; where UnrealSense knows nothing, Visual Studio's own runs
 
 **Alt+Shift+T** searches classes, functions, variables, macros... of the project, plugins and engine; initials are
 enough (`GAL` → `GetActorLocation`). **Ctrl+Shift+T** searches files (`File.cpp:120` opens at line 120). **Alt+M**
-searches the open file, locals included. **Ctrl+1…4** switch tab. Words separated by spaces are searched separately;
+searches the open file, locals included, grouped by kind (*Group*, Ctrl+G); the buttons under the search box show only
+functions, fields, locals... (Alt+1…9, Alt+0 for all). **Ctrl+1…4** switch tab. Words separated by spaces are searched separately;
 *Fuzzy* (Ctrl+F) also accepts scattered letters and typos.
 
 ![The Go to Symbol window](guide-img/go-to-symbol.svg?v=3cf89217)
@@ -187,6 +191,11 @@ Right-click › **Find Usages** lists where a C++ class, function, variable or m
 grouped by file, with the Blueprints at the bottom. *Declarations*, *Calls*, *Reads*, *Writes* filter the results; uses
 inside macros (`UE_LOG`, `AddDynamic`, `ReplicatedUsing`) are found too, and uses whose type is not certain are listed
 under **Uncertain**. Double-click opens the line.
+
+### What an #include is used for
+
+Each `#include` line ends with how many times the file uses what that header brings in (*9 uses*). Click it to list
+those places; double-click one to go there. *No use found* marks an include the file does not seem to need.
 
 ### Switch between .h and .cpp
 
@@ -259,6 +268,26 @@ project and opened; a missing module dependency can be added to the `.Build.cs`.
 Project Files**.
 
 ![The New Unreal Class dialog](guide-img/new-unreal-class.svg?v=a39675b7)
+
+### Rename a symbol
+
+Caret on a function, variable, local, class or struct, **Alt+Shift+R**: type the new name, pick the options, then
+**Preview...** shows every change with a checkbox; **Apply** writes them. Overrides and `_Implementation`/`_Validate`
+are renamed too. For Blueprint-visible symbols, tick **Add a CoreRedirect** so saved assets keep working. Open files
+can be undone with **Ctrl+Z**; read-only (Perforce) files are made writable and listed at the end for check-out.
+
+### Sort members
+
+In a header, right-click › **Sort Members...** (or the Quick Menu): methods or properties first, then as declared,
+alphabetical or by size (fields with less padding), inside each `public`/`protected`/`private` section. Select some members first to sort only those.
+Comments above a member move with it. Options: a blank line between members (on by default), merge repeated
+sections, reorder the `.cpp` to match, sort the `#include` lines. **Ctrl+Z** undoes it.
+
+### Sort #includes
+
+In a `.h` or `.cpp`, right-click › **Sort #includes** (or the Quick Menu): the `#include` lines in alphabetical order,
+group by group (blank lines and `#if` blocks keep their groups). The `.cpp`'s own header, `CoreMinimal.h` and the
+`.generated.h` keep their places.
 
 ## Settings
 

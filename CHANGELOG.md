@@ -1,5 +1,40 @@
 # UnrealSense changelog
 
+## 1.0.26
+
+UnrealSense 1.0.26: all changes from 1.0.23 to 1.0.26 (1.0.24 and 1.0.25 were internal builds, never released).
+
+Rename Symbol
+- Alt+Shift+R (also the editor context menu and the Quick Menu) renames the function, variable, local, parameter, class, struct or enum at the caret everywhere the own C++ index resolves it: the whole override tree of a virtual function, the _Implementation/_Validate of a BlueprintNativeEvent or RPC, a class's constructors and destructor. Locals and parameters are renamed in the open file, keeping same-named locals of other scopes apart. Symbols declared in the engine are refused.
+- The dialog checks the new name as you type (C++ identifier, keyword, Unreal prefix, b for bools) and offers a CoreRedirect in Config/DefaultEngine.ini for reflected types and members (on by default when Blueprints use them), renaming the class's .h/.cpp with their #include lines, renaming in comments and strings, and editing open documents (undoable) or opening every changed file.
+- Preview lists every change by file with a checkbox each; uncertain places are listed unchecked with the reason. Read-only (Perforce) files are made writable and listed at the end. Log lines start with "Rename:".
+
+Sort Members
+- Header context menu or Quick Menu (no shortcut): orders the members of every class in the header, or only the selected ones: methods or properties first, then, among themselves, as declared, alphabetical, or by size to avoid padding (properties by decreasing alignment, estimated from their type; static members last).
+- Members stay in their access section; comments right above a member, its UPROPERTY/UFUNCTION line and trailing comment move with it; an #if block moves as one piece; nested types, GENERATED_BODY, DECLARE_* macros and comments followed by a blank line stay where they are.
+- Options in the dialog (saved under Tools > Options > UnrealSense > Sort Members): a blank line between members (on by default), merge repeated public/protected/private sections (with a selection too, for the sections it holds whole), reorder the definitions in the matching .cpp, also sort the #include lines.
+- Every result is checked to hold the same code before it is applied; only the lines that move are changed (clean diffs in reviews), and one Ctrl+Z undoes it. Log lines start with "SortMembers:".
+
+Sort #includes
+- Context menu of .h and .cpp files, Quick Menu: alphabetical order, each run of consecutive includes on its own, keeping Unreal's order (own header first in a .cpp, CoreMinimal.h at the top, .generated.h last, <system> includes after quoted ones). With a selection only the selected lines. Log lines start with "SortIncludes:".
+
+Include hints
+- At the end of each #include line, how many times the file uses what that header brings in ("9 uses", or "no use found"): types, functions, variables, enum values and macros resolved through it. Click the hint to list those places in the Find Usages window. Needs the own C++ index. Option: Find Usages (own index) > Show include hints. Log lines start with "IncludeHints:".
+
+Blueprints
+- Property hints count graph usages and overrides apart, and the Blueprint Usages window shows the values: each Blueprint's class default (or what it inherits, or the C++ default), values set on actors placed in levels (World Partition included) and in data assets.
+- The Detail column of Blueprint Usages names the graph and node of each call, event and variable get/set ("EventGraph > Call Fire").
+
+Go to
+- Go to Symbol in File (Alt+M) groups the symbols by kind (types, functions, fields, variables, enum values, macros, parameters, locals; "Group" checkbox, Ctrl+G, option "Group In File results by kind"). Buttons under the search box show one or more kinds only, with their counts (Alt+1...9, Alt+0 for all).
+
+Other changes
+- Completion after #if, #ifdef, #ifndef, #elif, #undef and in defined(): macro names, with the value of the build configuration ones.
+- Dialogs and the Go to window open centred on the Visual Studio window you are working in, on its monitor, instead of always on the main window's.
+- The What's new and update dialogs show readable version headings.
+
+Install: run Install-UnrealSense.ps1 next to the .vsix, or open the .vsix.
+
 ## 1.0.23
 
 UnrealSense 1.0.23: all changes from 1.0.22 to 1.0.23.

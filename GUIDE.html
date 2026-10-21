@@ -220,6 +220,7 @@
     <li class="sub"><a href="#go-to-definition">Go to definition</a></li>
     <li class="sub"><a href="#go-to-symbol">Find a symbol or a file</a></li>
     <li class="sub"><a href="#find-usages">Find Usages</a></li>
+    <li class="sub"><a href="#includers">What an #include is used for</a></li>
     <li class="sub"><a href="#switch">Header and source</a></li>
     <li class="sub"><a href="#hierarchy">Hierarchy and overrides</a></li>
     <li class="sub"><a href="#explorer">Unreal Explorer</a></li>
@@ -230,6 +231,9 @@
     <li class="sub"><a href="#delegate">Declare a delegate</a></li>
     <li class="sub"><a href="#include">#include and forward declaration</a></li>
     <li class="sub"><a href="#new-class">New Unreal class</a></li>
+    <li class="sub"><a href="#rename">Rename a symbol</a></li>
+    <li class="sub"><a href="#sort-members">Sort members</a></li>
+    <li class="sub"><a href="#sort-includes">Sort #includes</a></li>
     <li><a href="#settings">Settings</a></li>
     <li><a href="#problems">If something goes wrong</a></li>
   </ul>
@@ -256,6 +260,7 @@
       <tr><td><kbd>Alt</kbd>+<kbd>M</kbd> (or <kbd>Alt</kbd>+<kbd>Shift</kbd>+<kbd>M</kbd>)</td><td>Go to Symbol in File</td></tr>
       <tr><td><kbd>Alt</kbd>+<kbd>Shift</kbd>+<kbd>V</kbd></td><td>Override virtual functions</td></tr>
       <tr><td><kbd>Alt</kbd>+<kbd>Shift</kbd>+<kbd>D</kbd></td><td>Create implementation</td></tr>
+      <tr><td><kbd>Alt</kbd>+<kbd>Shift</kbd>+<kbd>R</kbd></td><td>Rename symbol</td></tr>
     </table>
     <p class="note">Everything else is in <span class="menu">Extensions › UnrealSense</span> and in the Quick Menu.</p>
   </div>
@@ -346,8 +351,10 @@
         <h3 id="blueprint-usages">Find usages in Blueprints</h3>
         <p>
           Caret on a class, function or property, <kbd>Alt</kbd>+<kbd>Shift</kbd>+<kbd>B</kbd> (or right-click ›
-          <span class="menu">Find Blueprint Usages</span>). Double-click a row to open the asset in the running Unreal
-          Editor; the toolbar has <span class="menu">Show in Explorer</span> and <span class="menu">Copy reference</span>.
+          <span class="menu">Find Blueprint Usages</span>). For calls, events and variable get/set nodes, the
+          <strong>Detail</strong> column says where the node is (<code>EventGraph › Call Fire</code>). Double-click a row
+          to open the asset in the running Unreal Editor (the status bar repeats where to look); the toolbar has
+          <span class="menu">Show in Explorer</span> and <span class="menu">Copy reference</span>.
         </p>
         <p>
           For a property, the <strong>Value</strong> column shows the value each Blueprint gives it
@@ -571,7 +578,9 @@
           <kbd>Alt</kbd>+<kbd>Shift</kbd>+<kbd>T</kbd> searches classes, functions, variables, macros... of the project,
           plugins and engine; initials are enough (<code>GAL</code> → <code>GetActorLocation</code>).
           <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>T</kbd> searches files (<code>File.cpp:120</code> opens at line 120).
-          <kbd>Alt</kbd>+<kbd>M</kbd> searches the open file, locals included. <kbd>Ctrl</kbd>+<kbd>1</kbd>…<kbd>4</kbd>
+          <kbd>Alt</kbd>+<kbd>M</kbd> searches the open file, locals included, grouped by kind (<em>Group</em>,
+          <kbd>Ctrl</kbd>+<kbd>G</kbd>); the buttons under the search box show only functions, fields, locals...
+          (<kbd>Alt</kbd>+<kbd>1</kbd>…<kbd>9</kbd>, <kbd>Alt</kbd>+<kbd>0</kbd> for all). <kbd>Ctrl</kbd>+<kbd>1</kbd>…<kbd>4</kbd>
           switch tab. Words separated by spaces are searched separately; <em>Fuzzy</em> (<kbd>Ctrl</kbd>+<kbd>F</kbd>) also
           accepts scattered letters and typos.
         </p>
@@ -586,6 +595,20 @@
           <em>Calls</em>, <em>Reads</em>, <em>Writes</em> filter the results; uses inside macros (<code>UE_LOG</code>,
           <code>AddDynamic</code>, <code>ReplicatedUsing</code>) are found too, and uses whose type is not certain are
           listed under <b>Uncertain</b>. Double-click opens the line.
+        </p>
+      </div>
+    </div>
+
+    <div class="card feature">
+      <div class="icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6"/><path d="M8 13h8"/><path d="M8 17h5"/></svg>
+      </div>
+      <div>
+        <h3 id="includers">What an #include is used for</h3>
+        <p>
+          Each <code>#include</code> line ends with how many times the file uses what that header brings in
+          (<em>9 uses</em>). Click it to list those places; double-click one to go there. <em>No use found</em> marks an
+          include the file does not seem to need.
         </p>
       </div>
     </div>
@@ -759,6 +782,52 @@
           <img src="guide-img/new-unreal-class.svg?v=a39675b7" width="760" height="440" loading="lazy"
                alt="The New Unreal Class dialog: Actor chosen among the common parent classes, the class name, Public or Private, and the path">
         </figure>
+      </div>
+    </div>
+
+    <div class="card feature">
+      <div class="icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg>
+      </div>
+      <div>
+        <h3 id="rename">Rename a symbol</h3>
+        <p>
+          Caret on a function, variable, local, class or struct, <kbd>Alt</kbd>+<kbd>Shift</kbd>+<kbd>R</kbd>: type the new
+          name, pick the options, then <b>Preview...</b> shows every change with a checkbox; <b>Apply</b> writes them.
+          Overrides and <code>_Implementation</code>/<code>_Validate</code> are renamed too. For Blueprint-visible symbols,
+          tick <b>Add a CoreRedirect</b> so saved assets keep working. Open files can be undone with <kbd>Ctrl</kbd>+<kbd>Z</kbd>;
+          read-only (Perforce) files are made writable and listed at the end for check-out.
+        </p>
+      </div>
+    </div>
+
+    <div class="card feature">
+      <div class="icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h10"/><path d="M3 12h7"/><path d="M3 18h4"/><path d="M18 4v16"/><path d="M15 17l3 3 3-3"/></svg>
+      </div>
+      <div>
+        <h3 id="sort-members">Sort members</h3>
+        <p>
+          In a header, right-click › <span class="menu">Sort Members...</span> (or the Quick Menu): methods or properties
+          first, then as declared, alphabetical or by size (fields with less padding), inside each <code>public</code>/<code>protected</code>/<code>private</code> section.
+          Select some members first to sort only those. Comments above a member move with it. Options: a blank line between
+          members (on by default), merge repeated sections, reorder the <code>.cpp</code> to match, sort the <code>#include</code> lines. <kbd>Ctrl</kbd>+<kbd>Z</kbd> undoes it.
+        </p>
+      </div>
+    </div>
+
+    <div class="card feature">
+      <div class="icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9h16"/><path d="M4 15h16"/><path d="M10 3L8 21"/><path d="M16 3l-2 18"/></svg>
+      </div>
+      <div>
+        <h3 id="sort-includes">Sort #includes</h3>
+        <p>
+          In a <code>.h</code> or <code>.cpp</code>, right-click › <span class="menu">Sort #includes</span> (or the Quick Menu):
+          the <code>#include</code> lines in alphabetical order, group by group (blank lines and <code>#if</code> blocks keep
+          their groups). The <code>.cpp</code>'s own header, <code>CoreMinimal.h</code> and the <code>.generated.h</code>
+          keep their places.
+        </p>
       </div>
     </div>
 
