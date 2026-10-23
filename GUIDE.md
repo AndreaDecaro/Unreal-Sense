@@ -16,8 +16,12 @@ specifier suggestions, Unreal-aware completion, navigation and warnings. It work
 | **Alt+Shift+V** | Override virtual functions |
 | **Alt+Shift+D** | Create implementation |
 | **Alt+Shift+R** | Rename symbol |
+| **Alt+Shift+H** | Call hierarchy |
 
 Everything else is in **Extensions › UnrealSense** and in the Quick Menu.
+
+Used to Visual Assist's keys? **Extensions › UnrealSense › Import Shortcuts...** (also shown at the very first start) gives
+our commands the keys of Visual Assist, or of Visual Studio + Visual Assist, or our defaults: tick the rows, **Apply**.
 
 ## Install and update
 
@@ -41,8 +45,8 @@ Visual Studio is not listed, run `Install-UnrealSense.ps1` next to it with Power
 
 UnrealSense is free. About every 12 hours it downloads a small signed public file (`license-policy.json`); the request
 carries nothing about you or your projects. It must succeed at least once every 48 hours, or the features turn off until
-it does (the bar has **Check now**). If a paid key is ever required, a bar will say so with the days left, and the key
-goes in **Extensions › UnrealSense › License...**.
+it does (the bar has **Check now**). If a paid key is ever required, a bar will say so with the days left, and its
+**Enter license key** link is where the key goes.
 
 ![The information bar shown when a license key is needed](guide-img/license.svg?v=e2605536)
 *This bar appears only if a key is ever needed: today UnrealSense is free.*
@@ -124,9 +128,12 @@ Wherever you type a name the list shows, in order: locals and parameters, class 
 - After `#if`, `#ifdef`, `#ifndef`, `#elif`, `#undef` and in `defined(`: macros, with the value of build configuration
   ones (`UE_BUILD_SHIPPING = 0`, `WITH_EDITOR = 1`).
 - On a dynamic delegate, `.` also offers `AddDynamic`, `RemoveDynamic`, `IsAlreadyBound`.
+- Inside `UE_LOG(`: the log categories (your module's first), then the verbosities.
+- Inside `FindConsoleVariable(TEXT("`: console variable names; hover one for its type, default and help.
 
 Picking a name whose header the file does not see **adds the `#include`** (`"GameFramework/Actor.h"`); one Ctrl+Z
-removes both. **Ctrl+Space** opens the list anywhere. In `.Build.cs`/`.Target.cs` files it completes module names.
+removes both. In a header, a small list asks first: **#include** (Enter) or **forward declaration** (`2`); Esc adds
+nothing. An `#include` that would be an absolute path is only added if you confirm it. **Ctrl+Space** opens the list anywhere. In `.Build.cs`/`.Target.cs` files it completes module names.
 
 ![Name completion and the #include added automatically](guide-img/name-completion.svg?v=96d18712)
 
@@ -144,12 +151,23 @@ After a value, `.log`, `.warn`, `.error` or `.screen` prints it with the right f
 `UE_LOG(LogMyGame, Log, TEXT("Health = %f"), Health);`. The category is one your module declares, else `LogTemp`.
 **Tab** / **Shift+Tab** move between the fields, **Enter** ends.
 
+### .ini, .uproject and .uplugin files
+
+In `.ini` files the list completes `[/Script/Module.Class]` sections, the class's `Config` properties as keys, and their
+`true`/`false` or enum values; hover a key for its C++ declaration, **F12** opens it. In `.uproject`/`.uplugin` it
+completes the descriptor fields, module types, loading phases, module and plugin names.
+
 ### Warnings and quick fixes
 
 Unreal mistakes are underlined before you compile (missing `.generated.h` or `GENERATED_BODY()`, wrong prefixes, missing
 `_Implementation`, UObject pointers without `UPROPERTY`...), plus certain C++ errors (`const` violations, unknown
 members, wrong argument count, inaccessible members) and warnings (`if (A = B)`, `UE_LOG` with the wrong number of
 `%`). The **light bulb** applies the fix.
+
+Also checked: an `#include` from a module your `.Build.cs` does not list (the fix adds it to the `.Build.cs`), an
+override of `BeginPlay`, `Tick`, `EndPlay`... that never calls `Super::`, a function bound to a delegate with the wrong
+signature or, with `AddDynamic`, without `UFUNCTION`, a replicated property missing from `GetLifetimeReplicatedProps`
+(the fix adds its `DOREPLIFETIME`), and a log category nothing declares or defines.
 
 ![A warning with its light bulb fixes](guide-img/warnings.svg?v=4d162703)
 
@@ -182,6 +200,7 @@ enough (`GAL` → `GetActorLocation`). **Ctrl+Shift+T** searches files (`File.cp
 searches the open file, locals included, grouped by kind (*Group*, Ctrl+G); the buttons under the search box show only
 functions, fields, locals... (Alt+1…9, Alt+0 for all). **Ctrl+1…4** switch tab. Words separated by spaces are searched separately;
 *Fuzzy* (Ctrl+F) also accepts scattered letters and typos.
+Go to Symbol also finds log categories and console variables by their console name (`r.shadow`).
 
 ![The Go to Symbol window](guide-img/go-to-symbol.svg?v=3cf89217)
 
@@ -213,6 +232,12 @@ also the Blueprints implementing an event.
 
 ![The Base and Overrides drop-down](guide-img/base-and-overrides.svg?v=7705fecc)
 
+### Call hierarchy
+
+Caret on a function, **Alt+Shift+H** (or right-click › **Call Hierarchy...**): who calls it, each caller expandable to
+its own callers. Blueprints calling a `UFUNCTION` are listed too (double-click opens them in the Unreal Editor).
+*Calls from* shows what the function calls instead. Double-click a row to go to the call.
+
 ### Unreal Explorer
 
 **Extensions › UnrealSense › Unreal Explorer**: modules (with `.Build.cs`, dependencies and reflected types), plugins,
@@ -225,8 +250,7 @@ Blueprints by C++ parent class and config files, with search. Double-click opens
 ### Quick Menu
 
 **Alt+Shift+Q** opens, where the mouse is, the commands that make sense at the caret. Type to filter, **Enter** to run.
-It also has **Open in Unreal Editor** (starts the editor with the project), **Rebuild UnrealSense Index** and
-**Enable/Disable Visual Assist**.
+It also has **Open in Unreal Editor** (starts the editor with the project) and **Rebuild UnrealSense Index**.
 
 ![The Quick Menu](guide-img/quick-menu.svg?v=4fe36168)
 
@@ -315,8 +339,8 @@ Report problems at [github.com/AndreaDecaro/Unreal-Sense/issues](https://github.
 with the log if you can (it contains your project paths: check it first).
 
 - **No counters**: wait a few seconds; after saving Blueprints, **Extensions › UnrealSense › Rebuild UnrealSense Index**.
-- **A shortcut does nothing**: another extension uses it; the `KeyBindingCheck:` log line says which. Change it in
-  Tools › Options › Environment › Keyboard (search `UnrealSense.`).
+- **A shortcut does nothing**: another extension uses it; the `KeyBindingCheck:` log line says which. **Import
+  Shortcuts...** › *UnrealSense defaults* puts ours back, or change it in Tools › Options › Environment › Keyboard (search `UnrealSense.`).
 - **Nothing happens in some files**: UnrealSense works on the open solution's project only (another checkout or game is
   left alone); in a solution with several games pick one in *Unreal project*.
 - **All features off, with a bar about the license check**: the license file was unreachable for 48 hours; check the

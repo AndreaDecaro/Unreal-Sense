@@ -214,6 +214,7 @@
     <li class="sub"><a href="#member-completion">Member completion</a></li>
     <li class="sub"><a href="#name-completion">Name completion</a></li>
     <li class="sub"><a href="#log-templates">Log templates</a></li>
+    <li class="sub"><a href="#config-files">.ini and descriptor files</a></li>
     <li class="sub"><a href="#warnings">Warnings and quick fixes</a></li>
     <li class="sub"><a href="#colours">Code colours</a></li>
     <li><a href="#navigation">Navigation</a></li>
@@ -223,6 +224,7 @@
     <li class="sub"><a href="#includers">What an #include is used for</a></li>
     <li class="sub"><a href="#switch">Header and source</a></li>
     <li class="sub"><a href="#hierarchy">Hierarchy and overrides</a></li>
+    <li class="sub"><a href="#call-hierarchy">Call hierarchy</a></li>
     <li class="sub"><a href="#explorer">Unreal Explorer</a></li>
     <li><a href="#generate">Generating code</a></li>
     <li class="sub"><a href="#quick-menu">Quick Menu</a></li>
@@ -261,8 +263,12 @@
       <tr><td><kbd>Alt</kbd>+<kbd>Shift</kbd>+<kbd>V</kbd></td><td>Override virtual functions</td></tr>
       <tr><td><kbd>Alt</kbd>+<kbd>Shift</kbd>+<kbd>D</kbd></td><td>Create implementation</td></tr>
       <tr><td><kbd>Alt</kbd>+<kbd>Shift</kbd>+<kbd>R</kbd></td><td>Rename symbol</td></tr>
+      <tr><td><kbd>Alt</kbd>+<kbd>Shift</kbd>+<kbd>H</kbd></td><td>Call hierarchy</td></tr>
     </table>
     <p class="note">Everything else is in <span class="menu">Extensions › UnrealSense</span> and in the Quick Menu.</p>
+    <p>Used to Visual Assist's keys? <span class="menu">Extensions › UnrealSense › Import Shortcuts...</span> (also shown at
+      the very first start) gives our commands the keys of Visual Assist, or of Visual Studio + Visual Assist, or our
+      defaults: tick the rows, <b>Apply</b>.</p>
   </div>
 
   <h2 id="install">Install and update</h2>
@@ -299,7 +305,7 @@
       UnrealSense is free. About every 12 hours it downloads a small signed public file (<code>license-policy.json</code>);
       the request carries nothing about you or your projects. It must succeed at least once every 48 hours, or the
       features turn off until it does (the bar has <span class="menu">Check now</span>). If a paid key is ever required, a
-      bar will say so with the days left, and the key goes in <span class="menu">Extensions › UnrealSense › License...</span>.
+      bar will say so with the days left, and its <span class="menu">Enter license key</span> link is where the key goes.
     </p>
     <figure>
       <img src="guide-img/license.svg?v=e2605536" width="760" height="150" loading="lazy"
@@ -464,10 +470,15 @@
             (<code>UE_BUILD_SHIPPING = 0</code>, <code>WITH_EDITOR = 1</code>).</li>
           <li>On a dynamic delegate, <code>.</code> also offers <code>AddDynamic</code>, <code>RemoveDynamic</code>,
             <code>IsAlreadyBound</code>.</li>
+          <li>Inside <code>UE_LOG(</code>: the log categories (your module's first), then the verbosities.</li>
+          <li>Inside <code>FindConsoleVariable(TEXT("</code>: console variable names; hover one for its type, default and
+            help.</li>
         </ul>
         <p>
           Picking a name whose header the file does not see <b>adds the <code>#include</code></b>
-          (<code>"GameFramework/Actor.h"</code>); one <kbd>Ctrl</kbd>+<kbd>Z</kbd> removes both.
+          (<code>"GameFramework/Actor.h"</code>); one <kbd>Ctrl</kbd>+<kbd>Z</kbd> removes both. In a header, a small list asks
+          first: <b>#include</b> (<kbd>Enter</kbd>) or <b>forward declaration</b> (<kbd>2</kbd>); <kbd>Esc</kbd> adds nothing.
+          An <code>#include</code> that would be an absolute path is only added if you confirm it.
           <kbd>Ctrl</kbd>+<kbd>Space</kbd> opens the list anywhere. In <code>.Build.cs</code>/<code>.Target.cs</code> files
           it completes module names.
         </p>
@@ -497,6 +508,13 @@
           category is one your module declares, else <code>LogTemp</code>. <kbd>Tab</kbd> / <kbd>Shift</kbd>+<kbd>Tab</kbd>
           move between the fields, <kbd>Enter</kbd> ends.
         </p>
+        <h3 id="config-files">.ini, .uproject and .uplugin files</h3>
+        <p>
+          In <code>.ini</code> files the list completes <code>[/Script/Module.Class]</code> sections, the class's
+          <code>Config</code> properties as keys, and their <code>true</code>/<code>false</code> or enum values; hover a key
+          for its C++ declaration, <kbd>F12</kbd> opens it. In <code>.uproject</code>/<code>.uplugin</code> it completes the
+          descriptor fields, module types, loading phases, module and plugin names.
+        </p>
       </div>
     </div>
 
@@ -512,6 +530,14 @@
           <code>UPROPERTY</code>...), plus certain C++ errors (<code>const</code> violations, unknown members, wrong argument
           count, inaccessible members) and warnings (<code>if (A = B)</code>, <code>UE_LOG</code> with the wrong number of
           <code>%</code>). The <strong>light bulb</strong> applies the fix.
+        </p>
+        <p>
+          Also checked: an <code>#include</code> from a module your <code>.Build.cs</code> does not list (the fix adds it to
+          the <code>.Build.cs</code>), an override of <code>BeginPlay</code>, <code>Tick</code>, <code>EndPlay</code>... that
+          never calls <code>Super::</code>, a function bound to a delegate with the wrong signature or, with
+          <code>AddDynamic</code>, without <code>UFUNCTION</code>, a replicated property missing from
+          <code>GetLifetimeReplicatedProps</code> (the fix adds its <code>DOREPLIFETIME</code>), and a log category nothing
+          declares or defines.
         </p>
         <figure>
           <img src="guide-img/warnings.svg?v=4d162703" width="760" height="270" loading="lazy"
@@ -582,7 +608,8 @@
           <kbd>Ctrl</kbd>+<kbd>G</kbd>); the buttons under the search box show only functions, fields, locals...
           (<kbd>Alt</kbd>+<kbd>1</kbd>…<kbd>9</kbd>, <kbd>Alt</kbd>+<kbd>0</kbd> for all). <kbd>Ctrl</kbd>+<kbd>1</kbd>…<kbd>4</kbd>
           switch tab. Words separated by spaces are searched separately; <em>Fuzzy</em> (<kbd>Ctrl</kbd>+<kbd>F</kbd>) also
-          accepts scattered letters and typos.
+          accepts scattered letters and typos. Go to Symbol also finds log categories and console variables by their
+          console name (<code>r.shadow</code>).
         </p>
         <figure>
           <img src="guide-img/go-to-symbol.svg?v=3cf89217" width="760" height="330" loading="lazy"
@@ -649,6 +676,13 @@
           <img src="guide-img/base-and-overrides.svg?v=7705fecc" width="760" height="400" loading="lazy"
                alt="The Base and Overrides drop-down of BeginPlay: the base functions up to AActor::BeginPlay, marked origin, and the overrides in subclasses">
         </figure>
+        <h3 id="call-hierarchy">Call hierarchy</h3>
+        <p>
+          Caret on a function, <kbd>Alt</kbd>+<kbd>Shift</kbd>+<kbd>H</kbd> (or right-click ›
+          <span class="menu">Call Hierarchy...</span>): who calls it, each caller expandable to its own callers. Blueprints
+          calling a <code>UFUNCTION</code> are listed too (double-click opens them in the Unreal Editor).
+          <em>Calls from</em> shows what the function calls instead. Double-click a row to go to the call.
+        </p>
       </div>
     </div>
 
@@ -684,8 +718,7 @@
         <p>
           <kbd>Alt</kbd>+<kbd>Shift</kbd>+<kbd>Q</kbd> opens, where the mouse is, the commands that make sense at the caret.
           Type to filter, <kbd>Enter</kbd> to run. It also has <span class="menu">Open in Unreal Editor</span> (starts the
-          editor with the project), <span class="menu">Rebuild UnrealSense Index</span> and
-          <span class="menu">Enable/Disable Visual Assist</span>.
+          editor with the project) and <span class="menu">Rebuild UnrealSense Index</span>.
         </p>
         <figure>
           <img src="guide-img/quick-menu.svg?v=4fe36168" width="760" height="470" loading="lazy"
@@ -865,7 +898,7 @@
       <li><strong>No counters</strong>: wait a few seconds; after saving Blueprints,
         <span class="menu">Extensions › UnrealSense › Rebuild UnrealSense Index</span>.</li>
       <li><strong>A shortcut does nothing</strong>: another extension uses it; the <code>KeyBindingCheck:</code> log line
-        says which. Change it in <span class="menu">Tools › Options › Environment › Keyboard</span> (search
+        says which. <b>Import Shortcuts...</b> › <em>UnrealSense defaults</em> puts ours back, or change it in <span class="menu">Tools › Options › Environment › Keyboard</span> (search
         <code>UnrealSense.</code>).</li>
       <li><strong>Nothing happens in some files</strong>: UnrealSense works on the open solution's project only (another
         checkout or game is left alone); in a solution with several games pick one in <em>Unreal project</em>.</li>

@@ -1,5 +1,43 @@
 # UnrealSense changelog
 
+## 1.1.0
+
+UnrealSense 1.1.0: all changes from 1.0.26 to 1.1.0 (1.0.27 and 1.0.28 were internal builds, never released).
+
+Call Hierarchy
+- Alt+Shift+H (also the editor context menu, the Quick Menu on a function and Extensions > UnrealSense) opens the Call Hierarchy window on the function at the caret: who calls it, each caller expandable to its own callers. Each row shows the function, its class, file:line and the call line (x3 when it calls more than once). Calls through a base virtual function or a Blueprint event are marked "possible via ..."; recursion is shown once. A UFUNCTION called from Blueprints lists those Blueprints too: double-click opens one in the Unreal Editor. "Calls from" switches to what the function calls. Needs the own C++ index. Log lines start with "CallHierarchy:".
+
+Log categories and console variables
+- Inside UE_LOG, UE_LOGF, UE_LOGFMT and UE_CLOG the list offers the log categories (your module's first, then the project's, plugins' and engine's), adding the #include when needed, then the verbosities. Go to definition on a category goes to its declaration and from there to its DEFINE_LOG_CATEGORY.
+- Warnings: a category nothing declares, or another .cpp's static one (CPP0221, fix: define a static category here); a DECLARE_LOG_CATEGORY_EXTERN with no DEFINE_LOG_CATEGORY in its module (CPP0222, fix: adds it). Log lines start with "LogCategories:".
+- Console variables and commands registered in C++ are found by their console name in Go to Symbol (r.shadow), with type, default and help. Hovering a string naming one shows them; go to definition opens its declaration; FindConsoleVariable(TEXT(" and the [ConsoleVariables]/[SystemSettings] keys of .ini files complete them. Log lines start with "CVars:".
+
+Config and descriptor files
+- .ini files: [/Script/ completes modules and their classes, keys complete the class's Config properties (inherited ones too, after +/-/./! prefixes), values of bool and enum properties. Quick info on a key shows its C++ declaration; F12 opens the class or property.
+- .uproject/.uplugin: descriptor fields, module Type and LoadingPhase, module names from Source, plugin names, platforms.
+- Option: Code completion > Completion in .ini, .uproject and .uplugin. Log lines start with "ConfigCompletion:".
+
+New inspections
+- Missing module dependency (CPP0201): an #include of a header from a module the file's module cannot reach through its .Build.cs. The light bulb adds the module to the .Build.cs (Private, or Public from a public header). Option: Inspections > Module dependencies missing from the Build.cs. Log lines start with "BuildDeps:".
+- A lifecycle override (BeginPlay, EndPlay, Tick, PostInitializeComponents, NativeConstruct...) that never calls its parent (CPP0231; fix adds the Super:: call).
+- A function bound to a delegate whose signature differs from the delegate's (CPP0232), and AddDynamic/BindDynamic on a function that is not a UFUNCTION (CPP0233; fix adds UFUNCTION()).
+- Replication: a Replicated/ReplicatedUsing property that GetLifetimeReplicatedProps never registers (fix adds its DOREPLIFETIME); the missing GetLifetimeReplicatedProps fix writes the whole definition; the missing OnRep fix declares the UFUNCTION and writes its body.
+
+Shortcuts
+- The commands that act on the code at the caret are bound in the Text Editor scope, so they win over other extensions' Global keys while you type.
+- Extensions > UnrealSense > Import Shortcuts... (also offered at the very first start) sets our keys from a preset with a preview: UnrealSense defaults, Visual Assist (customized keys included, also when Visual Assist is disabled), or Visual Studio + Visual Assist.
+- Keys found empty after an update are repaired once, keeping a command's other keys; assignment works on localized Visual Studio.
+
+Other changes
+- Completion's automatic #include asks, in a header, between #include and forward declaration; an absolute-path #include is added only after confirming.
+- The own index follows files changed on disk outside Visual Studio (Perforce or git sync, branch switch): one update about 3 seconds after the changes stop.
+- Less repeated work: batched index rebuilds, one parse per analysis, no indexer requests for unchanged text.
+- Templates: one Tab commits the list open in a template field and moves to the next field.
+- Quick fixes write the line endings of the file they edit.
+- The Enable/Disable Visual Assist command is no longer in the menus.
+
+Install: run Install-UnrealSense.ps1 next to the .vsix, or open the .vsix.
+
 ## 1.0.26
 
 UnrealSense 1.0.26: all changes from 1.0.23 to 1.0.26 (1.0.24 and 1.0.25 were internal builds, never released).
