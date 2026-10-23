@@ -1,5 +1,20 @@
 # UnrealSense changelog
 
+## 1.1.3
+
+UnrealSense 1.1.3: all changes from 1.1.0 to 1.1.3 (1.1.2 was an internal build, never released).
+
+Opening a .uproject (Visual Studio 2026)
+- Opening the project's .uproject in Visual Studio 2026 (a folder workspace with the project and engine folders as roots) loads the project like a solution does. Log lines start with "Open folder:".
+- New Unreal Class with a .uproject open (Extensions > UnrealSense > Unreal Class...): there is no .vcxproj, so the files are only created and opened; the folder view shows them and UBT builds them without Generate Project Files. The start folder comes from the folder view's selection.
+- Opening a .slnx in Visual Studio 2026 shows an info bar suggesting the .uproject instead (no C# projects loaded, new classes need no Generate Project Files): Close hides it for now, Don't show again for good. Log lines start with "UProjectHint:".
+
+Code completion
+- The option Code completion > Add missing #include (on by default) now covers every completion that adds an #include: names, log categories and code templates (e.g. Engine/Engine.h for screen messages). Off, completion inserts only the name and the tooltips no longer say "Adds #include".
+
+Own C++ index
+- The index folder is per checkout (<name>-<hash of the .uproject path>); an older per-name index is moved when it belongs to this checkout. Files of another checkout of the same game are no longer added to the index.
+
 ## 1.1.0
 
 UnrealSense 1.1.0: all changes from 1.0.26 to 1.1.0 (1.0.27 and 1.0.28 were internal builds, never released).

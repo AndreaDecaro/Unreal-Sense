@@ -317,8 +317,9 @@
   <h2 id="first-start">First start</h2>
   <div class="card">
     <p>
-      Open the project's solution: UnrealSense finds the project and reads its C++ and Blueprints in a few seconds (longer
-      the first time). <span class="menu">View › Output › UnrealSense</span> shows what it is doing.
+      Open the project's solution, or its <code>.uproject</code> (Visual Studio 2026): UnrealSense finds the project and reads its C++ and Blueprints in a few seconds (longer
+      the first time). <span class="menu">View › Output › UnrealSense</span> shows what it is doing. With a <code>.slnx</code> in Visual Studio 2026 a
+      bar at the top suggests opening the <code>.uproject</code> instead: <b>Close</b> hides it for now, <b>Don't show again</b> for good.
     </p>
     <figure>
       <img src="guide-img/first-start.svg?v=365660a5" width="760" height="230" loading="lazy"
@@ -479,6 +480,7 @@
           (<code>"GameFramework/Actor.h"</code>); one <kbd>Ctrl</kbd>+<kbd>Z</kbd> removes both. In a header, a small list asks
           first: <b>#include</b> (<kbd>Enter</kbd>) or <b>forward declaration</b> (<kbd>2</kbd>); <kbd>Esc</kbd> adds nothing.
           An <code>#include</code> that would be an absolute path is only added if you confirm it.
+          To never add one, turn off <b>Code completion › Add missing #include</b>.
           <kbd>Ctrl</kbd>+<kbd>Space</kbd> opens the list anywhere. In <code>.Build.cs</code>/<code>.Target.cs</code> files
           it completes module names.
         </p>
@@ -809,7 +811,9 @@
           Solution Explorer › right-click › <span class="menu">Add › Unreal Class...</span> (or the Unreal Explorer's
           <b>New class</b>): name, parent class (<b>Common</b> or <b>All Classes</b>) and folder, in any module. The files
           are written like the Unreal Editor's, added to the project and opened; a missing module dependency can be added to
-          the <code>.Build.cs</code>. Includes stay red until <b>Generate Project Files</b>.
+          the <code>.Build.cs</code>. Includes stay red until <b>Generate Project Files</b>. With a <code>.uproject</code> opened
+          instead of a solution (Extensions › UnrealSense › <span class="menu">Unreal Class...</span>) the files are only
+          created and opened: nothing to regenerate.
         </p>
         <figure>
           <img src="guide-img/new-unreal-class.svg?v=a39675b7" width="760" height="440" loading="lazy"

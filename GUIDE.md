@@ -53,8 +53,9 @@ it does (the bar has **Check now**). If a paid key is ever required, a bar will 
 
 ## First start
 
-Open the project's solution: UnrealSense finds the project and reads its C++ and Blueprints in a few seconds (longer the
-first time). **View › Output › UnrealSense** shows what it is doing.
+Open the project's solution, or its `.uproject` (Visual Studio 2026): UnrealSense finds the project and reads its C++ and Blueprints in a few seconds (longer the
+first time). **View › Output › UnrealSense** shows what it is doing. With a `.slnx` in Visual Studio 2026 a bar at the
+top suggests opening the `.uproject` instead: **Close** hides it for now, **Don't show again** for good.
 
 ![The Output window on the UnrealSense pane](guide-img/first-start.svg?v=365660a5)
 
@@ -133,7 +134,8 @@ Wherever you type a name the list shows, in order: locals and parameters, class 
 
 Picking a name whose header the file does not see **adds the `#include`** (`"GameFramework/Actor.h"`); one Ctrl+Z
 removes both. In a header, a small list asks first: **#include** (Enter) or **forward declaration** (`2`); Esc adds
-nothing. An `#include` that would be an absolute path is only added if you confirm it. **Ctrl+Space** opens the list anywhere. In `.Build.cs`/`.Target.cs` files it completes module names.
+nothing. An `#include` that would be an absolute path is only added if you confirm it. To never add one, turn off **Code completion › Add missing
+#include**. **Ctrl+Space** opens the list anywhere. In `.Build.cs`/`.Target.cs` files it completes module names.
 
 ![Name completion and the #include added automatically](guide-img/name-completion.svg?v=96d18712)
 
@@ -289,7 +291,8 @@ Caret on a name › Quick Menu › **Add #include** (the header written as Unrea
 Solution Explorer › right-click › **Add › Unreal Class...** (or the Unreal Explorer's **New class**): name, parent class
 (**Common** or **All Classes**) and folder, in any module. The files are written like the Unreal Editor's, added to the
 project and opened; a missing module dependency can be added to the `.Build.cs`. Includes stay red until **Generate
-Project Files**.
+Project Files**. With a `.uproject` opened instead of a solution (Extensions › UnrealSense › **Unreal Class...**) the
+files are only created and opened: nothing to regenerate.
 
 ![The New Unreal Class dialog](guide-img/new-unreal-class.svg?v=a39675b7)
 
