@@ -17,6 +17,7 @@ specifier suggestions, Unreal-aware completion, navigation and warnings. It work
 | **Alt+Shift+D** | Create implementation |
 | **Alt+Shift+R** | Rename symbol |
 | **Alt+Shift+H** | Call hierarchy |
+| **Alt+click** | Class hierarchy (Shift+click: free; both set in Tools › Options › UnrealSense › General › Mouse clicks) |
 
 Everything else is in **Extensions › UnrealSense** and in the Quick Menu.
 
@@ -240,7 +241,7 @@ those places; double-click one to go there. *No use found* marks an include the 
 
 ### Class hierarchy, base function and overrides
 
-Caret on a class › Quick Menu › **Class Hierarchy...**: its bases and its derived classes as a tree; click to open.
+**Alt+click** a class (or caret on it › Quick Menu › **Class Hierarchy...**): its bases and its derived classes as a tree; click to open.
 On a virtual function or event, **Base and Overrides of X...** lists the base versions and the overrides in subclasses,
 also the Blueprints implementing an event.
 

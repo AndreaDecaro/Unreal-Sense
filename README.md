@@ -62,7 +62,10 @@ each command's shortcut and a search box: type to filter, Up/Down and Enter to r
 
 **Shortcuts**: the commands that act on the code at the caret (`Alt+G`, `Alt+O`, `Alt+M`, `Alt+Shift+B/V/D/R/H`) are bound in the
 Text Editor scope, so they win over other extensions' Global keys while you type; Go to Symbol, Go to File and the Quick Menu stay
-Global. Some users found our keys empty (Visual Studio keeps a "removed" entry when another command takes a key, and it survives
+Global. **Mouse clicks** (Tools › Options › UnrealSense › General › *Mouse clicks*; Visual Studio cannot bind a click):
+*Alt+click* runs Class Hierarchy on the clicked word by default, *Shift+click* nothing by default; each can run any command that acts on
+the caret (or the Quick Menu, or None for Visual Studio's own click). Alt+drag and Shift+drag keep selecting; Alt+click does nothing
+when Alt is the modifier of Visual Studio's *mouse click to perform Go to Definition*. Log lines start with `ClickCommand:`. Some users found our keys empty (Visual Studio keeps a "removed" entry when another command takes a key, and it survives
 updates): this version assigns our defaults once again, then leaves your keys alone. **Extensions › UnrealSense › Import
 Shortcuts...** (also offered on the very first start) sets the keys of our commands from a preset, with a preview and a checkbox
 per command: *UnrealSense defaults*, *Visual Assist* (the keys Visual Assist's equivalent commands have, customized ones included, also

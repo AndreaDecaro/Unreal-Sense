@@ -1,5 +1,15 @@
 # UnrealSense changelog
 
+## 1.1.5
+
+UnrealSense 1.1.5: all changes from 1.1.4 to 1.1.5.
+
+Navigation
+- Alt+click and Shift+click run a chosen command on the clicked word in C++ files (Tools > Options > UnrealSense > General > Mouse clicks; Visual Studio cannot bind a mouse click in Keyboard options). Alt+click defaults to Class Hierarchy, Shift+click to none; any command acting on the caret can be picked, or the Quick Menu. Alt+drag and Shift+drag keep selecting; when Alt is the modifier of Visual Studio's "mouse click to perform Go to Definition", Visual Studio's click wins.
+
+Code completion
+- Fix: with the completion list open in a field of a Visual Studio or Visual Assist snippet (if + Tab gives if (true) { }), Tab moved to the next field and Enter ended the snippet with the caret inside the if, without writing the chosen name. Tab and Enter now commit the list first (Enter still keeps the typed text on a soft selection). The log line "MemberCompletion: Tab committed the list ahead of the other key handlers" (or Enter) shows it at work.
+
 ## 1.1.4
 
 UnrealSense 1.1.4: all changes from 1.1.3 to 1.1.4.
