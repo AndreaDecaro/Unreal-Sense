@@ -28,7 +28,7 @@ our commands the keys of Visual Assist, or of Visual Studio + Visual Assist, or 
 From the [Visual Studio Marketplace](https://marketplace.visualstudio.com/items?itemName=AndreaDecaro.UnrealSense):
 **Extensions › Manage Extensions**, search **UnrealSense**, **Install**, then close Visual Studio to finish.
 
-![Manage Extensions with UnrealSense found on the Marketplace](guide-img/install.svg?v=8ce7b894)
+![Manage Extensions with UnrealSense found on the Marketplace](guide-img/install.svg?v=cd02e551)
 
 Updates install when you close Visual Studio. UnrealSense also checks by itself (at startup and every hour): when a newer
 version is out, a window (or a bar, if Visual Studio is already open) offers **Open Manage Extensions**, **Later** or
@@ -48,7 +48,7 @@ carries nothing about you or your projects. It must succeed at least once every 
 it does (the bar has **Check now**). If a paid key is ever required, a bar will say so with the days left, and its
 **Enter license key** link is where the key goes.
 
-![The information bar shown when a license key is needed](guide-img/license.svg?v=e2605536)
+![The information bar shown when a license key is needed](guide-img/license.svg?v=1c19e140)
 *This bar appears only if a key is ever needed: today UnrealSense is free.*
 
 ## First start
@@ -57,7 +57,7 @@ Open the project's solution, or its `.uproject` (Visual Studio 2026): UnrealSens
 first time). **View › Output › UnrealSense** shows what it is doing. With a `.slnx` in Visual Studio 2026 a bar at the
 top suggests opening the `.uproject` instead: **Close** hides it for now, **Don't show again** for good.
 
-![The Output window on the UnrealSense pane](guide-img/first-start.svg?v=365660a5)
+![The Output window on the UnrealSense pane](guide-img/first-start.svg?v=64799b25)
 
 ## Blueprints
 
@@ -68,7 +68,7 @@ Blueprints`, `3 Blueprint usages`), also through parent Blueprints or C++ subcla
 list. On properties there are two counters, `2 Blueprint usages - 3 Blueprint overrides`: **usages** read or write it in
 graphs, **overrides** change its value in Class Defaults, levels or data assets.
 
-![Grey labels with the number of Blueprints next to a class and a function](guide-img/hints.svg?v=d64a8988)
+![Grey labels with the number of Blueprints next to a class and a function](guide-img/hints.svg?v=841ff8a7)
 
 ### Find usages in Blueprints
 
@@ -81,7 +81,7 @@ For a property, the **Value** column shows the value each Blueprint gives it (`6
 `C++ default` when unchanged), the values on placed actors in levels (`3 actors: 600, 800, 1200`, World Partition
 included) and in data assets. Hovering the property shows the first five values.
 
-![The Blueprint Usages window](guide-img/blueprint-usages.svg?v=a822012f)
+![The Blueprint Usages window](guide-img/blueprint-usages.svg?v=442f9225)
 
 **Opening assets in the Unreal Editor** uses its Python Remote Execution: the first time, UnrealSense offers to enable it
 in the project (restart the editor afterwards; files not checked out in Perforce are made writable and listed). Without
@@ -95,7 +95,7 @@ assets: comments, pin values, variable defaults and tooltips, widget texts, Data
 also variable, function, pin and tag names. Each result says where it is (`EventGraph › Call PrintString › pin In
 String`). Options: *Match case*, *Whole word*, *All assets* (textures, meshes, sounds...), *Editor caches*.
 
-![The Search in Blueprints window](guide-img/search-in-blueprints.svg?v=7bb3ced3)
+![The Search in Blueprints window](guide-img/search-in-blueprints.svg?v=30bd5331)
 
 ## Writing code
 
@@ -105,9 +105,9 @@ Inside `UPROPERTY(...)`, `UFUNCTION(...)`, `UCLASS(...)` etc. the list offers th
 their explanation, and values too (project `Category` names, the function for `ReplicatedUsing`). Hover a specifier for
 its documentation, or a reflected name for its Blueprint usages.
 
-![Completion of UPROPERTY specifiers](guide-img/specifiers.svg?v=0554d4a9)
+![Completion of UPROPERTY specifiers](guide-img/specifiers.svg?v=d7d06db3)
 
-![Tool tips on a specifier and on a class](guide-img/quick-info.svg?v=c7e2a926)
+![Tool tips on a specifier and on a class](guide-img/quick-info.svg?v=a57e4bcc)
 
 ### Member completion (`.` and `->`)
 
@@ -117,7 +117,7 @@ After `.` or `->` the list shows the members of the class and its bases (engine 
 `IsValid`) and the pointed object's, and picking one of the latter writes `->`. A member just added in a `.h` is listed
 in the `.cpp` before you save.
 
-![Member completion on a TWeakObjectPtr](guide-img/member-completion.svg?v=69c0e2a6)
+![Member completion on a TWeakObjectPtr](guide-img/member-completion.svg?v=0f8fc320)
 
 ### Name completion
 
@@ -137,7 +137,7 @@ removes both. In a header, a small list asks first: **#include** (Enter) or **fo
 nothing. An `#include` that would be an absolute path is only added if you confirm it. To never add one, turn off **Code completion › Add missing
 #include**. **Ctrl+Space** opens the list anywhere. In `.Build.cs`/`.Target.cs` files it completes module names.
 
-![Name completion and the #include added automatically](guide-img/name-completion.svg?v=96d18712)
+![Name completion and the #include added automatically](guide-img/name-completion.svg?v=b62b2689)
 
 ### Log and on-screen message templates
 
@@ -152,6 +152,20 @@ At the start of a line type one of these and pick it from the list:
 After a value, `.log`, `.warn`, `.error` or `.screen` prints it with the right format: `Health.log` →
 `UE_LOG(LogMyGame, Log, TEXT("Health = %f"), Health);`. The category is one your module declares, else `LogTemp`.
 **Tab** / **Shift+Tab** move between the fields, **Enter** ends.
+
+### Loop and switch templates
+
+After a value the list also offers the loops that fit its type:
+
+| Type | You get |
+|---|---|
+| `Targets.foreach` | `for (AActor* Actor : Targets) { }` |
+| `Targets.for`, `Targets.forr` | `for (int32 Index = 0; Index < Targets.Num(); ++Index)`, or from the last to the first |
+| `Targets.forit` | `for (auto It = Targets.CreateIterator(); It; ++It)` (remove with `It.RemoveCurrent()`) |
+| `Node.while` | `while (Node) { }` |
+| `State.switch` | `switch (State)` with a `case ...: break;` for every value of the enum |
+
+In an existing `switch`, Quick Menu › **Generate Missing Cases** adds the values that have no `case` yet.
 
 ### .ini, .uproject and .uplugin files
 
@@ -171,7 +185,7 @@ override of `BeginPlay`, `Tick`, `EndPlay`... that never calls `Super::`, a func
 signature or, with `AddDynamic`, without `UFUNCTION`, a replicated property missing from `GetLifetimeReplicatedProps`
 (the fix adds its `DOREPLIFETIME`), and a log category nothing declares or defines.
 
-![A warning with its light bulb fixes](guide-img/warnings.svg?v=4d162703)
+![A warning with its light bulb fixes](guide-img/warnings.svg?v=6519b628)
 
 IntelliSense's false errors on Unreal code (a file it could not configure, an outdated `.generated.h`) are hidden; real
 errors stay. Option: *IntelliSense errors in Unreal files*.
@@ -182,7 +196,7 @@ UnrealSense colours the project's C++ by itself: UObject types apart from value 
 parameters, macros, reflection macros and their specifiers; members exposed to Blueprints in bold. Colours: Tools ›
 Options › Environment › Fonts and Colors, entries `UnrealSense - …`.
 
-![UnrealSense code colours with a legend](guide-img/code-colours.svg?v=e78874f1)
+![UnrealSense code colours with a legend](guide-img/code-colours.svg?v=6e21c77f)
 
 ## Navigation
 
@@ -193,7 +207,7 @@ Go to Definition*): from a call to its implementation, from the implementation t
 variable or type to its declaration. On a BlueprintNativeEvent or RPC it goes to `_Implementation`/`_Validate` and back.
 Works on unsaved code; where UnrealSense knows nothing, Visual Studio's own runs.
 
-![Ctrl+click on a call opens its implementation](guide-img/go-to-definition.svg?v=819f5a9c)
+![Ctrl+click on a call opens its implementation](guide-img/go-to-definition.svg?v=f634b4ac)
 
 ### Find a symbol or a file
 
@@ -204,7 +218,7 @@ functions, fields, locals... (Alt+1…9, Alt+0 for all). **Ctrl+1…4** switch t
 *Fuzzy* (Ctrl+F) also accepts scattered letters and typos.
 Go to Symbol also finds log categories and console variables by their console name (`r.shadow`).
 
-![The Go to Symbol window](guide-img/go-to-symbol.svg?v=3cf89217)
+![The Go to Symbol window](guide-img/go-to-symbol.svg?v=a4778b8b)
 
 ### Find Usages
 
@@ -222,7 +236,7 @@ those places; double-click one to go there. *No use found* marks an include the 
 
 **Alt+O** opens the matching file, following `Public` ⇄ `Private` (also in engine and plugin files).
 
-![Alt+O between header and source](guide-img/switch-header-source.svg?v=1876e3f9)
+![Alt+O between header and source](guide-img/switch-header-source.svg?v=85c2a199)
 
 ### Class hierarchy, base function and overrides
 
@@ -230,9 +244,9 @@ Caret on a class › Quick Menu › **Class Hierarchy...**: its bases and its de
 On a virtual function or event, **Base and Overrides of X...** lists the base versions and the overrides in subclasses,
 also the Blueprints implementing an event.
 
-![The Class Hierarchy drop-down](guide-img/class-hierarchy.svg?v=c653b93f)
+![The Class Hierarchy drop-down](guide-img/class-hierarchy.svg?v=8b054d44)
 
-![The Base and Overrides drop-down](guide-img/base-and-overrides.svg?v=7705fecc)
+![The Base and Overrides drop-down](guide-img/base-and-overrides.svg?v=e2c0904b)
 
 ### Call hierarchy
 
@@ -245,7 +259,7 @@ its own callers. Blueprints calling a `UFUNCTION` are listed too (double-click o
 **Extensions › UnrealSense › Unreal Explorer**: modules (with `.Build.cs`, dependencies and reflected types), plugins,
 Blueprints by C++ parent class and config files, with search. Double-click opens the file.
 
-![The Unreal Explorer window](guide-img/unreal-explorer.svg?v=539d6d64)
+![The Unreal Explorer window](guide-img/unreal-explorer.svg?v=794d5c6a)
 
 ## Generating code
 
@@ -253,15 +267,16 @@ Blueprints by C++ parent class and config files, with search. Double-click opens
 
 **Alt+Shift+Q** opens, where the mouse is, the commands that make sense at the caret. Type to filter, **Enter** to run.
 It also has **Open in Unreal Editor** (starts the editor with the project) and **Rebuild UnrealSense Index**.
+When a command cannot do what you asked, a small popup under the caret says why (**Esc** or a click closes it).
 
-![The Quick Menu](guide-img/quick-menu.svg?v=4fe36168)
+![The Quick Menu](guide-img/quick-menu.svg?v=7e903278)
 
 ### Override virtual functions
 
 Caret inside a class, **Alt+Shift+V** (or the light bulb on the class name): tick the inherited virtual functions to declare them in the `.h` and define them
 (calling `Super::`) in the `.cpp`.
 
-![The Override Virtual Functions dialog](guide-img/override.svg?v=a6823f86)
+![The Override Virtual Functions dialog](guide-img/override.svg?v=0c798596)
 
 ### Create implementation
 
@@ -269,7 +284,18 @@ Caret on a declaration in the `.h`, **Alt+Shift+D** (or the light bulb): the bod
 neighbours. RPCs and BlueprintNativeEvents get `_Implementation` (and `_Validate` with `WithValidation`); overrides call
 `Super::` when a parent implements it.
 
-![Create Implementation on a Server RPC](guide-img/create-implementation.svg?v=ae37e2e7)
+![Create Implementation on a Server RPC](guide-img/create-implementation.svg?v=e0b6f77c)
+
+### Generate getters/setters and constructor
+
+Caret in a class of a header › right-click (or the Quick Menu, or the light bulb on the class name) ›
+**Generate Getters/Setters...**: tick the members, choose inline in the `.h` or declared there and defined in the
+`.cpp`. Unreal names and types: `bDead` gives `IsDead()`/`SetDead(bool)`, a `TObjectPtr<T>` is returned as `T*`,
+`FString` and containers as `const&`. Members that already have them are not listed.
+
+**Generate Constructor** declares the constructor if the class has none and fills its body in the `.cpp`: tick enabled
+when the class overrides `Tick`, and `CreateDefaultSubobject` for each component `UPROPERTY` (the first one becomes the
+root, the others attach to it), with their `#include`s. Run it again after adding components: only what is missing is added.
 
 ### Declare a delegate
 
@@ -277,14 +303,14 @@ Caret in a header › Quick Menu › **Declare Delegate...**: choose kind, name,
 preview; **Create** writes the `DECLARE_..._DELEGATE` macro and the member, **Copy** puts it on the clipboard.
 *Usage example* shows how to bind and call it.
 
-![The Declare Delegate dialog](guide-img/declare-delegate.svg?v=3754cd7e)
+![The Declare Delegate dialog](guide-img/declare-delegate.svg?v=0f8bdd2c)
 
 ### Add an #include or a forward declaration
 
 Caret on a name › Quick Menu › **Add #include** (the header written as Unreal does) or, in a header,
 **Add Forward Declaration** (`class UMyComponent;`).
 
-![Add #include and Add Forward Declaration](guide-img/add-include.svg?v=7550cf92)
+![Add #include and Add Forward Declaration](guide-img/add-include.svg?v=23145c13)
 
 ### New Unreal class
 
@@ -294,7 +320,7 @@ project and opened; a missing module dependency can be added to the `.Build.cs`.
 Project Files**. With a `.uproject` opened instead of a solution (Extensions › UnrealSense › **Unreal Class...**) the
 files are only created and opened: nothing to regenerate.
 
-![The New Unreal Class dialog](guide-img/new-unreal-class.svg?v=a39675b7)
+![The New Unreal Class dialog](guide-img/new-unreal-class.svg?v=89fecc85)
 
 ### Rename a symbol
 
@@ -302,6 +328,17 @@ Caret on a function, variable, local, class or struct, **Alt+Shift+R**: type the
 **Preview...** shows every change with a checkbox; **Apply** writes them. Overrides and `_Implementation`/`_Validate`
 are renamed too. For Blueprint-visible symbols, tick **Add a CoreRedirect** so saved assets keep working. Open files
 can be undone with **Ctrl+Z**; read-only (Perforce) files are made writable and listed at the end for check-out.
+
+### Introduce a variable or extract a function
+
+Select an expression (or put the caret on a call) and pick **Introduce Variable** in the right-click menu, the Quick
+Menu or the light bulb: `GetOwner()` becomes `AActor* Owner = GetOwner();` on the line before, with the type and a
+name filled in and selected for a rename. If the same expression appears again in the function, you can replace all of
+them.
+
+In a `.cpp`, select whole statements and pick **Extract Method...**: type the name, check the signature, **Extract**.
+The statements move to a new function (declared in the class's header when it is a member) and are replaced by a call;
+the variables they need become parameters, the one they produce becomes the return value. **Ctrl+Z** undoes it.
 
 ### Sort members
 
@@ -316,12 +353,19 @@ In a `.h` or `.cpp`, right-click › **Sort #includes** (or the Quick Menu): the
 group by group (blank lines and `#if` blocks keep their groups). The `.cpp`'s own header, `CoreMinimal.h` and the
 `.generated.h` keep their places.
 
+### Remove Unused #includes
+
+In a `.h` or `.cpp`, right-click › **Remove Unused #includes...** (or the Quick Menu): the `#include` lines that can go
+are ticked, the others are greyed out with the reason they stay. Press **Remove**; **Ctrl+Z** undoes it. On an
+`#include` whose hint says *no use found*, the light bulb (**Ctrl+.**) offers **Remove unused #include** when it is safe.
+Build once afterwards: other configurations (`#if` blocks) are not checked.
+
 ## Settings
 
 **Tools › Options › UnrealSense** (in Visual Studio 2026: *All Settings › UnrealSense*). Every feature can be turned off
 there. The ones you may want to change:
 
-![Tools › Options › UnrealSense](guide-img/settings.svg?v=9cdfcf20)
+![Tools › Options › UnrealSense](guide-img/settings.svg?v=436dfeec)
 
 - **Unreal project**: only if UnrealSense picks the wrong project in a solution with several.
 - **Show hints for unused Blueprint API**: also labels reflected members no Blueprint uses.
@@ -353,4 +397,4 @@ with the log if you can (it contains your project paths: check it first).
 - **Logs**: `%LOCALAPPDATA%\UnrealSense\Logs`, one `UnrealSense_<date>_<time>_pid<id>.log` per session (last five kept).
   For freezes or crashes also attach the `Hangs_...log` of the same session.
 
-![The UnrealSense Logs folder](guide-img/logs.svg?v=0b866ea7)
+![The UnrealSense Logs folder](guide-img/logs.svg?v=ff4b7bf3)

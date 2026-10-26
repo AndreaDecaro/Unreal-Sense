@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 150" width="760" height="150" role="img" aria-label="Visual Studio information bar shown when the license needs attention">
-<style>.ui{font-family:Roboto, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;font-size:12px}.code{font-family:Consolas, 'Cascadia Mono', Menlo, 'DejaVu Sans Mono', monospace;font-size:13px}</style>
+<style>.ui{font-family:'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;font-size:12px}.code{font-family:'Cascadia Mono', Consolas, Menlo, 'DejaVu Sans Mono', monospace;font-size:13px}</style>
 <rect width="760" height="150" rx="10" fill="#151515"/>
 <rect x="20" y="20" width="720" height="110" rx="6" fill="#1E1E1E" stroke="#3F3F46" stroke-width="1"/>
 <rect x="21" y="21" width="718" height="44" rx="0" fill="#3B3A28"/><rect x="21" y="64" width="718" height="1" rx="0" fill="#5C5A2E"/>
@@ -12,5 +12,5 @@
 <text class="code" x="68" y="94" xml:space="preserve"><tspan fill="#F0A33D" font-weight="bold">UCLASS</tspan><tspan fill="#B4B4B4">()</tspan></text>
 <text class="code" x="68" y="113" xml:space="preserve"><tspan fill="#6C95EB">class</tspan><tspan fill="#B4B4B4"> </tspan><tspan fill="#4FC1D8">AMyCharacter</tspan><tspan fill="#B4B4B4"> : </tspan><tspan fill="#6C95EB">public</tspan><tspan fill="#B4B4B4"> </tspan><tspan fill="#4FC1D8">ACharacter</tspan></text>
 <text class="code" x="30" y="94" fill="#858585" xml:space="preserve">1</text><text class="code" x="30" y="113" fill="#858585" xml:space="preserve">2</text>
-<rect x="246" y="43" width="214" height="18" rx="4" fill="none" stroke="#FFA733" stroke-width="1.5" stroke-dasharray="4 3"/><text class="ui" x="470" y="57" fill="#FFA733" font-weight="600" text-anchor="start" xml:space="preserve">the key goes here</text>
+<g class="note"><rect x="246" y="43" width="214" height="18" rx="4" fill="none" stroke="#FFA733" stroke-width="1.5" stroke-dasharray="4 3"/><text class="ui" x="470" y="57" fill="#FFA733" font-weight="600" text-anchor="start" xml:space="preserve">the key goes here</text></g>
 </svg>

@@ -1,5 +1,27 @@
 # UnrealSense changelog
 
+## 1.1.4
+
+UnrealSense 1.1.4: all changes from 1.1.3 to 1.1.4.
+
+Code completion
+- Loop and switch templates: after a value the member list also offers .foreach (the element type and name come from the container's, const in a const container, auto& Pair for maps), .for, .forr, .forit, .while and .switch (on enums and TEnumAsByte), chosen by the value's type.
+- Quick Menu > Generate Missing Cases: in a switch, adds a case for every enum value the switch does not name yet.
+- The own index answers completion with the enum values of the receiver, in declaration order (usindex complete prints them).
+
+Generating code
+- Generate Getters/Setters... (editor context menu of headers, Quick Menu, light bulb on a class or UPROPERTY): the dialog lists the getters and setters that are missing; write them inline in the header or declare them there and define them in the .cpp. Unreal conventions: bDead gives IsDead()/SetDead(bool bInDead), TObjectPtr<T> returns T*, FString, structs and containers go as const T&; const members and references get no setter, statics are skipped. Log lines start with "GenerateMembers:".
+- Generate Constructor: declares the constructor after the first public: when the class has none and defines it in the .cpp; with a constructor it adds only the lines that are missing: CreateDefaultSubobject for each UPROPERTY component pointer not assigned yet (the first scene component becomes RootComponent when the parent is AActor, APawn or AInfo, the others get SetupAttachment(RootComponent)) with their #include lines, and the tick line when the class declares Tick or TickComponent.
+
+Refactoring
+- Introduce Variable (editor context menu, Quick Menu, light bulb on a selection): the selected expression, or the call chain at the caret, becomes a variable on its own line before the statement. The type comes from the own index (pointers as T*, const unless a method is called on it, auto when unknown), the name from the call or the type, made unique; when the same expression occurs again you can replace all of them. Refused in loop conditions, in an if/else without braces and in macro arguments. Log lines start with "IntroduceVariable:".
+- Extract Method... (same places, .cpp files): the selected whole statements move to a new function; locals used inside become parameters, the one local used after becomes the return value; a private member function (declared in the header, defined after the current function) or a static function for a free one. A dialog takes the name and shows the signature. Refused, with the reason, for part of a statement, a return/goto/break/continue leaving the selection, two locals used after it, case labels, a lambda or macro arguments. Log lines start with "ExtractMethod:".
+- Remove Unused #includes... (context menu of .h and .cpp, Quick Menu, light bulb on an #include whose hint says "no use found"): the lines the index allows removing are ticked, the others are greyed out with the reason. A line can go only when everything the file uses keeps its declaration in reach through the other includes (names, types a variable needs complete, macros); in a header the project files including it are checked too. Never offered: a .cpp's own header, CoreMinimal.h, .generated.h, includes inside #if blocks, .inl files, lines marked IWYU pragma: keep or NOLINT. Needs the own index with the engine. Log lines start with "UnusedIncludes:".
+- Each of these edits is one Ctrl+Z per file; Perforce files are made writable.
+
+Usability
+- When a command cannot do what you asked (Extract Method on a selection with a return, the caret in the wrong place, nothing to do), a small popup under the caret says why; Esc, Enter or a click closes it. The line also stays in the status bar and in the log ("Refusal:").
+
 ## 1.1.3
 
 UnrealSense 1.1.3: all changes from 1.1.0 to 1.1.3 (1.1.2 was an internal build, never released).

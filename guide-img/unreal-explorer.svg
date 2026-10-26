@@ -1,41 +1,49 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 370" width="760" height="370" role="img" aria-label="Unreal Explorer: modules, plugins, Blueprints by C++ parent and config files">
-<style>.ui{font-family:Roboto, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;font-size:12px}.code{font-family:Consolas, 'Cascadia Mono', Menlo, 'DejaVu Sans Mono', monospace;font-size:13px}</style>
-<rect width="760" height="370" rx="10" fill="#151515"/>
-<rect x="200" y="20" width="360" height="330" rx="4" fill="#242424" stroke="#3F3F46" stroke-width="1"/><rect x="201" y="21" width="358" height="24" rx="0" fill="#2D2D30"/><text class="ui" x="210" y="37" fill="#F1F1F1" font-weight="600" xml:space="preserve">Unreal Explorer</text>
-<text class="ui" x="212" y="66" fill="#C0C0C0" xml:space="preserve">↻ Refresh</text>
-<text class="ui" x="292" y="66" fill="#C0C0C0" xml:space="preserve">➕ New class</text>
-<text class="ui" x="380" y="66" fill="#C0C0C0" xml:space="preserve">▶ Open in Unreal Editor</text>
-<rect x="208" y="78" width="344" height="26" rx="4" fill="#0F0F0F" stroke="#383838" stroke-width="1"/><circle cx="221" cy="90" r="4.5" fill="none" stroke="#8C8C8C" stroke-width="1.5"/><line x1="224.5" y1="93.5" x2="228" y2="97" stroke="#8C8C8C" stroke-width="1.5"/><text class="ui" x="236" y="95.5" fill="#8C8C8C" xml:space="preserve">Search reflected types and members</text>
-<text class="ui" x="214" y="128.0" fill="#8C8C8C" font-size="10" xml:space="preserve">▾</text>
-<text class="ui" x="228" y="128.0" fill="#C0C0C0" xml:space="preserve">Modules</text>
-<text class="ui" x="230" y="146.5" fill="#8C8C8C" font-size="10" xml:space="preserve">▾</text>
-<text class="ui" x="244" y="146.5" fill="#C0C0C0" xml:space="preserve">MyGame</text>
-<text class="ui" x="548" y="146.5" fill="#8C8C8C" font-size="11.5" text-anchor="end" xml:space="preserve">Runtime</text>
-<text class="ui" x="246" y="165.0" fill="#8C8C8C" font-size="10" xml:space="preserve">▸</text>
-<text class="ui" x="260" y="165.0" fill="#C0C0C0" xml:space="preserve">Public dependencies</text>
-<text class="ui" x="548" y="165.0" fill="#8C8C8C" font-size="11.5" text-anchor="end" xml:space="preserve">5</text>
-<text class="ui" x="246" y="183.5" fill="#8C8C8C" font-size="10" xml:space="preserve">▸</text>
-<text class="ui" x="260" y="183.5" fill="#C0C0C0" xml:space="preserve">Classes</text>
-<text class="ui" x="548" y="183.5" fill="#8C8C8C" font-size="11.5" text-anchor="end" xml:space="preserve">48</text>
-<text class="ui" x="246" y="202.0" fill="#8C8C8C" font-size="10" xml:space="preserve">▸</text>
-<text class="ui" x="260" y="202.0" fill="#C0C0C0" xml:space="preserve">Structs</text>
-<text class="ui" x="548" y="202.0" fill="#8C8C8C" font-size="11.5" text-anchor="end" xml:space="preserve">12</text>
-<text class="ui" x="230" y="220.5" fill="#8C8C8C" font-size="10" xml:space="preserve">▸</text>
-<text class="ui" x="244" y="220.5" fill="#C0C0C0" xml:space="preserve">MyGameEditor</text>
-<text class="ui" x="548" y="220.5" fill="#8C8C8C" font-size="11.5" text-anchor="end" xml:space="preserve">Editor</text>
-<text class="ui" x="214" y="239.0" fill="#8C8C8C" font-size="10" xml:space="preserve">▸</text>
-<text class="ui" x="228" y="239.0" fill="#C0C0C0" xml:space="preserve">Plugins</text>
-<text class="ui" x="548" y="239.0" fill="#8C8C8C" font-size="11.5" text-anchor="end" xml:space="preserve">4</text>
-<text class="ui" x="214" y="257.5" fill="#8C8C8C" font-size="10" xml:space="preserve">▾</text>
-<text class="ui" x="228" y="257.5" fill="#C0C0C0" xml:space="preserve">Blueprints by C++ parent</text>
-<text class="ui" x="230" y="276.0" fill="#8C8C8C" font-size="10" xml:space="preserve">▾</text>
-<text class="ui" x="244" y="276.0" fill="#C0C0C0" xml:space="preserve">AMyCharacter</text>
-<text class="ui" x="548" y="276.0" fill="#8C8C8C" font-size="11.5" text-anchor="end" xml:space="preserve">12</text>
-<rect x="202" y="281.5" width="356" height="18" rx="0" fill="#0070E0"/>
-<text class="ui" x="246" y="294.5" fill="#8C8C8C" font-size="10" xml:space="preserve"></text>
-<text class="ui" x="260" y="294.5" fill="#FFFFFF" xml:space="preserve">BP_Hero</text>
-<text class="ui" x="246" y="313.0" fill="#8C8C8C" font-size="10" xml:space="preserve"></text>
-<text class="ui" x="260" y="313.0" fill="#C0C0C0" xml:space="preserve">BP_HeroAI</text>
-<text class="ui" x="214" y="331.5" fill="#8C8C8C" font-size="10" xml:space="preserve">▸</text>
-<text class="ui" x="228" y="331.5" fill="#C0C0C0" xml:space="preserve">Config</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 390" width="760" height="390" role="img" aria-label="Unreal Explorer: modules, plugins, Blueprints by C++ parent and config files">
+<style>.ui{font-family:'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;font-size:12px}.code{font-family:'Cascadia Mono', Consolas, Menlo, 'DejaVu Sans Mono', monospace;font-size:13px}</style>
+<rect width="760" height="390" rx="10" fill="#151515"/>
+<rect x="200" y="20" width="360" height="350" rx="4" fill="#242424" stroke="#9184EE" stroke-width="1"/><path d="M201,45 v-20 a4,4 0 0 1 4,-4 h350 a4,4 0 0 1 4,4 v20 z" fill="#282828"/><text class="ui" x="210" y="37" fill="#E8E8E8" xml:space="preserve">Unreal Explorer</text><line x1="542" y1="29" x2="550" y2="37" stroke="#C8C8C8" stroke-width="1.2"/><line x1="550" y1="29" x2="542" y2="37" stroke="#C8C8C8" stroke-width="1.2"/><path d="M523,28 h5 v5 l2,2 h-9 l2,-2 z" fill="#C8C8C8"/><line x1="525.5" y1="35" x2="525.5" y2="39" stroke="#C8C8C8" stroke-width="1.2"/><path d="M502,31 l4,4 l4,-4" fill="none" stroke="#C8C8C8" stroke-width="1.2"/>
+<path d="M221,57 a5.5,5.5 0 1 0 2,4" fill="none" stroke="#C8C8C8" stroke-width="1.4"/><path d="M219,54 l4,3 l-4,2 z" fill="#C8C8C8"/><text class="ui" x="230" y="66" fill="#C0C0C0" xml:space="preserve">Refresh</text>
+<circle cx="292" cy="57" r="4.5" fill="#57D35A"/><line x1="289.5" y1="57" x2="294.5" y2="57" stroke="#1A1A1A" stroke-width="1.4"/><line x1="292" y1="54.5" x2="292" y2="59.5" stroke="#1A1A1A" stroke-width="1.4"/><path d="M294,60 l3.5,-3.5 l3.5,3.5 l-3.5,3.5 z" fill="none" stroke="#E8C46A" stroke-width="1.2"/><rect x="301" y="61" width="3.5" height="3" rx="0" fill="none" stroke="#E8C46A" stroke-width="1"/><rect x="301" y="65" width="3.5" height="3" rx="0" fill="none" stroke="#E8C46A" stroke-width="1"/><text class="ui" x="310" y="66" fill="#C0C0C0" xml:space="preserve">New class</text>
+<path d="M380,55 l10,6 l-10,6 z" fill="#57D35A"/><text class="ui" x="396" y="66" fill="#C0C0C0" xml:space="preserve">Open in Unreal Editor</text>
+<rect x="206" y="76" width="348" height="26" rx="4" fill="#0F0F0F" stroke="#383838" stroke-width="1"/>
+<circle cx="221" cy="87.5" r="4" fill="none" stroke="#8C8C8C" stroke-width="1.2"/><line x1="218" y1="90.5" x2="214.5" y2="94" stroke="#8C8C8C" stroke-width="1.2"/><text class="ui" x="232" y="93.5" fill="#8C8C8C" xml:space="preserve">Search reflected types and members</text>
+<text class="ui" x="208" y="120" fill="#8C8C8C" font-size="11.5" xml:space="preserve">MyGame: 41 reflected types, 556 assets</text>
+<rect x="201" y="128" width="358" height="241" rx="0" fill="#1A1A1A"/>
+<path d="M210,137 l7,0 l-3.5,4.5 z" fill="#D0D0D0"/>
+<rect x="222" y="134" width="12" height="11" rx="2" fill="none" stroke="#E8E8E8" stroke-width="1.2"/><line x1="222" y1="137" x2="234" y2="137" stroke="#E8E8E8" stroke-width="1.2"/>
+<text class="ui" x="240" y="145" fill="#C0C0C0" xml:space="preserve">MyGame</text><text class="ui" x="293.0" y="145" fill="#8C8C8C" xml:space="preserve">UE 5.8</text>
+<path d="M224,155 l7,0 l-3.5,4.5 z" fill="#D0D0D0"/>
+<rect x="236" y="152" width="5" height="5" rx="0" fill="none" stroke="#A77BEB" stroke-width="1.2"/><rect x="243" y="152" width="5" height="5" rx="0" fill="none" stroke="#A77BEB" stroke-width="1.2"/><line x1="236" y1="161" x2="248" y2="161" stroke="#A77BEB" stroke-width="1.4"/>
+<text class="ui" x="254" y="163" fill="#C0C0C0" xml:space="preserve">Modules</text><text class="ui" x="306.0" y="163" fill="#8C8C8C" xml:space="preserve">2</text>
+<path d="M239.5,171 l4.5,3.5 l-4.5,3.5 z" fill="#D0D0D0"/>
+<rect x="250" y="170" width="5" height="5" rx="0" fill="none" stroke="#A77BEB" stroke-width="1.2"/><rect x="257" y="170" width="5" height="5" rx="0" fill="none" stroke="#A77BEB" stroke-width="1.2"/><line x1="250" y1="179" x2="262" y2="179" stroke="#A77BEB" stroke-width="1.4"/>
+<text class="ui" x="268" y="181" fill="#C0C0C0" xml:space="preserve">MyGame</text><text class="ui" x="321.0" y="181" fill="#8C8C8C" xml:space="preserve">Runtime</text>
+<path d="M239.5,189 l4.5,3.5 l-4.5,3.5 z" fill="#D0D0D0"/>
+<rect x="250" y="188" width="5" height="5" rx="0" fill="none" stroke="#A77BEB" stroke-width="1.2"/><rect x="257" y="188" width="5" height="5" rx="0" fill="none" stroke="#A77BEB" stroke-width="1.2"/><line x1="250" y1="197" x2="262" y2="197" stroke="#A77BEB" stroke-width="1.4"/>
+<text class="ui" x="268" y="199" fill="#C0C0C0" xml:space="preserve">MyGameEditor</text><text class="ui" x="352.0" y="199" fill="#8C8C8C" xml:space="preserve">Editor</text>
+<path d="M225.5,207 l4.5,3.5 l-4.5,3.5 z" fill="#D0D0D0"/>
+<rect x="237" y="208" width="10" height="8" rx="1" fill="none" stroke="#6FB3D2" stroke-width="1.2"/><line x1="240" y1="205" x2="240" y2="208" stroke="#6FB3D2" stroke-width="1.2"/><line x1="244" y1="205" x2="244" y2="208" stroke="#6FB3D2" stroke-width="1.2"/>
+<text class="ui" x="254" y="217" fill="#C0C0C0" xml:space="preserve">Plugins</text><text class="ui" x="299.0" y="217" fill="#8C8C8C" xml:space="preserve">4</text>
+<path d="M224,227 l7,0 l-3.5,4.5 z" fill="#D0D0D0"/>
+<circle cx="240" cy="231.5" r="3.5" fill="none" stroke="#E8E8E8" stroke-width="1.1"/><rect x="242" y="223" width="4" height="3" rx="0" fill="none" stroke="#E8E8E8" stroke-width="1"/><rect x="245" y="228" width="4" height="3" rx="0" fill="none" stroke="#E8E8E8" stroke-width="1"/>
+<text class="ui" x="254" y="235" fill="#C0C0C0" xml:space="preserve">Blueprints by C++ parent</text><text class="ui" x="392.0" y="235" fill="#8C8C8C" xml:space="preserve">45 Blueprints</text>
+<rect x="201" y="240" width="358" height="18" rx="0" fill="#2F2F2F"/>
+<path d="M238,245 l7,0 l-3.5,4.5 z" fill="#D0D0D0"/>
+<path d="M250,246 l3.5,-3.5 l3.5,3.5 l-3.5,3.5 z" fill="none" stroke="#E8C46A" stroke-width="1.2"/><rect x="257" y="247" width="3.5" height="3" rx="0" fill="none" stroke="#E8C46A" stroke-width="1"/><rect x="257" y="251" width="3.5" height="3" rx="0" fill="none" stroke="#E8C46A" stroke-width="1"/>
+<text class="ui" x="268" y="253" fill="#C0C0C0" xml:space="preserve">AMyCharacter</text><text class="ui" x="349.0" y="253" fill="#8C8C8C" xml:space="preserve">4</text>
+<path d="M265,259 h6 l3,3 v9 h-9 z" fill="none" stroke="#E8C46A" stroke-width="1.2"/><path d="M267,266 h3 v3" fill="none" stroke="#E8C46A" stroke-width="1.1"/>
+<text class="ui" x="282" y="271" fill="#C0C0C0" xml:space="preserve">BP_Hero</text><text class="ui" x="333.0" y="271" fill="#8C8C8C" xml:space="preserve">Blueprint</text>
+<path d="M265,277 h6 l3,3 v9 h-9 z" fill="none" stroke="#E8C46A" stroke-width="1.2"/><path d="M267,284 h3 v3" fill="none" stroke="#E8C46A" stroke-width="1.1"/>
+<text class="ui" x="282" y="289" fill="#C0C0C0" xml:space="preserve">BP_HeroAI</text><text class="ui" x="344.0" y="289" fill="#8C8C8C" xml:space="preserve">Blueprint</text>
+<path d="M265,295 h6 l3,3 v9 h-9 z" fill="none" stroke="#E8C46A" stroke-width="1.2"/><path d="M267,302 h3 v3" fill="none" stroke="#E8C46A" stroke-width="1.1"/>
+<text class="ui" x="282" y="307" fill="#C0C0C0" xml:space="preserve">BP_HeroTank</text><text class="ui" x="357.984375" y="307" fill="#8C8C8C" xml:space="preserve">Blueprint</text>
+<path d="M239.5,315 l4.5,3.5 l-4.5,3.5 z" fill="#D0D0D0"/>
+<path d="M250,318 l3.5,-3.5 l3.5,3.5 l-3.5,3.5 z" fill="none" stroke="#E8C46A" stroke-width="1.2"/><rect x="257" y="319" width="3.5" height="3" rx="0" fill="none" stroke="#E8C46A" stroke-width="1"/><rect x="257" y="323" width="3.5" height="3" rx="0" fill="none" stroke="#E8C46A" stroke-width="1"/>
+<text class="ui" x="268" y="325" fill="#C0C0C0" xml:space="preserve">AMyGameMode</text><text class="ui" x="360.0" y="325" fill="#8C8C8C" xml:space="preserve">1</text>
+<path d="M239.5,333 l4.5,3.5 l-4.5,3.5 z" fill="#D0D0D0"/>
+<path d="M250,336 l3.5,-3.5 l3.5,3.5 l-3.5,3.5 z" fill="none" stroke="#E8C46A" stroke-width="1.2"/><rect x="257" y="337" width="3.5" height="3" rx="0" fill="none" stroke="#E8C46A" stroke-width="1"/><rect x="257" y="341" width="3.5" height="3" rx="0" fill="none" stroke="#E8C46A" stroke-width="1"/>
+<text class="ui" x="268" y="343" fill="#C0C0C0" xml:space="preserve">AMyWeapon</text><text class="ui" x="343.0" y="343" fill="#8C8C8C" xml:space="preserve">3</text>
+<path d="M225.5,351 l4.5,3.5 l-4.5,3.5 z" fill="#D0D0D0"/>
+<circle cx="242" cy="355.5" r="4.5" fill="none" stroke="#E8E8E8" stroke-width="1.2"/><circle cx="242" cy="355.5" r="1.5" fill="#E8E8E8"/>
+<text class="ui" x="254" y="361" fill="#C0C0C0" xml:space="preserve">Config</text><text class="ui" x="295.0" y="361" fill="#8C8C8C" xml:space="preserve"></text>
 </svg>
