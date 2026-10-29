@@ -489,6 +489,12 @@
           <kbd>Ctrl</kbd>+<kbd>Space</kbd> opens the list anywhere. In <code>.Build.cs</code>/<code>.Target.cs</code> files
           it completes module names.
         </p>
+        <p>
+          The list keeps names that start with, contain or camel-hump what you typed (<code>TTC</code> →
+          <code>TimerToComplete</code>). Turn on <b>Code completion › Fuzzy completion</b> to also keep names typed with typos
+          (<code>Tomertu</code> → <code>TimerToComplete</code>). In a header, <code>UP</code> selects <code>UPROPERTY</code>
+          first.
+        </p>
         <figure>
           <img src="guide-img/name-completion.svg?v=b62b2689" width="760" height="330" loading="lazy"
                alt="Typing UGameplaySt lists engine classes, a local and a parameter; picking the class adds its #include at the top">
@@ -602,7 +608,8 @@
           <kbd>Ctrl</kbd>+click, <kbd>F12</kbd> or <kbd>Alt</kbd>+<kbd>G</kbd> (or the modifier chosen in Text Editor ›
           General › <em>Enable mouse click to perform Go to Definition</em>): from a call to its implementation, from the
           implementation to the declaration and back, from a variable or type to its declaration. On a BlueprintNativeEvent
-          or RPC it goes to <code>_Implementation</code>/<code>_Validate</code> and back. Works on unsaved code; where
+          or RPC it goes to <code>_Implementation</code>/<code>_Validate</code> and back; on a macro (<code>UE_LOG</code>,
+          your own) it opens its <code>#define</code>. Works on unsaved code; where
           UnrealSense knows nothing, Visual Studio's own runs.
         </p>
         <figure>
@@ -964,6 +971,7 @@
       <tr><td>Include engine symbols and files</td><td>Off, Go to Symbol/File search only the project.</td></tr>
       <tr><td>Show UHT-generated references</td><td>Off by default; on, Find Usages also lists <code>.gen.cpp</code>/<code>.generated.h</code>.</td></tr>
       <tr><td>Don't wait for Visual Studio's C++ list</td><td>On by default, so the completion list opens without waiting for IntelliSense.</td></tr>
+      <tr><td>Fuzzy completion</td><td>Off by default; on, the completion list also keeps names typed with typos.</td></tr>
       <tr><td>Use the own C++ index, Index the whole engine</td><td>On by default. The index runs as <code>usindex</code> in Task Manager (about 0.3 GB for a Lyra-sized project, about 3.5 GB with the whole engine); turning the index off also turns off completion and Find Usages.</td></tr>
     </table>
   </div>

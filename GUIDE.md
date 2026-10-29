@@ -138,6 +138,10 @@ removes both. In a header, a small list asks first: **#include** (Enter) or **fo
 nothing. An `#include` that would be an absolute path is only added if you confirm it. To never add one, turn off **Code completion › Add missing
 #include**. **Ctrl+Space** opens the list anywhere. In `.Build.cs`/`.Target.cs` files it completes module names.
 
+The list keeps names that start with, contain or camel-hump what you typed (`TTC` → `TimerToComplete`). Turn on **Code
+completion › Fuzzy completion** to also keep names typed with typos (`Tomertu` → `TimerToComplete`). In a header, `UP`
+selects `UPROPERTY` first.
+
 ![Name completion and the #include added automatically](guide-img/name-completion.svg?v=b62b2689)
 
 ### Log and on-screen message templates
@@ -205,8 +209,8 @@ Options › Environment › Fonts and Colors, entries `UnrealSense - …`.
 
 **Ctrl+click**, **F12** or **Alt+G** (or the modifier chosen in Text Editor › General › *Enable mouse click to perform
 Go to Definition*): from a call to its implementation, from the implementation to the declaration and back, from a
-variable or type to its declaration. On a BlueprintNativeEvent or RPC it goes to `_Implementation`/`_Validate` and back.
-Works on unsaved code; where UnrealSense knows nothing, Visual Studio's own runs.
+variable or type to its declaration. On a BlueprintNativeEvent or RPC it goes to `_Implementation`/`_Validate` and back;
+on a macro (`UE_LOG`, your own) it opens its `#define`. Works on unsaved code; where UnrealSense knows nothing, Visual Studio's own runs.
 
 ![Ctrl+click on a call opens its implementation](guide-img/go-to-definition.svg?v=f634b4ac)
 
@@ -377,6 +381,7 @@ there. The ones you may want to change:
 - **Show UHT-generated references**: off by default; on, Find Usages also lists `.gen.cpp`/`.generated.h`.
 - **Don't wait for Visual Studio's C++ list**: on by default, so the completion list opens without waiting for
   IntelliSense.
+- **Fuzzy completion**: off by default; on, the completion list also keeps names typed with typos.
 - **Use the own C++ index** and **Index the whole engine**: on by default. The index runs as `usindex` in Task Manager
   (about 0.3 GB for a Lyra-sized project, about 3.5 GB with the whole engine); turning the index off also turns off
   completion and Find Usages.

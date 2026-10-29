@@ -1,5 +1,21 @@
 # UnrealSense changelog
 
+## 1.1.6
+
+UnrealSense 1.1.6: all changes from 1.1.5 to 1.1.6.
+
+Code completion
+- New option Code completion > Fuzzy completion (off by default). On, UnrealSense's completion lists also keep names typed with typos: one typo from 4 typed characters, two from 6, three from 10 ("Tomertu" finds TimerToComplete). Best matches first: prefix, word start, part of the name, camel humps ("TTC"), then typos. Letters scattered inside words no longer count as a match (a macro such as PLATFORM_PROVIDES_HDR_PAPER_WHITE is not listed for "ProvaPri"). Off, Visual Studio's own filter is used as before. Globals still come from the index by prefix, so a typo in their first letters is not found.
+- Faster lists on big projects after editing a header: the log categories offered in UE_LOG( were rescanned in the whole index after every edit (about 400 ms on Lyra with the engine), holding up the next completion; now only the edited files are rescanned. The code templates are prepared alongside the names, and the "slow list" log line says how much of the wait they took.
+- Deleting some letters of a name and typing again now reopens UnrealSense's list: another list opened on the deletion was kept and filtered instead.
+- In a header, UPROPERTY/UFUNCTION in a class body and UCLASS/USTRUCT/UENUM/UINTERFACE outside it come first ("UP" selects UPROPERTY). Macros have their own budget, so "U" alone no longer leaves out UPROPERTY/UFUNCTION/UCLASS.
+
+Navigation
+- Go to definition on a macro name (UE_LOG, UPROPERTY, a project's own) opens its #define, also an unsaved one in the same file.
+
+Own index
+- A new source file made the compile database out of date and the index waited about a minute for UnrealBuildTool; it now starts on the previous database and switches when UnrealBuildTool is done.
+
 ## 1.1.5
 
 UnrealSense 1.1.5: all changes from 1.1.4 to 1.1.5.
