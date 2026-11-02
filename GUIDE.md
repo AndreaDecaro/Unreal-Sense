@@ -10,6 +10,8 @@ specifier suggestions, Unreal-aware completion, navigation and warnings. It work
 | **Alt+Shift+Q** | Quick Menu: every command, filtered for where the caret is |
 | **Alt+Shift+B** | Find Blueprint Usages |
 | **Ctrl+click**, **F12**, **Alt+G** | Go to definition |
+| **Shift+F12** / **Ctrl+F12** | Find Usages / Go to declaration |
+| **Ctrl+Shift+Space** | Parameter Info |
 | **Alt+O** | Switch header / source |
 | **Alt+Shift+T** / **Ctrl+Shift+T** | Go to Symbol / Go to File |
 | **Alt+M** (or **Alt+Shift+M**) | Go to Symbol in File |
@@ -110,6 +112,15 @@ its documentation, or a reflected name for its Blueprint usages.
 
 ![Tool tips on a specifier and on a class](guide-img/quick-info.svg?v=a57e4bcc)
 
+Hovering a variable also shows its initial value (the C++ default of a `UPROPERTY`) and its `meta=(ToolTip)`.
+
+### Parameter Info and highlighted references
+
+Typing `(` or `,` in a call, or **Ctrl+Shift+Space**, shows the signatures with the parameter being typed in bold and
+its `@param` comment: every overload (Up/Down), constructors (`FVector(double InX, ...)`), macros (`UE_LOG`) and a
+delegate's `Execute`/`Broadcast`. With the caret on a name, every place in the file that names the same thing is
+highlighted (declarations, writes and reads each in its own colour).
+
 ### Member completion (`.` and `->`)
 
 After `.` or `->` the list shows the members of the class and its bases (engine included), on locals, parameters,
@@ -182,7 +193,8 @@ completes the descriptor fields, module types, loading phases, module and plugin
 
 Unreal mistakes are underlined before you compile (missing `.generated.h` or `GENERATED_BODY()`, wrong prefixes, missing
 `_Implementation`, UObject pointers without `UPROPERTY`...), plus certain C++ errors (`const` violations, unknown
-members, wrong argument count, inaccessible members) and warnings (`if (A = B)`, `UE_LOG` with the wrong number of
+members, wrong argument count, inaccessible members, names declared nowhere, unbalanced brackets, a class without its
+`;`, a type used without its `#include`) and warnings (`if (A = B)`, `UE_LOG` with the wrong number of
 `%`). The **light bulb** applies the fix.
 
 Also checked: an `#include` from a module your `.Build.cs` does not list (the fix adds it to the `.Build.cs`), an
@@ -194,6 +206,21 @@ signature or, with `AddDynamic`, without `UFUNCTION`, a replicated property miss
 
 IntelliSense's false errors on Unreal code (a file it could not configure, an outdated `.generated.h`) are hidden; real
 errors stay. Option: *IntelliSense errors in Unreal files*.
+
+Turn on **Inspections › Compile the file on save** to see the compiler's real errors (wrong conversions, no matching
+overload...) as squiggles right after saving, without building; the status bar shows the compile. The first save in a
+module can take up to a minute, the next ones a few seconds.
+
+### IntelliSense mode
+
+**Extensions › UnrealSense › IntelliSense Mode...** chooses who provides C++ IntelliSense (applies after a restart):
+
+- **Visual Studio's IntelliSense, UnrealSense alongside**: nothing of Visual Studio's is changed.
+- **Keep only Visual Studio's errors**: Visual Studio keeps its red squiggles and Error List; colours, highlighting,
+  Parameter Info and the completion list come from UnrealSense.
+- **Turn Visual Studio's IntelliSense off** (*experimental*): no Visual Studio C++ engine or database at all; everything
+  comes from UnrealSense, including the navigation bar above the file and **Peek Definition** (**Alt+F12**), and errors
+  come from the compile on save. While the index is still building, the list shows the names of the open files.
 
 ### Code colours
 
@@ -211,6 +238,7 @@ Options › Environment › Fonts and Colors, entries `UnrealSense - …`.
 Go to Definition*): from a call to its implementation, from the implementation to the declaration and back, from a
 variable or type to its declaration. On a BlueprintNativeEvent or RPC it goes to `_Implementation`/`_Validate` and back;
 on a macro (`UE_LOG`, your own) it opens its `#define`. Works on unsaved code; where UnrealSense knows nothing, Visual Studio's own runs.
+Visual Studio's own keys use UnrealSense too: **Shift+F12** opens Find Usages, **Ctrl+F12** goes to the declaration.
 
 ![Ctrl+click on a call opens its implementation](guide-img/go-to-definition.svg?v=f634b4ac)
 
@@ -382,6 +410,8 @@ there. The ones you may want to change:
 - **Don't wait for Visual Studio's C++ list**: on by default, so the completion list opens without waiting for
   IntelliSense.
 - **Fuzzy completion**: off by default; on, the completion list also keeps names typed with typos.
+- **Parameter Info**, **Quick Info**, **Highlight references at the caret**: on by default.
+- **Compile the file on save**: off by default (on with the IntelliSense mode *Turn Visual Studio's IntelliSense off*).
 - **Use the own C++ index** and **Index the whole engine**: on by default. The index runs as `usindex` in Task Manager
   (about 0.3 GB for a Lyra-sized project, about 3.5 GB with the whole engine); turning the index off also turns off
   completion and Find Usages.

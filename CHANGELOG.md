@@ -1,5 +1,36 @@
 # UnrealSense changelog
 
+## 1.1.14
+
+UnrealSense 1.1.14: all changes from 1.1.6 to 1.1.14 (1.1.7 to 1.1.13 were internal test builds).
+
+IntelliSense mode
+- New command Extensions > UnrealSense > IntelliSense Mode... chooses who provides C++ IntelliSense in every C++ solution of that Visual Studio (applies after a restart):
+  - Visual Studio's IntelliSense, UnrealSense alongside: Visual Studio's C++ options are left as they are.
+  - Keep only Visual Studio's errors: Visual Studio's IntelliSense keeps its red squiggles and the Error List; its colours, reference highlighting, Parameter Info and completion list are turned off and UnrealSense's are used.
+  - Turn Visual Studio's IntelliSense off (experimental): Visual Studio's C++ engine and database are turned off; completion, Quick Info, Parameter Info, colours, navigation, Ctrl+T, the navigation bar and Peek Definition (Alt+F12) come from UnrealSense, and the file is compiled on save to show the compiler's errors. Errors show only after saving, and some Visual Studio C++ features have no UnrealSense replacement yet.
+- Visual Studio's C/C++ options that UnrealSense changes are given back when the solution closes, when Visual Studio closes, or at the next start after a crash (option Project > Turn off what UnrealSense replaces).
+- While the index is still building with Visual Studio's IntelliSense off, the completion list shows the names of the open files and the keywords, and a "UnrealSense: C++ index" task shows in the status bar.
+
+Editing
+- Parameter Info (option Code completion > Parameter Info, on): typing "(" or "," in a call, or Ctrl+Shift+Space, shows the signatures from UnrealSense's index with the parameter being typed in bold and the comment above the declaration (@param text for each parameter): every overload (Up/Down), constructors spelled as called (FVector(double InX, double InY, double InZ)), function-like macros (UE_LOG) and a delegate's Execute/ExecuteIfBound/Broadcast with the parameters its DECLARE_*DELEGATE* names.
+- Reference highlighting (option Colorization > Highlight references at the caret, on): with the caret on a name, every place in the file naming the same thing gets a background, declarations, writes and other uses each in Visual Studio's own colours. A same-named local of another function is not lit.
+- Quick Info (option Code completion > Quick Info, on): hovering a variable adds its initial value (the C++ default of a UPROPERTY) and its meta=(ToolTip). With Visual Studio's IntelliSense off, the whole Quick Info comes from the index: the declaration, the comment above it, an enumerator's value, a macro's #define and a local's type (the deduced one for auto).
+- Navigation bar above C++ files once Visual Studio's database is off (it removes Visual Studio's): the module, the types of the file and the members of the selected one, following the caret.
+
+Errors and warnings
+- Compile on save (option Inspections > Compile the file on save, off by default; on with the mode "Turn Visual Studio's IntelliSense off"): each saved C++ file is compiled in the background with the command the project builds it with (checked only: no .obj, no conflict with a build or Live Coding); the compiler's errors and warnings become squiggles and Error List entries until the next save. A header is compiled through the .cpp of the same name. It uses the build's precompiled header when it still fits, else builds its own once per module (20-60 s), then a save takes a few seconds. The status bar shows the compile and its result.
+- New checks before you compile: a bracket without its partner, a class/struct/enum body without its ";" (fix "Add ';'"), a name declared nowhere, and a type used without an #include that reaches it (warning, fix "Add #include").
+- With IntelliSense errors in Unreal files = HideAll, Visual Studio's own C++ squiggles are turned off too.
+
+Navigation
+- Visual Studio's own keys use UnrealSense in the Unreal project's C++ files (option Find Usages > Visual Studio's navigation keys, on): Shift+F12 opens Find Usages, Ctrl+F12 goes to the declaration (the UFUNCTION of a Name_Implementation); with Visual Studio's IntelliSense off, Ctrl+T lists UnrealSense's symbols and F12/Peek work through UnrealSense.
+
+Fixes
+- Visual Studio could close while the index refreshed its console variables during a file change (an exception on a timer thread).
+- Completion lists at the start of a statement in a header no longer wait about a second for the code templates' log categories.
+- A line continuation in a CRLF file ("\" at the end of a line) no longer ends a #define or a string early in the colours and checks.
+
 ## 1.1.6
 
 UnrealSense 1.1.6: all changes from 1.1.5 to 1.1.6.

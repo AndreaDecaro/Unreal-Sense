@@ -211,12 +211,14 @@
     <li class="sub"><a href="#search-blueprints">Search text in Blueprints</a></li>
     <li><a href="#code">Writing code</a></li>
     <li class="sub"><a href="#specifiers">Specifiers and hover info</a></li>
+    <li class="sub"><a href="#parameter-info">Parameter Info and highlighted references</a></li>
     <li class="sub"><a href="#member-completion">Member completion</a></li>
     <li class="sub"><a href="#name-completion">Name completion</a></li>
     <li class="sub"><a href="#log-templates">Log templates</a></li>
     <li class="sub"><a href="#loop-templates">Loop and switch templates</a></li>
     <li class="sub"><a href="#config-files">.ini and descriptor files</a></li>
     <li class="sub"><a href="#warnings">Warnings and quick fixes</a></li>
+    <li class="sub"><a href="#intellisense-mode">IntelliSense mode</a></li>
     <li class="sub"><a href="#colours">Code colours</a></li>
     <li><a href="#navigation">Navigation</a></li>
     <li class="sub"><a href="#go-to-definition">Go to definition</a></li>
@@ -261,6 +263,8 @@
       <tr><td><kbd>Alt</kbd>+<kbd>Shift</kbd>+<kbd>Q</kbd></td><td>Quick Menu: every command, filtered for where the caret is</td></tr>
       <tr><td><kbd>Alt</kbd>+<kbd>Shift</kbd>+<kbd>B</kbd></td><td>Find Blueprint Usages</td></tr>
       <tr><td><kbd>Ctrl</kbd>+click, <kbd>F12</kbd>, <kbd>Alt</kbd>+<kbd>G</kbd></td><td>Go to definition</td></tr>
+      <tr><td><kbd>Shift</kbd>+<kbd>F12</kbd> / <kbd>Ctrl</kbd>+<kbd>F12</kbd></td><td>Find Usages / Go to declaration</td></tr>
+      <tr><td><kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>Space</kbd></td><td>Parameter Info</td></tr>
       <tr><td><kbd>Alt</kbd>+<kbd>O</kbd></td><td>Switch header / source</td></tr>
       <tr><td><kbd>Alt</kbd>+<kbd>Shift</kbd>+<kbd>T</kbd> / <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>T</kbd></td><td>Go to Symbol / Go to File</td></tr>
       <tr><td><kbd>Alt</kbd>+<kbd>M</kbd> (or <kbd>Alt</kbd>+<kbd>Shift</kbd>+<kbd>M</kbd>)</td><td>Go to Symbol in File</td></tr>
@@ -432,6 +436,26 @@
           <img src="guide-img/quick-info.svg?v=a57e4bcc" width="760" height="280" loading="lazy"
                alt="Two tool tips: the meaning of BlueprintReadWrite, and the Blueprints that derive from or reference a class">
         </figure>
+        <p>
+          Hovering a variable also shows its initial value (the C++ default of a <code>UPROPERTY</code>) and its
+          <code>meta=(ToolTip)</code>.
+        </p>
+      </div>
+    </div>
+
+    <div class="card feature">
+      <div class="icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m16 18 6-6-6-6"/><path d="m8 6-6 6 6 6"/></svg>
+      </div>
+      <div>
+        <h3 id="parameter-info">Parameter Info and highlighted references</h3>
+        <p>
+          Typing <code>(</code> or <code>,</code> in a call, or <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>Space</kbd>, shows the
+          signatures with the parameter being typed in bold and its <code>@param</code> comment: every overload (Up/Down),
+          constructors (<code>FVector(double InX, ...)</code>), macros (<code>UE_LOG</code>) and a delegate's
+          <code>Execute</code>/<code>Broadcast</code>. With the caret on a name, every place in the file that names the same
+          thing is highlighted (declarations, writes and reads each in its own colour).
+        </p>
       </div>
     </div>
 
@@ -552,7 +576,8 @@
           Unreal mistakes are underlined before you compile (missing <code>.generated.h</code> or
           <code>GENERATED_BODY()</code>, wrong prefixes, missing <code>_Implementation</code>, UObject pointers without
           <code>UPROPERTY</code>...), plus certain C++ errors (<code>const</code> violations, unknown members, wrong argument
-          count, inaccessible members) and warnings (<code>if (A = B)</code>, <code>UE_LOG</code> with the wrong number of
+          count, inaccessible members, names declared nowhere, unbalanced brackets, a class without its <code>;</code>, a type used
+          without its <code>#include</code>) and warnings (<code>if (A = B)</code>, <code>UE_LOG</code> with the wrong number of
           <code>%</code>). The <strong>light bulb</strong> applies the fix.
         </p>
         <p>
@@ -571,6 +596,33 @@
           IntelliSense's false errors on Unreal code (a file it could not configure, an outdated <code>.generated.h</code>)
           are hidden; real errors stay. Option: <em>IntelliSense errors in Unreal files</em>.
         </p>
+        <p>
+          Turn on <strong>Inspections › Compile the file on save</strong> to see the compiler's real errors (wrong
+          conversions, no matching overload...) as squiggles right after saving, without building; the status bar shows the
+          compile. The first save in a module can take up to a minute, the next ones a few seconds.
+        </p>
+      </div>
+    </div>
+
+    <div class="card feature">
+      <div class="icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m16 18 6-6-6-6"/><path d="m8 6-6 6 6 6"/></svg>
+      </div>
+      <div>
+        <h3 id="intellisense-mode">IntelliSense mode</h3>
+        <p>
+          <strong>Extensions › UnrealSense › IntelliSense Mode...</strong> chooses who provides C++ IntelliSense (applies
+          after a restart):
+        </p>
+        <ul>
+          <li><strong>Visual Studio's IntelliSense, UnrealSense alongside</strong>: nothing of Visual Studio's is changed.</li>
+          <li><strong>Keep only Visual Studio's errors</strong>: Visual Studio keeps its red squiggles and Error List; colours,
+            highlighting, Parameter Info and the completion list come from UnrealSense.</li>
+          <li><strong>Turn Visual Studio's IntelliSense off</strong> (<em>experimental</em>): no Visual Studio C++ engine or
+            database at all; everything comes from UnrealSense, including the navigation bar above the file and
+            <strong>Peek Definition</strong> (<kbd>Alt</kbd>+<kbd>F12</kbd>), and errors come from the compile on save.
+            While the index is still building, the list shows the names of the open files.</li>
+        </ul>
       </div>
     </div>
 
@@ -610,7 +662,8 @@
           implementation to the declaration and back, from a variable or type to its declaration. On a BlueprintNativeEvent
           or RPC it goes to <code>_Implementation</code>/<code>_Validate</code> and back; on a macro (<code>UE_LOG</code>,
           your own) it opens its <code>#define</code>. Works on unsaved code; where
-          UnrealSense knows nothing, Visual Studio's own runs.
+          UnrealSense knows nothing, Visual Studio's own runs. Visual Studio's own keys use UnrealSense too:
+          <kbd>Shift</kbd>+<kbd>F12</kbd> opens Find Usages, <kbd>Ctrl</kbd>+<kbd>F12</kbd> goes to the declaration.
         </p>
         <figure>
           <img src="guide-img/go-to-definition.svg?v=f634b4ac" width="760" height="250" loading="lazy"
@@ -972,6 +1025,8 @@
       <tr><td>Show UHT-generated references</td><td>Off by default; on, Find Usages also lists <code>.gen.cpp</code>/<code>.generated.h</code>.</td></tr>
       <tr><td>Don't wait for Visual Studio's C++ list</td><td>On by default, so the completion list opens without waiting for IntelliSense.</td></tr>
       <tr><td>Fuzzy completion</td><td>Off by default; on, the completion list also keeps names typed with typos.</td></tr>
+      <tr><td>Parameter Info, Quick Info, Highlight references at the caret</td><td>On by default.</td></tr>
+      <tr><td>Compile the file on save</td><td>Off by default (on with the IntelliSense mode <em>Turn Visual Studio's IntelliSense off</em>).</td></tr>
       <tr><td>Use the own C++ index, Index the whole engine</td><td>On by default. The index runs as <code>usindex</code> in Task Manager (about 0.3 GB for a Lyra-sized project, about 3.5 GB with the whole engine); turning the index off also turns off completion and Find Usages.</td></tr>
     </table>
   </div>
