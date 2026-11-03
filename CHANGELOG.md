@@ -1,5 +1,35 @@
 # UnrealSense changelog
 
+## 1.1.15
+
+UnrealSense 1.1.15: all changes from 1.1.14 to 1.1.15.
+
+Editing
+- Create a bound function before writing it: on a bind whose function the class does not have yet
+  (OnClicked.AddDynamic(this, &UMyWidget::HandleClicked), also AddUniqueDynamic/BindDynamic, AddUObject/BindUObject, AddRaw,
+  AddSP, FDelegate::CreateUObject, SetTimer, BindAction/BindAxis) the light bulb offers "Create 'HandleClicked' in UMyWidget":
+  it declares the function in a protected section of the class, with UFUNCTION() for dynamic delegates and the parameters of
+  the delegate's DECLARE_* macro, and writes its empty body in the .cpp. Timers get void(), axis bindings float Value,
+  Enhanced Input's BindAction const FInputActionValue& Value; when the signature cannot be read (payload arguments, for
+  example) it declares void Name() and says why in the log.
+- Rename symbol works on symbols declared outside the project (the engine, a plugin, a framework module in another folder):
+  instead of refusing, the dialog warns which files outside the project will change.
+
+Errors
+- Class::Name where the class has no member of that name and nothing in the project or the engine declares it is reported
+  (CPP0007).
+- Parameters that are pointers to member functions (bool (UMyClass::*IsCustom)() const) are read with their name: using one
+  inside a lambda that captures it is no longer reported as undeclared, and completion offers it.
+
+Colours
+- A local or parameter holding a lambda or a function pointer (auto Apply = [..](..) { }) is coloured as a function.
+- The names in a lambda's capture list ([Player, IsCustom]) take the colour of the variable they capture, and reference
+  highlighting and Rename include them.
+
+Fixes
+- Search boxes (Go To, Quick Menu, Unreal Explorer, filters of the dialogs): the placeholder no longer starts under the
+  caret, which blinked across its first letter.
+
 ## 1.1.14
 
 UnrealSense 1.1.14: all changes from 1.1.6 to 1.1.14 (1.1.7 to 1.1.13 were internal test builds).

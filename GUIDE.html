@@ -588,6 +588,12 @@
           <code>GetLifetimeReplicatedProps</code> (the fix adds its <code>DOREPLIFETIME</code>), and a log category nothing
           declares or defines.
         </p>
+        <p>
+          Bind a function before writing it (<code>OnClicked.AddDynamic(this, &amp;UMyWidget::HandleClicked)</code>,
+          <code>AddUObject</code>, <code>SetTimer</code>, <code>BindAction</code>...): the light bulb on its name offers
+          <strong>Create 'HandleClicked' in UMyWidget</strong>, which declares it in the class with the delegate's parameters
+          (and <code>UFUNCTION()</code> for <code>AddDynamic</code>) and adds its empty body to the <code>.cpp</code>.
+        </p>
         <figure>
           <img src="guide-img/warnings.svg?v=6519b628" width="760" height="270" loading="lazy"
                alt="A raw AActor pointer underlined, with its explanation and the light bulb fixes: add UPROPERTY with TObjectPtr, or use TWeakObjectPtr">
@@ -634,7 +640,8 @@
         <h3 id="colours">Code colours</h3>
         <p>
           UnrealSense colours the project's C++ by itself: UObject types apart from value types, enums, functions, fields,
-          locals, parameters, macros, reflection macros and their specifiers; members exposed to Blueprints in bold.
+          locals, parameters, macros, reflection macros and their specifiers; members exposed to Blueprints in bold; a
+          local holding a lambda (<code>auto Apply = [..](..) { }</code>) is coloured as a function.
           Colours: <span class="menu">Tools › Options › Environment › Fonts and Colors</span>, entries
           <code>UnrealSense - …</code>.
         </p>
@@ -932,7 +939,8 @@
           name, pick the options, then <b>Preview...</b> shows every change with a checkbox; <b>Apply</b> writes them.
           Overrides and <code>_Implementation</code>/<code>_Validate</code> are renamed too. For Blueprint-visible symbols,
           tick <b>Add a CoreRedirect</b> so saved assets keep working. Open files can be undone with <kbd>Ctrl</kbd>+<kbd>Z</kbd>;
-          read-only (Perforce) files are made writable and listed at the end for check-out.
+          read-only (Perforce) files are made writable and listed at the end for check-out. Symbols of the engine or of a
+          plugin can be renamed too: the dialog warns which files outside the project will change.
         </p>
       </div>
     </div>

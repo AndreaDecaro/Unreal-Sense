@@ -202,6 +202,10 @@ override of `BeginPlay`, `Tick`, `EndPlay`... that never calls `Super::`, a func
 signature or, with `AddDynamic`, without `UFUNCTION`, a replicated property missing from `GetLifetimeReplicatedProps`
 (the fix adds its `DOREPLIFETIME`), and a log category nothing declares or defines.
 
+Bind a function before writing it (`OnClicked.AddDynamic(this, &UMyWidget::HandleClicked)`, `AddUObject`, `SetTimer`,
+`BindAction`...): the light bulb on its name offers **Create 'HandleClicked' in UMyWidget**, which declares it in the class
+with the delegate's parameters (and `UFUNCTION()` for `AddDynamic`) and adds its empty body to the `.cpp`.
+
 ![A warning with its light bulb fixes](guide-img/warnings.svg?v=6519b628)
 
 IntelliSense's false errors on Unreal code (a file it could not configure, an outdated `.generated.h`) are hidden; real
@@ -225,7 +229,8 @@ module can take up to a minute, the next ones a few seconds.
 ### Code colours
 
 UnrealSense colours the project's C++ by itself: UObject types apart from value types, enums, functions, fields, locals,
-parameters, macros, reflection macros and their specifiers; members exposed to Blueprints in bold. Colours: Tools ›
+parameters, macros, reflection macros and their specifiers; members exposed to Blueprints in bold; a local holding a
+lambda (`auto Apply = [..](..) { }`) is coloured as a function. Colours: Tools ›
 Options › Environment › Fonts and Colors, entries `UnrealSense - …`.
 
 ![UnrealSense code colours with a legend](guide-img/code-colours.svg?v=6e21c77f)
@@ -361,6 +366,7 @@ Caret on a function, variable, local, class or struct, **Alt+Shift+R**: type the
 **Preview...** shows every change with a checkbox; **Apply** writes them. Overrides and `_Implementation`/`_Validate`
 are renamed too. For Blueprint-visible symbols, tick **Add a CoreRedirect** so saved assets keep working. Open files
 can be undone with **Ctrl+Z**; read-only (Perforce) files are made writable and listed at the end for check-out.
+Symbols of the engine or of a plugin can be renamed too: the dialog warns which files outside the project will change.
 
 ### Introduce a variable or extract a function
 
