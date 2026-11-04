@@ -19,6 +19,7 @@ specifier suggestions, Unreal-aware completion, navigation and warnings. It work
 | **Alt+Shift+D** | Create implementation |
 | **Alt+Shift+R** | Rename symbol |
 | **Alt+Shift+H** | Call hierarchy |
+| **Alt+Shift+E** | UnrealSense Problems window |
 | **Alt+click** | Class hierarchy (Shift+click: free; both set in Tools › Options › UnrealSense › General › Mouse clicks) |
 
 Everything else is in **Extensions › UnrealSense** and in the Quick Menu.
@@ -215,6 +216,21 @@ Turn on **Inspections › Compile the file on save** to see the compiler's real 
 overload...) as squiggles right after saving, without building; the status bar shows the compile. The first save in a
 module can take up to a minute, the next ones a few seconds.
 
+### Problems window
+
+**Alt+Shift+E** (or **Extensions › UnrealSense › UnrealSense Problems**) lists every error and warning, Errors and Warnings
+apart, by file:
+
+- **Build (Visual Studio)**: what your build (**F5**, **Build**) printed, read while it builds: only real errors, not
+  IntelliSense's.
+- **UnrealSense**: the warnings of open files, of files you closed since, and the compile on save. **Analyze Project**
+  checks every C++ file of the project.
+
+The list follows your edits: a file fixed outside Visual Studio or deleted updates by itself. **Double-click** opens the
+line. **Fix: ...** shows the change first (removed lines red, added green) and writes nothing until **Apply**: a missing
+`#include`, a module missing from the `.Build.cs` for a link error, and the fixes of the light bulb, which shows the same
+preview.
+
 ### IntelliSense mode
 
 **Extensions › UnrealSense › IntelliSense Mode...** chooses who provides C++ IntelliSense (applies after a restart):
@@ -339,7 +355,7 @@ root, the others attach to it), with their `#include`s. Run it again after addin
 
 Caret in a header › Quick Menu › **Declare Delegate...**: choose kind, name, return type and parameters with a live
 preview; **Create** writes the `DECLARE_..._DELEGATE` macro and the member, **Copy** puts it on the clipboard.
-*Usage example* shows how to bind and call it.
+*Usage example* shows how to bind and call it. Type names are completed as you type them.
 
 ![The Declare Delegate dialog](guide-img/declare-delegate.svg?v=0f8bdd2c)
 
@@ -367,6 +383,15 @@ Caret on a function, variable, local, class or struct, **Alt+Shift+R**: type the
 are renamed too. For Blueprint-visible symbols, tick **Add a CoreRedirect** so saved assets keep working. Open files
 can be undone with **Ctrl+Z**; read-only (Perforce) files are made writable and listed at the end for check-out.
 Symbols of the engine or of a plugin can be renamed too: the dialog warns which files outside the project will change.
+
+### Change a function's signature
+
+Caret on a function, right-click › **Change Signature...** (or the Quick Menu): change the return type, add, remove,
+rename or reorder the parameters (arrows), edit their types and default values (type names are completed as you type;
+**Ctrl+Space** shows the list). A new parameter takes the value the
+existing calls should pass. **Preview** lists every declaration, definition and call it changes, overrides and
+`_Implementation`/`_Validate` included; renamed parameters are renamed inside the function body too. Places it cannot
+change (a delegate binding such as `AddDynamic`, a removed parameter still used) are listed at the top.
 
 ### Introduce a variable or extract a function
 

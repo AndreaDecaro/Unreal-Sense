@@ -1,5 +1,36 @@
 # UnrealSense changelog
 
+## 1.1.17
+
+UnrealSense 1.1.17: all changes from 1.1.15 to 1.1.17 (1.1.16 was an internal test build).
+
+Problems window
+- New UnrealSense Problems window (Alt+Shift+E, Quick Menu, Extensions > UnrealSense and View > Other Windows): errors and
+  warnings apart, grouped by file. It keeps the inspections of open files (live), of files closed since, the compiler's
+  messages from compile on save and, in a Build category, the errors and warnings of Visual Studio's Build/Rebuild/F5 (MSVC,
+  UHT, linker), replaced at the next build.
+- Analyze Project inspects every C++ file of the project's modules and plugins. Problems of files that are not open follow
+  the disk: changed files are inspected again, deleted files and folders drop out.
+- Fix shows the changes as a diff before anything is written, and applies exactly what it showed (nothing is written when a
+  file changed since). Build errors get fixes where known: Add #include for an undeclared type, the missing Build.cs
+  dependency for LNK2019/LNK2001 on another module's class. The light bulb shows the same preview.
+- Double-click a problem to open its line.
+
+Refactoring
+- Change Signature... (editor context menu and Quick Menu, caret on a function): change the return type, add, remove,
+  rename or reorder the parameters, edit their types and default values, then preview every edit like Rename. All the
+  declarations and definitions change, overrides and _Implementation/_Validate included; a renamed parameter is renamed in
+  the function bodies; calls get their arguments reordered or dropped and a new parameter's value from the dialog. Places it
+  cannot change (AddDynamic bindings and other function references, a removed parameter still used, lists with #if inside)
+  are listed at the top of the preview. A UFUNCTION gets a reminder to refresh its Blueprint nodes. Constructors and variadic
+  functions are not supported yet.
+- Type names are completed as you type in the type boxes of Change Signature and Declare Delegate (Ctrl+Space opens the
+  list, Enter or Tab inserts).
+
+Fixes
+- Saving a file a second time while compile on save was still compiling it opened Save As (the compiler held the file):
+  the running compile is now stopped, the file is saved and compiled again.
+
 ## 1.1.15
 
 UnrealSense 1.1.15: all changes from 1.1.14 to 1.1.15.

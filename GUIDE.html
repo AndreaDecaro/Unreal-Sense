@@ -218,6 +218,7 @@
     <li class="sub"><a href="#loop-templates">Loop and switch templates</a></li>
     <li class="sub"><a href="#config-files">.ini and descriptor files</a></li>
     <li class="sub"><a href="#warnings">Warnings and quick fixes</a></li>
+    <li class="sub"><a href="#problems-window">Problems window</a></li>
     <li class="sub"><a href="#intellisense-mode">IntelliSense mode</a></li>
     <li class="sub"><a href="#colours">Code colours</a></li>
     <li><a href="#navigation">Navigation</a></li>
@@ -238,6 +239,7 @@
     <li class="sub"><a href="#include">#include and forward declaration</a></li>
     <li class="sub"><a href="#new-class">New Unreal class</a></li>
     <li class="sub"><a href="#rename">Rename a symbol</a></li>
+    <li class="sub"><a href="#change-signature">Change a function's signature</a></li>
     <li class="sub"><a href="#extract">Introduce a variable or extract a function</a></li>
     <li class="sub"><a href="#sort-members">Sort members</a></li>
     <li class="sub"><a href="#sort-includes">Sort #includes</a></li>
@@ -272,6 +274,7 @@
       <tr><td><kbd>Alt</kbd>+<kbd>Shift</kbd>+<kbd>D</kbd></td><td>Create implementation</td></tr>
       <tr><td><kbd>Alt</kbd>+<kbd>Shift</kbd>+<kbd>R</kbd></td><td>Rename symbol</td></tr>
       <tr><td><kbd>Alt</kbd>+<kbd>Shift</kbd>+<kbd>H</kbd></td><td>Call hierarchy</td></tr>
+      <tr><td><kbd>Alt</kbd>+<kbd>Shift</kbd>+<kbd>E</kbd></td><td>UnrealSense Problems window</td></tr>
       <tr><td><kbd>Alt</kbd>+click</td><td>Class hierarchy (<kbd>Shift</kbd>+click: free; both set in <span class="menu">Tools › Options › UnrealSense › General › Mouse clicks</span>)</td></tr>
     </table>
     <p class="note">Everything else is in <span class="menu">Extensions › UnrealSense</span> and in the Quick Menu.</p>
@@ -607,6 +610,23 @@
           conversions, no matching overload...) as squiggles right after saving, without building; the status bar shows the
           compile. The first save in a module can take up to a minute, the next ones a few seconds.
         </p>
+        <h3 id="problems-window">Problems window</h3>
+        <p>
+          <kbd>Alt</kbd>+<kbd>Shift</kbd>+<kbd>E</kbd> (or <span class="menu">Extensions › UnrealSense › UnrealSense
+          Problems</span>) lists every error and warning, Errors and Warnings apart, by file:
+        </p>
+        <ul>
+          <li><strong>Build (Visual Studio)</strong>: what your build (<kbd>F5</kbd>, <b>Build</b>) printed, read while it
+            builds: only real errors, not IntelliSense's.</li>
+          <li><strong>UnrealSense</strong>: the warnings of open files, of files you closed since, and the compile on save.
+            <b>Analyze Project</b> checks every C++ file of the project.</li>
+        </ul>
+        <p>
+          The list follows your edits: a file fixed outside Visual Studio or deleted updates by itself. <b>Double-click</b>
+          opens the line. <b>Fix: ...</b> shows the change first (removed lines red, added green) and writes nothing until
+          <b>Apply</b>: a missing <code>#include</code>, a module missing from the <code>.Build.cs</code> for a link error,
+          and the fixes of the light bulb, which shows the same preview.
+        </p>
       </div>
     </div>
 
@@ -881,7 +901,7 @@
           Caret in a header › Quick Menu › <span class="menu">Declare Delegate...</span>: choose kind, name, return type and
           parameters with a live preview; <span class="menu">Create</span> writes the <code>DECLARE_..._DELEGATE</code>
           macro and the member, <span class="menu">Copy</span> puts it on the clipboard. <em>Usage example</em> shows how to
-          bind and call it.
+          bind and call it. Type names are completed as you type them.
         </p>
         <figure>
           <img src="guide-img/declare-delegate.svg?v=0f8bdd2c" width="760" height="470" loading="lazy"
@@ -941,6 +961,16 @@
           tick <b>Add a CoreRedirect</b> so saved assets keep working. Open files can be undone with <kbd>Ctrl</kbd>+<kbd>Z</kbd>;
           read-only (Perforce) files are made writable and listed at the end for check-out. Symbols of the engine or of a
           plugin can be renamed too: the dialog warns which files outside the project will change.
+        </p>
+        <h3 id="change-signature">Change a function's signature</h3>
+        <p>
+          Caret on a function, right-click › <b>Change Signature...</b> (or the Quick Menu): change the return type, add,
+          remove, rename or reorder the parameters (arrows), edit their types and default values (type names are completed as
+          you type; <kbd>Ctrl</kbd>+<kbd>Space</kbd> shows the list). A new parameter takes the
+          value the existing calls should pass. <b>Preview</b> lists every declaration, definition and call it changes,
+          overrides and <code>_Implementation</code>/<code>_Validate</code> included; renamed parameters are renamed inside the
+          function body too. Places it cannot change (a delegate binding such as <code>AddDynamic</code>, a removed parameter
+          still used) are listed at the top.
         </p>
       </div>
     </div>
