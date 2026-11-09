@@ -224,6 +224,7 @@
     <li><a href="#navigation">Navigation</a></li>
     <li class="sub"><a href="#go-to-definition">Go to definition</a></li>
     <li class="sub"><a href="#go-to-symbol">Find a symbol or a file</a></li>
+    <li class="sub"><a href="#find-in-files">Find text in files</a></li>
     <li class="sub"><a href="#find-usages">Find Usages</a></li>
     <li class="sub"><a href="#includers">What an #include is used for</a></li>
     <li class="sub"><a href="#switch">Header and source</a></li>
@@ -517,6 +518,10 @@
           it completes module names.
         </p>
         <p>
+          Picking a function writes <code>Name()</code> with the caret inside and opens Parameter Info (option
+          <strong>Code completion › Add () when completing a function</strong>).
+        </p>
+        <p>
           The list keeps names that start with, contain or camel-hump what you typed (<code>TTC</code> →
           <code>TimerToComplete</code>). Turn on <b>Code completion › Fuzzy completion</b> to also keep names typed with typos
           (<code>Tomertu</code> → <code>TimerToComplete</code>). In a header, <code>UP</code> selects <code>UPROPERTY</code>
@@ -588,13 +593,15 @@
           the <code>.Build.cs</code>), an override of <code>BeginPlay</code>, <code>Tick</code>, <code>EndPlay</code>... that
           never calls <code>Super::</code>, a function bound to a delegate with the wrong signature or, with
           <code>AddDynamic</code>, without <code>UFUNCTION</code>, a replicated property missing from
-          <code>GetLifetimeReplicatedProps</code> (the fix adds its <code>DOREPLIFETIME</code>), and a log category nothing
-          declares or defines.
+          <code>GetLifetimeReplicatedProps</code> (the fix adds its <code>DOREPLIFETIME</code>), a log category nothing
+          declares or defines, and a type a <code>UPROPERTY</code> or <code>UFUNCTION</code> cannot use (an enum or struct
+          without <code>UENUM</code>/<code>USTRUCT</code>, <code>TSharedPtr</code>, <code>std::</code> types,
+          <code>uint32</code> exposed to Blueprints...; the fix adds the macro or switches to the supported type).
         </p>
         <p>
           Bind a function before writing it (<code>OnClicked.AddDynamic(this, &amp;UMyWidget::HandleClicked)</code>,
           <code>AddUObject</code>, <code>SetTimer</code>, <code>BindAction</code>...): the light bulb on its name offers
-          <strong>Create 'HandleClicked' in UMyWidget</strong>, which declares it in the class with the delegate's parameters
+          <strong>Create 'HandleClicked' in UMyWidget</strong> (<kbd>Alt</kbd>+<kbd>Shift</kbd>+<kbd>D</kbd> runs it directly), which declares it in the class with the delegate's parameters
           (and <code>UFUNCTION()</code> for <code>AddDynamic</code>) and adds its empty body to the <code>.cpp</code>.
         </p>
         <figure>
@@ -686,7 +693,7 @@
         <p>
           <kbd>Ctrl</kbd>+click, <kbd>F12</kbd> or <kbd>Alt</kbd>+<kbd>G</kbd> (or the modifier chosen in Text Editor ›
           General › <em>Enable mouse click to perform Go to Definition</em>): from a call to its implementation, from the
-          implementation to the declaration and back, from a variable or type to its declaration. On a BlueprintNativeEvent
+          implementation to the declaration and back, from a variable or type to its declaration, from an <code>#include</code> line to the header. On a BlueprintNativeEvent
           or RPC it goes to <code>_Implementation</code>/<code>_Validate</code> and back; on a macro (<code>UE_LOG</code>,
           your own) it opens its <code>#define</code>. Works on unsaved code; where
           UnrealSense knows nothing, Visual Studio's own runs. Visual Studio's own keys use UnrealSense too:
@@ -711,8 +718,9 @@
           <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>T</kbd> searches files (<code>File.cpp:120</code> opens at line 120).
           <kbd>Alt</kbd>+<kbd>M</kbd> searches the open file, locals included, grouped by kind (<em>Group</em>,
           <kbd>Ctrl</kbd>+<kbd>G</kbd>); the buttons under the search box show only functions, fields, locals...
-          (<kbd>Alt</kbd>+<kbd>1</kbd>…<kbd>9</kbd>, <kbd>Alt</kbd>+<kbd>0</kbd> for all). <kbd>Ctrl</kbd>+<kbd>1</kbd>…<kbd>4</kbd>
-          switch tab. Words separated by spaces are searched separately; <em>Fuzzy</em> (<kbd>Ctrl</kbd>+<kbd>F</kbd>) also
+          (<kbd>Alt</kbd>+<kbd>1</kbd>…<kbd>9</kbd>, <kbd>Alt</kbd>+<kbd>0</kbd> for all). <kbd>Ctrl</kbd>+<kbd>1</kbd>…<kbd>5</kbd>
+          switch tab; the <strong>Text</strong> tab (<kbd>Ctrl</kbd>+<kbd>5</kbd>) finds text in the project's and the
+          engine's files as you type. Words separated by spaces are searched separately; <em>Fuzzy</em> (<kbd>Ctrl</kbd>+<kbd>F</kbd>) also
           accepts scattered letters and typos. Go to Symbol also finds log categories and console variables by their
           console name (<code>r.shadow</code>).
         </p>
@@ -720,6 +728,14 @@
           <img src="guide-img/go-to-symbol.svg?v=a4778b8b" width="760" height="330" loading="lazy"
                alt="The Go to Symbol window: typing GAL finds GetActorLocation and other functions, with their class and header">
         </figure>
+        <h3 id="find-in-files">Find text in files</h3>
+        <p>
+          <strong>Extensions › UnrealSense › Find in Files...</strong> (or the Quick Menu) searches text in the project,
+          plugins and engine, the open documents or the current file, starting from the word at the caret: <em>Match
+          case</em>, <em>Whole word</em>, <em>Regex</em>, file types (<code>*.h;*.cpp;!*.generated.h</code>). Results appear
+          as they are found, grouped by file; double-click opens the line. To have <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>F</kbd>
+          open it, turn on the option <em>Ctrl+Shift+F opens UnrealSense's Find in Files</em>.
+        </p>
         <h3 id="find-usages">Find Usages</h3>
         <p>
           Right-click › <span class="menu">Find Usages</span> lists where a C++ class, function, variable or macro is used
@@ -860,7 +876,9 @@
           Caret on a declaration in the <code>.h</code>, <kbd>Alt</kbd>+<kbd>Shift</kbd>+<kbd>D</kbd> (or the light bulb):
           the body goes into the <code>.cpp</code> next to its neighbours. RPCs and BlueprintNativeEvents get
           <code>_Implementation</code> (and <code>_Validate</code> with <code>WithValidation</code>); overrides call
-          <code>Super::</code> when a parent implements it.
+          <code>Super::</code> when a parent implements it. In the <code>.cpp</code>, on a function bound with
+          <code>AddUObject</code>, <code>AddDynamic</code>, <code>SetTimer</code>... that does not exist yet,
+          <kbd>Alt</kbd>+<kbd>Shift</kbd>+<kbd>D</kbd> declares and defines it.
         </p>
         <figure>
           <img src="guide-img/create-implementation.svg?v=e0b6f77c" width="760" height="380" loading="lazy"
@@ -917,7 +935,7 @@
       <div>
         <h3 id="include">Add an #include or a forward declaration</h3>
         <p>
-          Caret on a name › Quick Menu › <span class="menu">Add #include</span> (the header written as Unreal does) or, in a
+          Caret on a name or a macro › Quick Menu › <span class="menu">Add #include</span> (the header written as Unreal does) or, in a
           header, <span class="menu">Add Forward Declaration</span> (<code>class UMyComponent;</code>).
         </p>
         <figure>

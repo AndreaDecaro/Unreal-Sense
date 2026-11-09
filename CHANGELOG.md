@@ -1,5 +1,43 @@
 # UnrealSense changelog
 
+## 1.1.19
+
+UnrealSense 1.1.19: all changes from 1.1.17 to 1.1.19 (1.1.18 was a pre-release built from a test branch; everything in it
+is included here).
+
+Find in Files
+- New Find in Files... window (Extensions > UnrealSense and the Quick Menu, prefilled with the selection or the word at the
+  caret): searches text in the files of the Unreal project (sources, plugins, config, framework modules outside Source/)
+  and the engine, the project only, the open documents (with their unsaved changes) or the current file. Match case, Whole
+  word, Regex (^ and $ per line) and file types (*.h;*.cpp;!*.generated.h). Results stream in grouped by file, with syntax
+  colours and every match marked; double-click or Enter opens the line.
+- Option "Ctrl+Shift+F opens UnrealSense's Find in Files" (Go to Symbol / File, off by default): Visual Studio's Find in
+  Files key and menu open UnrealSense's while an Unreal project is open; the window's button still opens Visual Studio's.
+- The Go to popup has a Text tab (Ctrl+5): text in the project's files, then the engine's, as you type; Shift+Enter hands
+  the search to the Find in Files window.
+
+Inspections
+- UE0019/UE0020: types UHT cannot expose in a UPROPERTY or in a UFUNCTION parameter or return type: a project enum, struct
+  or class without UENUM/USTRUCT/UCLASS (fix: adds the macro, also in another header), a non-dynamic delegate,
+  TSharedPtr/TWeakPtr/TUniquePtr/TFunction/TVariant/TMultiMap, std:: types, a pointer to a struct, enum, FString or number,
+  an interface pointer (fix: TScriptInterface<IX>), nested containers; on Blueprint-exposed members int8/int16/uint16/
+  uint32/uint64 (fix: int32/int64), and UENUM(BlueprintType) on an enum class not based on uint8 (fix: ": uint8").
+
+Code
+- Completion: choosing a function writes Name() with the caret inside and Parameter Info open (after the ")" when it takes
+  no arguments); a ")" typed right before the inserted one steps over it. Not added after "&", in definitions, in
+  reflection specifiers, before an existing "(" or for templates whose <T> must be written. Option Code completion > Add ()
+  when completing a function.
+- Create Implementation (Alt+Shift+D) on a bound function that does not exist yet (AddDynamic, AddUObject, SetTimer,
+  BindAction...) creates it in the class, like the light bulb's "Create 'X' in UMyClass".
+- Go to definition (Ctrl+click, F12) on an #include line opens the header, resolved like the compiler.
+- Add #include on a macro adds the header that #defines it.
+
+Fixes
+- Engine and engine plugin files changed on disk (a Perforce revert) were not picked up by the own index until Visual
+  Studio restarted.
+- The indexer recovers from an if/while/switch condition missing its ")" instead of misreading the rest of the function.
+
 ## 1.1.17
 
 UnrealSense 1.1.17: all changes from 1.1.15 to 1.1.17 (1.1.16 was an internal test build).

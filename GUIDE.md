@@ -150,6 +150,9 @@ removes both. In a header, a small list asks first: **#include** (Enter) or **fo
 nothing. An `#include` that would be an absolute path is only added if you confirm it. To never add one, turn off **Code completion › Add missing
 #include**. **Ctrl+Space** opens the list anywhere. In `.Build.cs`/`.Target.cs` files it completes module names.
 
+Picking a function writes `Name()` with the caret inside and opens Parameter Info (option **Code completion › Add () when
+completing a function**).
+
 The list keeps names that start with, contain or camel-hump what you typed (`TTC` → `TimerToComplete`). Turn on **Code
 completion › Fuzzy completion** to also keep names typed with typos (`Tomertu` → `TimerToComplete`). In a header, `UP`
 selects `UPROPERTY` first.
@@ -201,11 +204,14 @@ members, wrong argument count, inaccessible members, names declared nowhere, unb
 Also checked: an `#include` from a module your `.Build.cs` does not list (the fix adds it to the `.Build.cs`), an
 override of `BeginPlay`, `Tick`, `EndPlay`... that never calls `Super::`, a function bound to a delegate with the wrong
 signature or, with `AddDynamic`, without `UFUNCTION`, a replicated property missing from `GetLifetimeReplicatedProps`
-(the fix adds its `DOREPLIFETIME`), and a log category nothing declares or defines.
+(the fix adds its `DOREPLIFETIME`), a log category nothing declares or defines, and a type a `UPROPERTY` or `UFUNCTION`
+cannot use (an enum or struct without `UENUM`/`USTRUCT`, `TSharedPtr`, `std::` types, `uint32` exposed to Blueprints...;
+the fix adds the macro or switches to the supported type).
 
 Bind a function before writing it (`OnClicked.AddDynamic(this, &UMyWidget::HandleClicked)`, `AddUObject`, `SetTimer`,
-`BindAction`...): the light bulb on its name offers **Create 'HandleClicked' in UMyWidget**, which declares it in the class
-with the delegate's parameters (and `UFUNCTION()` for `AddDynamic`) and adds its empty body to the `.cpp`.
+`BindAction`...): the light bulb on its name offers **Create 'HandleClicked' in UMyWidget** (**Alt+Shift+D** runs it directly), which
+declares it in the class with the delegate's parameters (and `UFUNCTION()` for `AddDynamic`) and adds its empty body to the
+`.cpp`.
 
 ![A warning with its light bulb fixes](guide-img/warnings.svg?v=6519b628)
 
@@ -257,7 +263,7 @@ Options › Environment › Fonts and Colors, entries `UnrealSense - …`.
 
 **Ctrl+click**, **F12** or **Alt+G** (or the modifier chosen in Text Editor › General › *Enable mouse click to perform
 Go to Definition*): from a call to its implementation, from the implementation to the declaration and back, from a
-variable or type to its declaration. On a BlueprintNativeEvent or RPC it goes to `_Implementation`/`_Validate` and back;
+variable or type to its declaration, from an `#include` line to the header. On a BlueprintNativeEvent or RPC it goes to `_Implementation`/`_Validate` and back;
 on a macro (`UE_LOG`, your own) it opens its `#define`. Works on unsaved code; where UnrealSense knows nothing, Visual Studio's own runs.
 Visual Studio's own keys use UnrealSense too: **Shift+F12** opens Find Usages, **Ctrl+F12** goes to the declaration.
 
@@ -268,11 +274,19 @@ Visual Studio's own keys use UnrealSense too: **Shift+F12** opens Find Usages, *
 **Alt+Shift+T** searches classes, functions, variables, macros... of the project, plugins and engine; initials are
 enough (`GAL` → `GetActorLocation`). **Ctrl+Shift+T** searches files (`File.cpp:120` opens at line 120). **Alt+M**
 searches the open file, locals included, grouped by kind (*Group*, Ctrl+G); the buttons under the search box show only
-functions, fields, locals... (Alt+1…9, Alt+0 for all). **Ctrl+1…4** switch tab. Words separated by spaces are searched separately;
+functions, fields, locals... (Alt+1…9, Alt+0 for all). **Ctrl+1…5** switch tab; the **Text** tab (Ctrl+5) finds text
+in the project's and the engine's files as you type. Words separated by spaces are searched separately;
 *Fuzzy* (Ctrl+F) also accepts scattered letters and typos.
 Go to Symbol also finds log categories and console variables by their console name (`r.shadow`).
 
 ![The Go to Symbol window](guide-img/go-to-symbol.svg?v=a4778b8b)
+
+### Find text in files
+
+**Extensions › UnrealSense › Find in Files...** (or the Quick Menu) searches text in the project, plugins and engine, the
+open documents or the current file, starting from the word at the caret: *Match case*, *Whole word*, *Regex*, file types
+(`*.h;*.cpp;!*.generated.h`). Results appear as they are found, grouped by file; double-click opens the line. To have
+**Ctrl+Shift+F** open it, turn on the option *Ctrl+Shift+F opens UnrealSense's Find in Files*.
 
 ### Find Usages
 
@@ -336,7 +350,8 @@ Caret inside a class, **Alt+Shift+V** (or the light bulb on the class name): tic
 
 Caret on a declaration in the `.h`, **Alt+Shift+D** (or the light bulb): the body goes into the `.cpp` next to its
 neighbours. RPCs and BlueprintNativeEvents get `_Implementation` (and `_Validate` with `WithValidation`); overrides call
-`Super::` when a parent implements it.
+`Super::` when a parent implements it. In the `.cpp`, on a function bound with `AddUObject`, `AddDynamic`, `SetTimer`...
+that does not exist yet, **Alt+Shift+D** declares and defines it.
 
 ![Create Implementation on a Server RPC](guide-img/create-implementation.svg?v=e0b6f77c)
 
@@ -361,7 +376,7 @@ preview; **Create** writes the `DECLARE_..._DELEGATE` macro and the member, **Co
 
 ### Add an #include or a forward declaration
 
-Caret on a name › Quick Menu › **Add #include** (the header written as Unreal does) or, in a header,
+Caret on a name or a macro › Quick Menu › **Add #include** (the header written as Unreal does) or, in a header,
 **Add Forward Declaration** (`class UMyComponent;`).
 
 ![Add #include and Add Forward Declaration](guide-img/add-include.svg?v=23145c13)
