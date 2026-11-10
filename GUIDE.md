@@ -128,7 +128,7 @@ After `.` or `->` the list shows the members of the class and its bases (engine 
 `this`, call results and members. Inaccessible private/protected members have a padlock. On a raw pointer `.` becomes
 `->` by itself; on `TObjectPtr`, `TWeakObjectPtr`, `TSharedPtr`... the list shows both the wrapper's members (`Get`,
 `IsValid`) and the pointed object's, and picking one of the latter writes `->`. A member just added in a `.h` is listed
-in the `.cpp` before you save.
+in the `.cpp` before you save. In `for (auto& Pair : Map)` the list on `Pair.` offers `Key` and `Value`.
 
 ![Member completion on a TWeakObjectPtr](guide-img/member-completion.svg?v=0f8fc320)
 
@@ -245,8 +245,11 @@ preview.
 - **Keep only Visual Studio's errors**: Visual Studio keeps its red squiggles and Error List; colours, highlighting,
   Parameter Info and the completion list come from UnrealSense.
 - **Turn Visual Studio's IntelliSense off** (*experimental*): no Visual Studio C++ engine or database at all; everything
-  comes from UnrealSense, including the navigation bar above the file and **Peek Definition** (**Alt+F12**), and errors
-  come from the compile on save. While the index is still building, the list shows the names of the open files.
+  comes from UnrealSense, including the navigation bar above the file and **Peek Definition** (**Alt+F12**). Errors come
+  from the compile on save and, as you type, from UnrealSense's own checks: a definition its class does not declare, a
+  `return` that does not fit the function, a value that cannot be converted (`FString S = SomeName;`, a pointer to an
+  unrelated class), a name not declared where it is used. While the index is still building, the list shows the names
+  of the open files.
 
 ### Code colours
 

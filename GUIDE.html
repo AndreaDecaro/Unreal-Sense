@@ -476,6 +476,8 @@
           <code>TObjectPtr</code>, <code>TWeakObjectPtr</code>, <code>TSharedPtr</code>... the list shows both the wrapper's
           members (<code>Get</code>, <code>IsValid</code>) and the pointed object's, and picking one of the latter writes
           <code>-&gt;</code>. A member just added in a <code>.h</code> is listed in the <code>.cpp</code> before you save.
+          In <code>for (auto&amp; Pair : Map)</code> the list on <code>Pair.</code> offers <code>Key</code> and
+          <code>Value</code>.
         </p>
         <figure>
           <img src="guide-img/member-completion.svg?v=0f8fc320" width="760" height="280" loading="lazy"
@@ -653,8 +655,11 @@
             highlighting, Parameter Info and the completion list come from UnrealSense.</li>
           <li><strong>Turn Visual Studio's IntelliSense off</strong> (<em>experimental</em>): no Visual Studio C++ engine or
             database at all; everything comes from UnrealSense, including the navigation bar above the file and
-            <strong>Peek Definition</strong> (<kbd>Alt</kbd>+<kbd>F12</kbd>), and errors come from the compile on save.
-            While the index is still building, the list shows the names of the open files.</li>
+            <strong>Peek Definition</strong> (<kbd>Alt</kbd>+<kbd>F12</kbd>). Errors come from the compile on save and,
+            as you type, from UnrealSense's own checks: a definition its class does not declare, a <code>return</code>
+            that does not fit the function, a value that cannot be converted (<code>FString S = SomeName;</code>, a
+            pointer to an unrelated class), a name not declared where it is used. While the index is still building,
+            the list shows the names of the open files.</li>
         </ul>
       </div>
     </div>

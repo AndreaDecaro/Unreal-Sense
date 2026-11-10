@@ -1,5 +1,43 @@
 # UnrealSense changelog
 
+## 1.1.20
+
+UnrealSense 1.1.20: all changes from 1.1.19 to 1.1.20.
+
+Errors as you type (IntelliSense mode "Turn Visual Studio's IntelliSense off", experimental)
+- The checks below run only in that mode, where nothing else reports errors while typing; they are held back while a line
+  is being typed and shown once typing pauses.
+- CPP0010: an out-of-class definition (void AMyActor::Foo(int32 X) { }) that no declaration of the class matches (a name or
+  the number of parameters changed on one side only).
+- CPP0015: "return;" in a function that returns a value, or a value returned from a void function.
+- CPP0007 on misspelt types: the class of an out-of-class definition, return and parameter types of definitions, template
+  arguments of local declarations; after "Class::" a member the class declares nowhere.
+- CPP0007 on a name that exists only as a member of other classes ("Count = Health;" in a function of a class without a
+  Health member): before, any namesake anywhere in the project or the engine kept the name silent.
+- CPP0014 / CPP0012: a value that cannot be converted to the type it initialises, is assigned to, is returned as or is
+  passed for (arguments of member functions with one declaration): FString/FName/FText into each other or into numbers,
+  a pointer to a class that is not the same class or a base, const dropped from a pointer, a scoped enum and a number,
+  two different enums. Only between declared variables and calls of functions without overloads; templates, literals and
+  overloaded functions are left to the compiler (compile on save).
+
+Engine and plugin files
+- The checks that run in every mode (unknown members, argument counts, missing #includes, Super:: calls...) report far
+  fewer false errors on engine and plugin files, which matters with a source build of the engine.
+
+Code
+- Range-for over a TMap, TMultiMap...: "auto& Pair" is a pair whose Key and Value are completed and navigated.
+- Quick Info and completion tooltips colour the declaration with the editor's colours.
+- check/checkf/ensure/verify are coloured as macros at once, int32/uint8/TCHAR... as typedefs.
+- Add #include without a compile database spells a header of another module from its Public/Classes folder instead of a
+  relative path.
+
+Fixes
+- The own index gave up when another UnrealBuildTool was running (ConflictingInstance): it now retries every 15 s for up
+  to 30 minutes.
+- A member declared after UE_DEPRECATED_FORGAME(...) (and after any macro that is another name for a decorative macro)
+  was missing from the index.
+- A function whose body is a macro expanding to a block no longer hides the members declared after it.
+
 ## 1.1.19
 
 UnrealSense 1.1.19: all changes from 1.1.17 to 1.1.19 (1.1.18 was a pre-release built from a test branch; everything in it
