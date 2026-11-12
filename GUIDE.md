@@ -88,7 +88,7 @@ included) and in data assets. Hovering the property shows the first five values.
 ![The Blueprint Usages window](guide-img/blueprint-usages.svg?v=442f9225)
 
 **Opening assets in the Unreal Editor** uses its Python Remote Execution: the first time, UnrealSense offers to enable it
-in the project (restart the editor afterwards; files not checked out in Perforce are made writable and listed). Without
+in the project (restart the editor afterwards; files not checked out in Perforce are checked out by your source control extension, or made writable and listed). Without
 it, or with the editor closed, the file is shown in Explorer; **Extensions › UnrealSense › Open Blueprints in Unreal
 Editor...** asks again.
 
@@ -114,6 +114,9 @@ its documentation, or a reflected name for its Blueprint usages.
 ![Tool tips on a specifier and on a class](guide-img/quick-info.svg?v=a57e4bcc)
 
 Hovering a variable also shows its initial value (the C++ default of a `UPROPERTY`) and its `meta=(ToolTip)`.
+
+The tooltip of a completion item shows its comments too: the one above the declaration and, for enum values and
+variables, the one written beside them.
 
 ### Parameter Info and highlighted references
 
@@ -187,6 +190,18 @@ After a value the list also offers the loops that fit its type:
 
 In an existing `switch`, Quick Menu › **Generate Missing Cases** adds the values that have no `case` yet.
 
+### Constructor template
+
+In a class body, where you would declare a member, type `ctor` and pick one of the two entries:
+
+| Entry | You get |
+|---|---|
+| `ctor` constructor | `AMyActor();` |
+| `ctor` constructor (FObjectInitializer) | `AMyActor(const FObjectInitializer& ObjectInitializer);`, to replace or skip the parent's default subobjects |
+
+Only the constructors the class does not have yet are listed (the FObjectInitializer one in `UCLASS` classes only).
+**Alt+Shift+D** on the new line writes its body in the `.cpp`.
+
 ### .ini, .uproject and .uplugin files
 
 In `.ini` files the list completes `[/Script/Module.Class]` sections, the class's `Config` properties as keys, and their
@@ -211,7 +226,9 @@ the fix adds the macro or switches to the supported type).
 Bind a function before writing it (`OnClicked.AddDynamic(this, &UMyWidget::HandleClicked)`, `AddUObject`, `SetTimer`,
 `BindAction`...): the light bulb on its name offers **Create 'HandleClicked' in UMyWidget** (**Alt+Shift+D** runs it directly), which
 declares it in the class with the delegate's parameters (and `UFUNCTION()` for `AddDynamic`) and adds its empty body to the
-`.cpp`.
+`.cpp`. It works with your own bind helpers too (template wrappers included: the signature is taken from the function they
+pass it to) and on any `UMyWidget::Name` or `ThisClass::Name` of a function that does not exist. When the signature cannot be
+found, the function is created as `void Name()` and a warning reminds you to add its parameters.
 
 ![A warning with its light bulb fixes](guide-img/warnings.svg?v=6519b628)
 
@@ -275,11 +292,14 @@ Visual Studio's own keys use UnrealSense too: **Shift+F12** opens Find Usages, *
 ### Find a symbol or a file
 
 **Alt+Shift+T** searches classes, functions, variables, macros... of the project, plugins and engine; initials are
-enough (`GAL` → `GetActorLocation`). **Ctrl+Shift+T** searches files (`File.cpp:120` opens at line 120). **Alt+M**
+enough (`GAL` → `GetActorLocation`). **Ctrl+Shift+T** searches files (`File.cpp:120` opens at line 120): all
+matches in alphabetical order, the best one selected. **Alt+M**
 searches the open file, locals included, grouped by kind (*Group*, Ctrl+G); the buttons under the search box show only
-functions, fields, locals... (Alt+1…9, Alt+0 for all). **Ctrl+1…5** switch tab; the **Text** tab (Ctrl+5) finds text
-in the project's and the engine's files as you type. Words separated by spaces are searched separately;
-*Fuzzy* (Ctrl+F) also accepts scattered letters and typos.
+functions, fields, locals... (Alt+1…9, Alt+0 for all). **Ctrl+1…6** switch tab; the **Text** tab (Ctrl+5) finds text
+in the project's and the engine's files as you type; the **Config** tab (Ctrl+6) searches the text of the `.ini` files
+(project, plugins, engine): every word must be on the line, `max walk` finds `MaxWalkSpeed=600`. Words separated by
+spaces are searched separately; *Fuzzy* (Ctrl+F) also accepts scattered letters and typos. Scroll to the end of the list
+for more results.
 Go to Symbol also finds log categories and console variables by their console name (`r.shadow`).
 
 ![The Go to Symbol window](guide-img/go-to-symbol.svg?v=a4778b8b)
@@ -296,7 +316,8 @@ open documents or the current file, starting from the word at the caret: *Match 
 Right-click › **Find Usages** lists where a C++ class, function, variable or macro is used (project, plugins, engine),
 grouped by file, with the Blueprints at the bottom. *Declarations*, *Calls*, *Reads*, *Writes* filter the results; uses
 inside macros (`UE_LOG`, `AddDynamic`, `ReplicatedUsing`) are found too, and uses whose type is not certain are listed
-under **Uncertain**. Double-click opens the line.
+under **Uncertain**. The name's lines in the `.ini` files are listed apart, under **Config (.ini)** (a class also by its
+name without prefix, as config writes it: `/Script/MyGame.MyActor`). Double-click opens the line.
 
 ### What an #include is used for
 
@@ -399,7 +420,8 @@ files are only created and opened: nothing to regenerate.
 Caret on a function, variable, local, class or struct, **Alt+Shift+R**: type the new name, pick the options, then
 **Preview...** shows every change with a checkbox; **Apply** writes them. Overrides and `_Implementation`/`_Validate`
 are renamed too. For Blueprint-visible symbols, tick **Add a CoreRedirect** so saved assets keep working. Open files
-can be undone with **Ctrl+Z**; read-only (Perforce) files are made writable and listed at the end for check-out.
+can be undone with **Ctrl+Z**; read-only (Perforce) files are checked out by your source control extension (Perforce Auto-Checkout, P4VS) when one
+is active, otherwise made writable and listed at the end for check-out.
 Symbols of the engine or of a plugin can be renamed too: the dialog warns which files outside the project will change.
 
 ### Change a function's signature

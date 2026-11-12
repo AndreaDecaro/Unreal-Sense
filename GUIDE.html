@@ -216,6 +216,7 @@
     <li class="sub"><a href="#name-completion">Name completion</a></li>
     <li class="sub"><a href="#log-templates">Log templates</a></li>
     <li class="sub"><a href="#loop-templates">Loop and switch templates</a></li>
+    <li class="sub"><a href="#ctor-template">Constructor template</a></li>
     <li class="sub"><a href="#config-files">.ini and descriptor files</a></li>
     <li class="sub"><a href="#warnings">Warnings and quick fixes</a></li>
     <li class="sub"><a href="#problems-window">Problems window</a></li>
@@ -388,7 +389,7 @@
         </figure>
         <p class="note">
           Opening assets in the Unreal Editor uses its Python Remote Execution: the first time, UnrealSense offers to enable
-          it in the project (restart the editor afterwards; files not checked out in Perforce are made writable and listed).
+          it in the project (restart the editor afterwards; files not checked out in Perforce are checked out by your source control extension, or made writable and listed).
           Without it, or with the editor closed, the file is shown in Explorer;
           <span class="menu">Extensions › UnrealSense › Open Blueprints in Unreal Editor...</span> asks again.
         </p>
@@ -443,6 +444,10 @@
         <p>
           Hovering a variable also shows its initial value (the C++ default of a <code>UPROPERTY</code>) and its
           <code>meta=(ToolTip)</code>.
+        </p>
+        <p>
+          The tooltip of a completion item shows its comments too: the one above the declaration and, for enum values and
+          variables, the one written beside them.
         </p>
       </div>
     </div>
@@ -566,6 +571,17 @@
           <tr><td><code>State.switch</code></td><td><code>switch (State)</code> with a <code>case ...: break;</code> for every value of the enum</td></tr>
         </table>
         <p>In an existing <code>switch</code>, Quick Menu › <b>Generate Missing Cases</b> adds the values that have no <code>case</code> yet.</p>
+        <h3 id="ctor-template">Constructor template</h3>
+        <p>In a class body, where you would declare a member, type <code>ctor</code> and pick one of the two entries:</p>
+        <table>
+          <tr><th>Entry</th><th>You get</th></tr>
+          <tr><td><code>ctor</code> constructor</td><td><code>AMyActor();</code></td></tr>
+          <tr><td><code>ctor</code> constructor (FObjectInitializer)</td><td><code>AMyActor(const FObjectInitializer&amp; ObjectInitializer);</code>, to replace or skip the parent's default subobjects</td></tr>
+        </table>
+        <p>
+          Only the constructors the class does not have yet are listed (the FObjectInitializer one in <code>UCLASS</code>
+          classes only). <kbd>Alt</kbd>+<kbd>Shift</kbd>+<kbd>D</kbd> on the new line writes its body in the <code>.cpp</code>.
+        </p>
         <h3 id="config-files">.ini, .uproject and .uplugin files</h3>
         <p>
           In <code>.ini</code> files the list completes <code>[/Script/Module.Class]</code> sections, the class's
@@ -605,6 +621,10 @@
           <code>AddUObject</code>, <code>SetTimer</code>, <code>BindAction</code>...): the light bulb on its name offers
           <strong>Create 'HandleClicked' in UMyWidget</strong> (<kbd>Alt</kbd>+<kbd>Shift</kbd>+<kbd>D</kbd> runs it directly), which declares it in the class with the delegate's parameters
           (and <code>UFUNCTION()</code> for <code>AddDynamic</code>) and adds its empty body to the <code>.cpp</code>.
+          It works with your own bind helpers too (template wrappers included: the signature is taken from the function they
+          pass it to) and on any <code>UMyWidget::Name</code> or <code>ThisClass::Name</code> of a function that does not exist.
+          When the signature cannot be found, the function is created as <code>void Name()</code> and a warning reminds you to
+          add its parameters.
         </p>
         <figure>
           <img src="guide-img/warnings.svg?v=6519b628" width="760" height="270" loading="lazy"
@@ -720,13 +740,16 @@
         <p>
           <kbd>Alt</kbd>+<kbd>Shift</kbd>+<kbd>T</kbd> searches classes, functions, variables, macros... of the project,
           plugins and engine; initials are enough (<code>GAL</code> → <code>GetActorLocation</code>).
-          <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>T</kbd> searches files (<code>File.cpp:120</code> opens at line 120).
+          <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>T</kbd> searches files (<code>File.cpp:120</code> opens at line 120): all
+          matches in alphabetical order, the best one selected.
           <kbd>Alt</kbd>+<kbd>M</kbd> searches the open file, locals included, grouped by kind (<em>Group</em>,
           <kbd>Ctrl</kbd>+<kbd>G</kbd>); the buttons under the search box show only functions, fields, locals...
-          (<kbd>Alt</kbd>+<kbd>1</kbd>…<kbd>9</kbd>, <kbd>Alt</kbd>+<kbd>0</kbd> for all). <kbd>Ctrl</kbd>+<kbd>1</kbd>…<kbd>5</kbd>
+          (<kbd>Alt</kbd>+<kbd>1</kbd>…<kbd>9</kbd>, <kbd>Alt</kbd>+<kbd>0</kbd> for all). <kbd>Ctrl</kbd>+<kbd>1</kbd>…<kbd>6</kbd>
           switch tab; the <strong>Text</strong> tab (<kbd>Ctrl</kbd>+<kbd>5</kbd>) finds text in the project's and the
-          engine's files as you type. Words separated by spaces are searched separately; <em>Fuzzy</em> (<kbd>Ctrl</kbd>+<kbd>F</kbd>) also
-          accepts scattered letters and typos. Go to Symbol also finds log categories and console variables by their
+          engine's files as you type; the <strong>Config</strong> tab (<kbd>Ctrl</kbd>+<kbd>6</kbd>) searches the text of the
+          <code>.ini</code> files (project, plugins, engine): every word must be on the line, <code>max walk</code> finds
+          <code>MaxWalkSpeed=600</code>. Words separated by spaces are searched separately; <em>Fuzzy</em> (<kbd>Ctrl</kbd>+<kbd>F</kbd>) also
+          accepts scattered letters and typos. Scroll to the end of the list for more results. Go to Symbol also finds log categories and console variables by their
           console name (<code>r.shadow</code>).
         </p>
         <figure>
@@ -747,7 +770,9 @@
           (project, plugins, engine), grouped by file, with the Blueprints at the bottom. <em>Declarations</em>,
           <em>Calls</em>, <em>Reads</em>, <em>Writes</em> filter the results; uses inside macros (<code>UE_LOG</code>,
           <code>AddDynamic</code>, <code>ReplicatedUsing</code>) are found too, and uses whose type is not certain are
-          listed under <b>Uncertain</b>. Double-click opens the line.
+          listed under <b>Uncertain</b>. The name's lines in the <code>.ini</code> files are listed apart, under
+          <b>Config (.ini)</b> (a class also by its name without prefix, as config writes it:
+          <code>/Script/MyGame.MyActor</code>). Double-click opens the line.
         </p>
       </div>
     </div>
@@ -982,7 +1007,8 @@
           name, pick the options, then <b>Preview...</b> shows every change with a checkbox; <b>Apply</b> writes them.
           Overrides and <code>_Implementation</code>/<code>_Validate</code> are renamed too. For Blueprint-visible symbols,
           tick <b>Add a CoreRedirect</b> so saved assets keep working. Open files can be undone with <kbd>Ctrl</kbd>+<kbd>Z</kbd>;
-          read-only (Perforce) files are made writable and listed at the end for check-out. Symbols of the engine or of a
+          read-only (Perforce) files are checked out by your source control extension (Perforce Auto-Checkout, P4VS) when one
+          is active, otherwise made writable and listed at the end for check-out. Symbols of the engine or of a
           plugin can be renamed too: the dialog warns which files outside the project will change.
         </p>
         <h3 id="change-signature">Change a function's signature</h3>

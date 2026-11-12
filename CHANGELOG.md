@@ -1,5 +1,40 @@
 # UnrealSense changelog
 
+## 1.1.21
+
+UnrealSense 1.1.21: all changes from 1.1.20 to 1.1.21.
+
+Navigation
+- Go to: new Config tab (Ctrl+6, the Go to tabs are now Ctrl+1...6) with a text search of the .ini lines of the project,
+  plugins and engine: every word must be on the line ("max walk" finds MaxWalkSpeed=600).
+- Find Usages lists the name's lines in the .ini files apart, under "Config (.ini)" (a class also by its name without
+  prefix, as config writes it: /Script/MyGame.MyActor).
+- Go to File lists every match (up to 5,000 instead of 150), in alphabetical order with the best one selected; result
+  lists have no fixed size, scroll to the end for more.
+
+Code
+- ctor template: typed where a member is declared in a class body, it offers the standard constructor declaration and,
+  in UCLASS classes, the one taking const FObjectInitializer& (to replace or skip the parent's default subobjects). Only
+  the constructors the class does not have yet are listed; Alt+Shift+D writes the body.
+- Create missing bound functions from any call: your own bind helpers too (template wrappers are followed to the function
+  they pass it to) and any UMyClass::Name or ThisClass::Name of a function that does not exist. When the signature cannot
+  be found the function is created as void Name() with a warning to add its parameters.
+- Completion tooltips and Quick Info show the comment above a declaration and, for enum values and fields, the one beside
+  them.
+- Specifier completion writes ", " between specifiers and " = " before a value.
+
+Source control
+- Read-only files (Rename, enabling Remote Execution...) are checked out through the active source control provider
+  (Perforce Auto-Checkout, P4VS) when one is active; otherwise they are made writable and listed, as before.
+
+Errors as you type
+- Engine and plugin files: far fewer false errors (CPP0007 on SDK headers and ## token pasting, concepts, locals, shader
+  parameter structs; CPP0005/6/10).
+
+Performance
+- The log is written by a background thread in batches; after a solution switch, restored documents are re-analysed a
+  few at a time instead of all at once (thread-pool starvation seen while Visual Studio was starting a build).
+
 ## 1.1.20
 
 UnrealSense 1.1.20: all changes from 1.1.19 to 1.1.20.
