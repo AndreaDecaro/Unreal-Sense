@@ -190,18 +190,32 @@ After a value the list also offers the loops that fit its type:
 
 In an existing `switch`, Quick Menu › **Generate Missing Cases** adds the values that have no `case` yet.
 
-### Constructor template
+### Constructor and member templates
 
-In a class body, where you would declare a member, type `ctor` and pick one of the two entries:
+In a class body, where you would declare a member, type one of these and pick it from the list:
 
-| Entry | You get |
+| Type | You get |
 |---|---|
 | `ctor` constructor | `AMyActor();` |
 | `ctor` constructor (FObjectInitializer) | `AMyActor(const FObjectInitializer& ObjectInitializer);`, to replace or skip the parent's default subobjects |
+| `ptr` | `UPROPERTY()` and `TObjectPtr<UObject> Object;`: type the class, **Tab**, type the name |
+| `softptr` | `UPROPERTY()` and `TSoftObjectPtr<UObject> Object;` (loaded only when you ask) |
 
 Only the constructors the class does not have yet are listed (the FObjectInitializer one in `UCLASS` classes only).
 **Alt+Shift+D** on the new line writes its body in the `.cpp`.
 
+
+### Your own templates
+
+Extensions › UnrealSense › **Code Templates...** (or the Quick Menu) lists ours and yours. **New** or **Duplicate** (on one
+of ours) gives you a template to edit. Choose how you call it: a **Shortcut** you type on its own (`mylog`) or a **Suffix
+after a value** (`Health.dbg`); where it is offered (inside functions, inside classes or both) and in which files (`.h`,
+`.cpp` or both). Then write the code it writes: the buttons above the code add a **Field** you fill with **Tab**, the
+**Caret at the end**, the **Log category** and, for a suffix, **The value** and its **Format** for `UE_LOG`. A field
+written twice (`TObjectPtr<$Type$> $Type$`) is filled once: the other copy follows. The bottom of the window shows the
+result. Your templates come first in the list. Clear the box of one of ours to stop it being offered. **Save** keeps the
+changes; **Export...** writes your templates to a `.ustemplates` file and **Import...** adds the ones of a file a
+colleague sent you.
 ### .ini, .uproject and .uplugin files
 
 In `.ini` files the list completes `[/Script/Module.Class]` sections, the class's `Config` properties as keys, and their
@@ -307,8 +321,8 @@ Go to Symbol also finds log categories and console variables by their console na
 ### Find text in files
 
 **Extensions › UnrealSense › Find in Files...** (or the Quick Menu) searches text in the project, plugins and engine, the
-open documents or the current file, starting from the word at the caret: *Match case*, *Whole word*, *Regex*, file types
-(`*.h;*.cpp;!*.generated.h`). Results appear as they are found, grouped by file; double-click opens the line. To have
+open documents or the current file, starting from the word at the caret: *Match case*, *Whole word*, *Regex*, and a file filter
+(`*.h;*.cpp;!*.generated.h`, or part of a file name: `hor` searches only `HorrorCharacter.h`/`.cpp`, `hor;h` only the header). Results appear as they are found, grouped by file; double-click opens the line. To have
 **Ctrl+Shift+F** open it, turn on the option *Ctrl+Shift+F opens UnrealSense's Find in Files*.
 
 ### Find Usages
@@ -412,6 +426,10 @@ Solution Explorer › right-click › **Add › Unreal Class...** (or the Unreal
 project and opened; a missing module dependency can be added to the `.Build.cs`. Includes stay red until **Generate
 Project Files**. With a `.uproject` opened instead of a solution (Extensions › UnrealSense › **Unreal Class...**) the
 files are only created and opened: nothing to regenerate.
+
+The **...** button next to the path opens a folder tree that also shows each folder's files. **New Folder**
+(Ctrl+Shift+N) adds a sub-folder there: it is created when you press OK in New Unreal Class (under both `Public` and
+`Private` for a Public class), and nothing is created if you cancel.
 
 ![The New Unreal Class dialog](guide-img/new-unreal-class.svg?v=89fecc85)
 

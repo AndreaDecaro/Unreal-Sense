@@ -216,7 +216,8 @@
     <li class="sub"><a href="#name-completion">Name completion</a></li>
     <li class="sub"><a href="#log-templates">Log templates</a></li>
     <li class="sub"><a href="#loop-templates">Loop and switch templates</a></li>
-    <li class="sub"><a href="#ctor-template">Constructor template</a></li>
+    <li class="sub"><a href="#ctor-template">Constructor and member templates</a></li>
+    <li class="sub"><a href="#user-templates">Your own templates</a></li>
     <li class="sub"><a href="#config-files">.ini and descriptor files</a></li>
     <li class="sub"><a href="#warnings">Warnings and quick fixes</a></li>
     <li class="sub"><a href="#problems-window">Problems window</a></li>
@@ -571,16 +572,31 @@
           <tr><td><code>State.switch</code></td><td><code>switch (State)</code> with a <code>case ...: break;</code> for every value of the enum</td></tr>
         </table>
         <p>In an existing <code>switch</code>, Quick Menu › <b>Generate Missing Cases</b> adds the values that have no <code>case</code> yet.</p>
-        <h3 id="ctor-template">Constructor template</h3>
-        <p>In a class body, where you would declare a member, type <code>ctor</code> and pick one of the two entries:</p>
+        <h3 id="ctor-template">Constructor and member templates</h3>
+        <p>In a class body, where you would declare a member, type one of these and pick it from the list:</p>
         <table>
-          <tr><th>Entry</th><th>You get</th></tr>
+          <tr><th>Type</th><th>You get</th></tr>
           <tr><td><code>ctor</code> constructor</td><td><code>AMyActor();</code></td></tr>
           <tr><td><code>ctor</code> constructor (FObjectInitializer)</td><td><code>AMyActor(const FObjectInitializer&amp; ObjectInitializer);</code>, to replace or skip the parent's default subobjects</td></tr>
+          <tr><td><code>ptr</code></td><td><code>UPROPERTY()</code> and <code>TObjectPtr&lt;UObject&gt; Object;</code>: type the class, <kbd>Tab</kbd>, type the name</td></tr>
+          <tr><td><code>softptr</code></td><td><code>UPROPERTY()</code> and <code>TSoftObjectPtr&lt;UObject&gt; Object;</code> (loaded only when you ask)</td></tr>
         </table>
         <p>
           Only the constructors the class does not have yet are listed (the FObjectInitializer one in <code>UCLASS</code>
           classes only). <kbd>Alt</kbd>+<kbd>Shift</kbd>+<kbd>D</kbd> on the new line writes its body in the <code>.cpp</code>.
+        </p>
+        <h3 id="user-templates">Your own templates</h3>
+        <p>
+          Extensions › UnrealSense › <b>Code Templates...</b> (or the Quick Menu) lists ours and yours. <b>New</b> or
+          <b>Duplicate</b> (on one of ours) gives you a template to edit. Choose how you call it: a <b>Shortcut</b> you type
+          on its own (<code>mylog</code>) or a <b>Suffix after a value</b> (<code>Health.dbg</code>); where it is offered
+          (inside functions, inside classes or both) and in which files (<code>.h</code>, <code>.cpp</code> or both). Then
+          write the code it writes: the buttons above the code add a <b>Field</b> you fill with <kbd>Tab</kbd>, the
+          <b>Caret at the end</b>, the <b>Log category</b> and, for a suffix, <b>The value</b> and its <b>Format</b> for
+          <code>UE_LOG</code>. A field written twice (<code>TObjectPtr&lt;$Type$&gt; $Type$</code>) is filled once: the other
+          copy follows. The bottom of the window shows the result. Your templates come first in the list. Clear the box of one of ours to
+          stop it being offered. <b>Save</b> keeps the changes; <b>Export...</b> writes your templates to a
+          <code>.ustemplates</code> file and <b>Import...</b> adds the ones of a file a colleague sent you.
         </p>
         <h3 id="config-files">.ini, .uproject and .uplugin files</h3>
         <p>
@@ -760,7 +776,8 @@
         <p>
           <strong>Extensions › UnrealSense › Find in Files...</strong> (or the Quick Menu) searches text in the project,
           plugins and engine, the open documents or the current file, starting from the word at the caret: <em>Match
-          case</em>, <em>Whole word</em>, <em>Regex</em>, file types (<code>*.h;*.cpp;!*.generated.h</code>). Results appear
+          case</em>, <em>Whole word</em>, <em>Regex</em>, and a file filter (<code>*.h;*.cpp;!*.generated.h</code>, or part of a file name: <code>hor</code>
+          searches only <code>HorrorCharacter.h</code>/<code>.cpp</code>, <code>hor;h</code> only the header). Results appear
           as they are found, grouped by file; double-click opens the line. To have <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>F</kbd>
           open it, turn on the option <em>Ctrl+Shift+F opens UnrealSense's Find in Files</em>.
         </p>
@@ -988,6 +1005,11 @@
           the <code>.Build.cs</code>. Includes stay red until <b>Generate Project Files</b>. With a <code>.uproject</code> opened
           instead of a solution (Extensions › UnrealSense › <span class="menu">Unreal Class...</span>) the files are only
           created and opened: nothing to regenerate.
+        </p>
+        <p>
+          The <b>...</b> button next to the path opens a folder tree that also shows each folder's files. <b>New Folder</b>
+          (<kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>N</kbd>) adds a sub-folder there: it is created when you press OK in New Unreal
+          Class (under both <code>Public</code> and <code>Private</code> for a Public class), and nothing is created if you cancel.
         </p>
         <figure>
           <img src="guide-img/new-unreal-class.svg?v=89fecc85" width="760" height="440" loading="lazy"

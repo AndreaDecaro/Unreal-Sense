@@ -1,5 +1,38 @@
 # UnrealSense changelog
 
+## 1.1.22
+
+UnrealSense 1.1.22: all changes from 1.1.21 to 1.1.22.
+
+Code templates
+- Code Templates... (Extensions > UnrealSense, Quick Menu): a window listing our templates and yours. New or Duplicate
+  gives you a template to edit: a shortcut typed on its own (mylog) or a suffix after a value (Health.dbg), offered
+  inside functions, inside classes or both, in .h, .cpp or both. Buttons add a field filled with Tab, the caret at the
+  end, the log category and, for a suffix, the value and its UE_LOG format; the bottom of the window shows the result.
+- A field written more than once is filled once: its copies follow as you type.
+- Export... writes your templates to a .ustemplates file, Import... adds the ones of a file (keep both, replace or skip
+  the names you already have).
+- Clear the box of one of ours to stop it being offered.
+- New templates in a class body: ptr (UPROPERTY() TObjectPtr<UObject> Object;) and softptr (TSoftObjectPtr), class and
+  name filled with Tab.
+- Completion: a template typed as a name comes before the other names that match.
+
+New Unreal Class
+- The folder picker (the ... button next to the path) shows each folder's files after its sub-folders.
+- New Folder (Ctrl+Shift+N) adds a sub-folder in the picker: it is created when you confirm the class (under both
+  Public and Private for a Public header), and nothing is created if you cancel. The dialog lists the folders OK creates.
+
+Find in Files
+- The file filter also takes part of a file name: "hor" searches only HorrorCharacter.h/.cpp, "hor;h" only the header.
+
+Navigation
+- Go to definition finds definitions the index does not have yet (a body just written by Create Implementation, or
+  saved before the index update) instead of falling back to Visual Studio's, which opened the base class's function.
+- A declaration just added to a header no longer goes to the base class's function of the same name.
+
+Updates
+- The update notice opens Manage Extensions on every Visual Studio version.
+
 ## 1.1.21
 
 UnrealSense 1.1.21: all changes from 1.1.20 to 1.1.21.
