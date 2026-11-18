@@ -1,5 +1,34 @@
 # UnrealSense changelog
 
+## 1.1.25
+
+UnrealSense 1.1.25: all changes from 1.1.24 to 1.1.25.
+
+Blueprint usages
+- The Content of the engine's plugins that are not Epic's (CreatedBy in the .uplugin), can hold content and are turned on
+  by the .uproject or by default is read with the project's: a widget Blueprint inside a studio plugin kept under
+  Engine/Plugins now counts as a usage of its C++ class (Find Blueprint Usages, hints, values set in Blueprints).
+
+## 1.1.24
+
+UnrealSense 1.1.24: all changes from 1.1.23 to 1.1.24.
+
+Colorization
+- #if branches the preprocessor skips in this configuration (the #else of #if WITH_EDITOR, an #elif not taken, #if 0)
+  are faded to half opacity over their own colours. Fields, locals, types and functions there are coloured as if that
+  branch were compiled, instead of staying plain.
+- A branch chosen by a macro defined nowhere (set by UnrealBuildTool) is not faded: it may be the one compiled.
+- Fonts and Colors: "UnrealSense - Inactive code".
+
+## 1.1.23
+
+UnrealSense 1.1.23: all changes from 1.1.22 to 1.1.23.
+
+Completion
+- A name typed in an #if branch that is off in this build (the #else of #if WITH_EDITOR, an #elif not taken) lists the
+  function's locals and the class's members again, not only global names: the branch holding the caret is read as the
+  active one. Member completion after . and ->, :: completion, go to definition and tooltips there work the same way.
+
 ## 1.1.22
 
 UnrealSense 1.1.22: all changes from 1.1.21 to 1.1.22.

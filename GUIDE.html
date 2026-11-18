@@ -510,6 +510,8 @@
           <li>After <code>#if</code>, <code>#ifdef</code>, <code>#ifndef</code>, <code>#elif</code>, <code>#undef</code> and
             in <code>defined(</code>: macros, with the value of build configuration ones
             (<code>UE_BUILD_SHIPPING = 0</code>, <code>WITH_EDITOR = 1</code>).</li>
+          <li>Inside a branch that is off in this build (the <code>#else</code> of <code>#if WITH_EDITOR</code>): the same
+            lists as in an active branch.</li>
           <li>On a dynamic delegate, <code>.</code> also offers <code>AddDynamic</code>, <code>RemoveDynamic</code>,
             <code>IsAlreadyBound</code>.</li>
           <li>Inside <code>UE_LOG(</code>: the log categories (your module's first), then the verbosities.</li>
@@ -709,7 +711,9 @@
         <p>
           UnrealSense colours the project's C++ by itself: UObject types apart from value types, enums, functions, fields,
           locals, parameters, macros, reflection macros and their specifiers; members exposed to Blueprints in bold; a
-          local holding a lambda (<code>auto Apply = [..](..) { }</code>) is coloured as a function.
+          local holding a lambda (<code>auto Apply = [..](..) { }</code>) is coloured as a function. Code in an
+          <code>#if</code> branch that is not compiled in this configuration (the <code>#else</code> of
+          <code>#if WITH_EDITOR</code>) is faded, keeping its colours.
           Colours: <span class="menu">Tools › Options › Environment › Fonts and Colors</span>, entries
           <code>UnrealSense - …</code>.
         </p>

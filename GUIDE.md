@@ -144,6 +144,7 @@ Wherever you type a name the list shows, in order: locals and parameters, class 
 - Inside `#include "`: folders and headers.
 - After `#if`, `#ifdef`, `#ifndef`, `#elif`, `#undef` and in `defined(`: macros, with the value of build configuration
   ones (`UE_BUILD_SHIPPING = 0`, `WITH_EDITOR = 1`).
+- Inside a branch that is off in this build (the `#else` of `#if WITH_EDITOR`): the same lists as in an active branch.
 - On a dynamic delegate, `.` also offers `AddDynamic`, `RemoveDynamic`, `IsAlreadyBound`.
 - Inside `UE_LOG(`: the log categories (your module's first), then the verbosities.
 - Inside `FindConsoleVariable(TEXT("`: console variable names; hover one for its type, default and help.
@@ -286,7 +287,8 @@ preview.
 
 UnrealSense colours the project's C++ by itself: UObject types apart from value types, enums, functions, fields, locals,
 parameters, macros, reflection macros and their specifiers; members exposed to Blueprints in bold; a local holding a
-lambda (`auto Apply = [..](..) { }`) is coloured as a function. Colours: Tools ›
+lambda (`auto Apply = [..](..) { }`) is coloured as a function. Code in an `#if` branch that is not compiled in this
+configuration (the `#else` of `#if WITH_EDITOR`) is faded, keeping its colours. Colours: Tools ›
 Options › Environment › Fonts and Colors, entries `UnrealSense - …`.
 
 ![UnrealSense code colours with a legend](guide-img/code-colours.svg?v=6e21c77f)
