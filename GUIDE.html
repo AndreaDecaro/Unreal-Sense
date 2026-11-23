@@ -228,6 +228,7 @@
     <li class="sub"><a href="#go-to-symbol">Find a symbol or a file</a></li>
     <li class="sub"><a href="#find-in-files">Find text in files</a></li>
     <li class="sub"><a href="#find-usages">Find Usages</a></li>
+    <li class="sub"><a href="#angelscript">Writing AngelScript</a></li>
     <li class="sub"><a href="#includers">What an #include is used for</a></li>
     <li class="sub"><a href="#switch">Header and source</a></li>
     <li class="sub"><a href="#hierarchy">Hierarchy and overrides</a></li>
@@ -779,7 +780,7 @@
         <h3 id="find-in-files">Find text in files</h3>
         <p>
           <strong>Extensions › UnrealSense › Find in Files...</strong> (or the Quick Menu) searches text in the project,
-          plugins and engine, the open documents or the current file, starting from the word at the caret: <em>Match
+          plugins and engine (AngelScript <code>.as</code> scripts included), the open documents or the current file, starting from the word at the caret: <em>Match
           case</em>, <em>Whole word</em>, <em>Regex</em>, and a file filter (<code>*.h;*.cpp;!*.generated.h</code>, or part of a file name: <code>hor</code>
           searches only <code>HorrorCharacter.h</code>/<code>.cpp</code>, <code>hor;h</code> only the header). Results appear
           as they are found, grouped by file; double-click opens the line. To have <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>F</kbd>
@@ -793,7 +794,29 @@
           <code>AddDynamic</code>, <code>ReplicatedUsing</code>) are found too, and uses whose type is not certain are
           listed under <b>Uncertain</b>. The name's lines in the <code>.ini</code> files are listed apart, under
           <b>Config (.ini)</b> (a class also by its name without prefix, as config writes it:
-          <code>/Script/MyGame.MyActor</code>). Double-click opens the line.
+          <code>/Script/MyGame.MyActor</code>), and its uses in the AngelScript <code>.as</code> scripts under
+          <b>Scripts (AngelScript)</b>: by symbol, as the scripts write it (<code>Gameplay::</code> for
+          <code>UGameplayStatics</code>, <code>ActorLocation</code> for <code>GetActorLocation()</code>,
+          <code>BeginPlay</code> overrides for <code>ReceiveBeginPlay</code>), with the uses whose object type is not known
+          under their own <b>Uncertain</b>. Find Usages also works in a <code>.as</code> file: on a C++ symbol it lists its
+          C++, Blueprint and script uses, on a script class, function or variable its script uses. Double-click opens the line.
+        </p>
+      </div>
+    </div>
+
+    <div class="card feature">
+      <div class="icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 18l6-6-6-6"/><path d="M8 6l-6 6 6 6"/></svg>
+      </div>
+      <div>
+        <h3 id="angelscript">Writing AngelScript</h3>
+        <p>
+          <code>.as</code> files are coloured like C++ (types, functions, fields, enum values, locals). <b>F12</b> or
+          <b>Ctrl+click</b> opens the declaration: the script one, or the C++ one of a bound function, class or overridden
+          event. Completion offers the object's members after <code>.</code> (including <code>ActorLocation</code> for
+          <code>GetActorLocation()</code>), the statics and enum values after <code>::</code>, and locals, members and types
+          elsewhere. <b>Shift+F12</b> opens Find Usages. <b>Ctrl+K, Ctrl+C</b> / <b>Ctrl+K, Ctrl+U</b> comment and
+          uncomment the selected lines, and the matching bracket is highlighted. <em>AngelScript support</em> in the options turns this off.
         </p>
       </div>
     </div>
@@ -1142,6 +1165,13 @@
       <tr><td>Compile the file on save</td><td>Off by default (on with the IntelliSense mode <em>Turn Visual Studio's IntelliSense off</em>).</td></tr>
       <tr><td>Use the own C++ index, Index the whole engine</td><td>On by default. The index runs as <code>usindex</code> in Task Manager (about 0.3 GB for a Lyra-sized project, about 3.5 GB with the whole engine); turning the index off also turns off completion and Find Usages.</td></tr>
     </table>
+    <p style="margin-top:14px">
+      <strong>Bring your settings to another PC</strong>: <span class="menu">Extensions › UnrealSense › Export Settings...</span>
+      saves the options, your keys, your code templates and the colours you changed to a <code>.ussettings</code> file. On the
+      other PC (or in the other Visual Studio), <b>Import Settings...</b>, pick the file, untick what you do not want,
+      <b>Import</b>. Files from older or newer versions work too. Your previous settings are saved first in
+      <code>%LOCALAPPDATA%\UnrealSense\Settings</code>: import that file to go back.
+    </p>
   </div>
 
   <h2 id="problems">If something goes wrong</h2>

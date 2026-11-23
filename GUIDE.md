@@ -322,7 +322,7 @@ Go to Symbol also finds log categories and console variables by their console na
 
 ### Find text in files
 
-**Extensions › UnrealSense › Find in Files...** (or the Quick Menu) searches text in the project, plugins and engine, the
+**Extensions › UnrealSense › Find in Files...** (or the Quick Menu) searches text in the project, plugins and engine (AngelScript `.as` scripts included), the
 open documents or the current file, starting from the word at the caret: *Match case*, *Whole word*, *Regex*, and a file filter
 (`*.h;*.cpp;!*.generated.h`, or part of a file name: `hor` searches only `HorrorCharacter.h`/`.cpp`, `hor;h` only the header). Results appear as they are found, grouped by file; double-click opens the line. To have
 **Ctrl+Shift+F** open it, turn on the option *Ctrl+Shift+F opens UnrealSense's Find in Files*.
@@ -333,7 +333,19 @@ Right-click › **Find Usages** lists where a C++ class, function, variable or m
 grouped by file, with the Blueprints at the bottom. *Declarations*, *Calls*, *Reads*, *Writes* filter the results; uses
 inside macros (`UE_LOG`, `AddDynamic`, `ReplicatedUsing`) are found too, and uses whose type is not certain are listed
 under **Uncertain**. The name's lines in the `.ini` files are listed apart, under **Config (.ini)** (a class also by its
-name without prefix, as config writes it: `/Script/MyGame.MyActor`). Double-click opens the line.
+name without prefix, as config writes it: `/Script/MyGame.MyActor`), and its uses in the AngelScript `.as` scripts
+under **Scripts (AngelScript)**: by symbol, as the scripts write it (`Gameplay::` for `UGameplayStatics`, `ActorLocation`
+for `GetActorLocation()`, `BeginPlay` overrides for `ReceiveBeginPlay`), with the uses whose object type is not known
+under their own **Uncertain**. Find Usages also works in a `.as` file: on a C++ symbol it lists its C++, Blueprint and script
+uses, on a script class, function or variable its script uses. Double-click opens the line.
+
+### Writing AngelScript
+
+`.as` files are coloured like C++ (types, functions, fields, enum values, locals). **F12** or **Ctrl+click** opens the
+declaration: the script one, or the C++ one of a bound function, class or overridden event. Completion offers the object's
+members after `.` (including `ActorLocation` for `GetActorLocation()`), the statics and enum values after `::`, and locals,
+members and types elsewhere. **Shift+F12** opens Find Usages. **Ctrl+K, Ctrl+C** / **Ctrl+K, Ctrl+U** comment and uncomment
+the selected lines, and the matching bracket is highlighted. *AngelScript support* in the options turns this off.
 
 ### What an #include is used for
 
@@ -506,6 +518,11 @@ there. The ones you may want to change:
 - **Use the own C++ index** and **Index the whole engine**: on by default. The index runs as `usindex` in Task Manager
   (about 0.3 GB for a Lyra-sized project, about 3.5 GB with the whole engine); turning the index off also turns off
   completion and Find Usages.
+
+**Bring your settings to another PC**: **Extensions › UnrealSense › Export Settings...** saves the options, your keys, your
+code templates and the colours you changed to a `.ussettings` file. On the other PC (or in the other Visual Studio),
+**Import Settings...**, pick the file, untick what you do not want, **Import**. Files from older or newer versions work too.
+Your previous settings are saved first in `%LOCALAPPDATA%\UnrealSense\Settings`: import that file to go back.
 
 ## If something goes wrong
 

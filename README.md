@@ -9,7 +9,7 @@ refactorings) on UnrealSense's own C++ index, written from scratch for Unreal co
 | Area | What it does |
 |---|---|
 | **Blueprint usages** | An offline index of `.uasset`/`.umap` headers (works with the editor closed). For each reflected class, function and property it finds the Blueprints deriving from it, function calls, overridden/implemented events, type references, and property usage matched by name. For properties the hint counts graph usages and overrides apart ("2 Blueprint usages - 3 Blueprint overrides"), and the window shows their **values**: each Blueprint's class default (or what it inherits from a parent Blueprint, or the C++ default), and the values set on placed actors in levels (World Partition external actors included) and in data assets. Shown as end-of-line hints ("12 derived Blueprints", "3 Blueprint usages"), in quick info, and in the **Blueprint Usages** window (`Alt+Shift+B`), whose Detail column names the graph and node of each call, event and variable get/set (`EventGraph › Call Fire`, `FireStinger › Get Volume`). |
-| **Find in Files** | **Find in Files...** (Extensions › UnrealSense, Quick Menu; prefilled with the selection or the word at the caret) searches text in the files of the Unreal project (sources, plugins, config, framework modules outside `Source/`) and the engine (the default), the project only, the open documents or the current file: *Match case*, *Whole word*, *Regex* (`^`/`$` per line), a file filter with types and parts of file names (`*.h;*.cpp;!*.generated.h`; `hor` keeps only files whose name contains it, such as `HorrorCharacter.h` and `.cpp`; `hor;h` only the header). Results stream in as they are found, grouped by file, with syntax colours and every match marked; open documents are searched with their unsaved changes; double-click or Enter opens the line. Option *Ctrl+Shift+F opens UnrealSense's Find in Files* (off by default) makes Visual Studio's Find in Files key and menu open it while an Unreal project is open; the window's *Visual Studio's Find in Files* button still opens Visual Studio's own. |
+| **Find in Files** | **Find in Files...** (Extensions › UnrealSense, Quick Menu; prefilled with the selection or the word at the caret) searches text in the files of the Unreal project (sources, plugins, config, AngelScript `.as` scripts in `Script/` and plugins' `Script/`, framework modules outside `Source/`) and the engine (the default), the project only, the open documents or the current file: *Match case*, *Whole word*, *Regex* (`^`/`$` per line), a file filter with types and parts of file names (`*.h;*.cpp;!*.generated.h`; `hor` keeps only files whose name contains it, such as `HorrorCharacter.h` and `.cpp`; `hor;h` only the header). Results stream in as they are found, grouped by file, with syntax colours and every match marked; open documents are searched with their unsaved changes; double-click or Enter opens the line. Option *Ctrl+Shift+F opens UnrealSense's Find in Files* (off by default) makes Visual Studio's Find in Files key and menu open it while an Unreal project is open; the window's *Visual Studio's Find in Files* button still opens Visual Studio's own. |
 | **Search text in Blueprints** | **Search Text in Blueprints...** (Extensions › UnrealSense, Quick Menu; prefilled with the selected text) finds any text inside the project's Blueprints and data assets, not only references: comment boxes, node comments, pin values typed in nodes, variable defaults and tooltips, widget texts, DataTable rows, string tables, data asset properties, and (option *Names*) matching variable/function/pin/tag names. Each result says what the text is and where (`EventGraph › Call PrintString › pin In String`, `Variable Health › tooltip`, `Row Quadruple › DisplayName`), with the localization key of FTexts; double-click opens the asset in the Unreal Editor. Options: *Match case*, *Whole word*, *All assets* (also textures, meshes, sounds, animations), *Editor caches* (engine pin tooltips, compiler messages, generated code the editor rewrites by itself, hidden by default). Assets are read straight from disk, only up to their export data (about 250 MB for Lyra's 6,400 searchable assets, under a second). |
 | **Open in Unreal Editor** | Double-click an entry of the **Blueprint Usages** window (or its **Open in Unreal Editor** button) to open the asset in the Unreal Editor that has the project loaded; the status bar then says which graph and node hold the usage (no scripting API of the editor opens a graph or focuses a node). It uses the Python plugin's Remote Execution (local machine only): the first time, UnrealSense offers to enable it, adding `PythonScriptPlugin` to the `.uproject` and `bRemoteExecution=True` under `[/Script/PythonScriptPlugin.PythonScriptPluginSettings]` in `Config/DefaultEngine.ini` (restart the editor afterwards). Files that are read-only because they are not checked out in Perforce go first to Visual Studio's active source control provider (Perforce Auto-Checkout, P4VS...) for check-out; any it does not check out are made writable, and UnrealSense lists them so you can check them out. If you decline, or no editor is running or answering, the file is shown in Explorer; **Open Blueprints in Unreal Editor...** in Extensions › UnrealSense asks again. |
 | **What the counters understand** | Blueprints deriving through other Blueprints ("via BP_Base") and through C++ subclasses ("via C++ AMyCharacter"), also when the base class is in the engine or an external plugin. Config redirects (`ActiveGameNameRedirects`, `ActiveClassRedirects`, `[CoreRedirects]`). Renamed modules whose redirect is not in a config file (registered from C++ or in a plugin's config) are detected from the classes the assets look for, and logged. Plugins in the project's `Plugins/` folder and in the `.uproject`'s `AdditionalPluginDirectories`, and the Content of the engine's plugins that are not Epic's (`CreatedBy` in the `.uplugin`), can hold content and are turned on by the `.uproject` or by default: a studio's plugins kept under `Engine/Plugins` (their widget Blueprints count as usages of their C++ classes). |
@@ -52,6 +52,7 @@ refactorings) on UnrealSense's own C++ index, written from scratch for Unreal co
 | **Build.cs** | Completes module names inside string literals of `*.Build.cs`/`*.Target.cs` (project, engine and plugin modules). |
 | **Config and descriptor files** | In `.ini` files (project, plugin and engine `Config`): `[/Script/` completes module names, then the module's UCLASSes (classes that read config first, with their `Config=` file); inside a `[/Script/Module.Class]` section (or a per-object `[Name Class]` one) keys complete the class's `UPROPERTY(Config)`/`GlobalConfig` properties, inherited ones too, after any `+`/`-`/`.`/`!` prefix (arrays first after `+`/`-`), and values of `bool` and enum properties. Quick info on a key shows its type and C++ declaration; `F12`/`Ctrl+click` on a section or key opens the C++ class or property (the module's `.Build.cs` from the module name). Engine classes resolve once the engine class scan of New Unreal Class is ready. In `.uproject`/`.uplugin`: descriptor fields, module `Type` (Runtime, Editor, UncookedOnly...) and `LoadingPhase`, module `Name` from the `Source` folder, plugin `Name` from the project and engine plugins on disk, `true`/`false`, platforms. Option: Code completion › Completion in .ini, .uproject and .uplugin. Log lines start with `ConfigCompletion:`. |
 | **Missing module dependencies** | A warning on an `#include` of a header that belongs to a module the file's module cannot reach (CPP0201: *Module 'UMG' is not a dependency of MyGame (MyGame.Build.cs): linking may fail*). A module reaches itself, `Core`/`CoreUObject`, every module its `.Build.cs` lists (any list, also inside `if` blocks) and, transitively, the public dependencies of those, as UBT does. The light bulb adds the module to `PrivateDependencyModuleNames` (and, from a header in `Public`/`Classes`, to `PublicDependencyModuleNames`), opening the `.Build.cs` with the line added and its formatting kept. It stays quiet when it cannot be sure: the header also exists in the module itself or next to the file, in several modules, or through a legacy include path of a reachable module; and a module whose `.Build.cs` builds its lists from variables or helpers, or lists modules UnrealSense does not find, is not checked (logged once). Option: Inspections › Module dependencies missing from the Build.cs. Log lines start with `BuildDeps:`. |
+| **Export / import settings** | Extensions › UnrealSense › **Export Settings...** / **Import Settings...** (also in the Quick Menu) move the options, the keys of every UnrealSense command, your code templates and the colours you changed to another PC or Visual Studio in one `.ussettings` file, with a preview of every change before importing; files of older and newer versions import too (details under *Export and import settings* below). |
 
 Commands (Extensions › UnrealSense, and the editor's context menu): **Go to Symbol...** (`Alt+Shift+T`: types, functions,
 fields, enum values, macros, delegates of the project, its plugins and the engine headers, fuzzy: `GAL` finds `GetActorLocation`,
@@ -95,7 +96,19 @@ Unreal Class, Override Virtual Functions) have two themes, chosen in Tools › O
 Open windows switch theme when the options are saved.
 
 Options: Tools › Options › UnrealSense (in Visual Studio 2026 a page of the new settings view, *All Settings › UnrealSense*,
-with the values saved before; Visual Studio 2022 keeps the classic page). Log: Output › UnrealSense and one file per Visual Studio session in
+with the values saved before; Visual Studio 2022 keeps the classic page).
+
+**Export and import settings**: **Extensions › UnrealSense › Export Settings...** (also in the Quick Menu) writes the options,
+the keys of every UnrealSense command, your code templates (and which of ours you hid) and the colours you changed in Fonts
+and Colors to one `.ussettings` file; tick the parts to include. **Import Settings...** reads such a file and lists every
+difference with the settings in use, part by part, each with a check box: nothing changes until **Import**. Made to work
+across versions: an option, key or colour you left at its default is written as "default" and imports as the default of
+the version that imports it, so a later update's new defaults still reach it; keys are stored with English names and work
+in a Visual Studio of any language; a file from a newer or older version imports what this version knows and says what it
+skipped (an option it does not have, a value it does not know). Templates are added, or replace yours of the same name, never
+deleted. Before importing, the settings in use are saved in `%LOCALAPPDATA%\UnrealSense\Settings` (the last ten): importing
+that file undoes the import. Each Visual Studio keeps its own options, keys and colours (templates are shared): import the
+file in each. Not included: the license, caches and indexes. Log lines start with `Settings:`. Log: Output › UnrealSense and one file per Visual Studio session in
 `%LOCALAPPDATA%\UnrealSense\Logs` (`UnrealSense_<date>_<time>_pid<id>.log`; the newest five are kept, a session's file stops
 at 20 MB).
 When the project loads, the log shows a `Blueprint index:` summary (assets read, references per C++ module, detected
@@ -148,6 +161,60 @@ Fonts and Colors: keywords, strings, comments, macros, Unreal types, calls, memb
 name's whole-word matches in the `.ini` files (project, plugins and, with *Include engine symbols and files*, the engine) are
 listed apart under "Config (.ini)", with their section; a reflected type is also searched without its prefix (`AMyActor` →
 `MyActor`, as in `/Script/MyGame.MyActor`). Plain text: 500 lines at most, logged as `Find Usages 'X': n config line(s)`.
+
+The uses in the AngelScript `.as` scripts (UnrealEngine-Angelscript: project `Script/`, plugins' `Script/`) are listed apart
+under "Scripts (AngelScript)", **by symbol**: the scripts are parsed and each name is resolved the way the plugin compiles it,
+so `Door.Open()` is listed for `ADoor::Open` and not for `AWindow::Open`. The resolver follows locals, parameters, members,
+`auto`, `Cast<T>()`, `TWeakObjectPtr<T>.Get()`, array elements, range-based `for`, `Super::`, `X::Get()` subsystems, and
+`n"Function"` in `BindUFunction`/`AddUFunction`. It also knows the script spellings of a C++ name:
+- function libraries as namespaces (`UGameplayStatics::X` → `Gameplay::X`, following the plugin's strip settings in the ini
+  files; the class spelling is found too);
+- `K2_`/`BP_`/`Receive` prefixes dropped, and `ScriptName`;
+- `GetX()` used as the property `X`;
+- `ScriptMixin` functions called as methods;
+- `UFUNCTION(BlueprintOverride)` overrides of a C++ event.
+
+The C++ side comes from the plugin's bind database `Script/Binds.Cache` when the project has one: it is written by the editor,
+is exact, and its `.Headers` file gives the class headers. Without it, the reflected headers are used with the plugin's
+naming rules. A use on an object whose type cannot be inferred, or whose class chain reaches a C++ class the indexes do not
+know, is listed under its own "Uncertain"; text inside `f"..."` format strings too. Find Usages also works from a `.as`
+file:
+- on a C++ symbol it starts from its C++ declaration, so the C++, Blueprint and script uses come together;
+- on a script class, function, field or local it lists the script uses, overrides included.
+
+A name the resolver cannot place falls back to whole-word text matches.
+
+**Editing `.as` files.** `.as` files get their own content type ("AngelScript") with the same resolver.
+- **Colours.** Comments, strings, reflection macros and specifiers appear at once; types, functions, fields, enum values,
+  locals, parameters and namespaces are coloured 300 ms after an edit. The colours are the C++ ones (Fonts and Colors,
+  "UnrealSense - ..."), under the *Colorization* option.
+- **Go to Definition.** F12, Ctrl+click and Ctrl+F12 open a script declaration, or the C++ declaration of a bound function,
+  property, class or overridden event. The C++ declaration is found through the Go to index, else through the header listed by
+  `Binds.Cache.Headers`, which also covers framework modules outside the indexed folders.
+- **Completion.**
+  - After `.`: the object's members along its classes, with `GetX()` also offered as `X`, and mixins.
+  - After `::`: a namespace's statics (`Gameplay::` or the class spelling), an enum's values (C++ enums from the Go to index),
+    the base's methods after `Super::`.
+  - On a new word: locals, parameters, the class's members, globals, types, namespaces and keywords.
+- **Find Usages.** Shift+F12 opens Find Usages, as on C++.
+
+Logs:
+- `AngelScript: colours of X.as: n spans (semantic), t ms`
+- `AngelScript: first completion list (member of AFoo): n items, t ms`
+- `AngelScript: Go to Definition → ... (via Go to index | Binds.Cache.Headers)`
+
+Comment Selection (Ctrl+K, Ctrl+C), Uncomment Selection (Ctrl+K, Ctrl+U) and Toggle Line Comment put `// ` on the selected
+lines or take it off, in one undo step. The bracket next to the caret and its partner are highlighted; brackets inside
+comments and strings are skipped.
+
+Option *AngelScript support* (Find Usages (own index)):
+- *Auto* (the default) turns this on only for projects that have scripts. Nothing loads when Visual Studio starts: the first
+  `.as` file opened, or the first Find Usages, loads Binds.Cache and the scripts in the background. After that, only changed
+  files are parsed again.
+- *Off* searches the scripts as text.
+
+The cost is logged as `AngelScript: n of m script(s) parsed (...) in t ms; C++ side loaded: Binds.Cache (... ms, +N MB)`. Log:
+`Find Usages AFoo::Bar in AngelScript: n use(s), m uncertain (...), k other symbol(s) with the name; spellings ...; C++ side: Binds.Cache (...)`.
 
 ## Installing and updating
 

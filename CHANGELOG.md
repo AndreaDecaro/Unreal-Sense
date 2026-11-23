@@ -1,5 +1,37 @@
 # UnrealSense changelog
 
+## 1.1.28
+
+UnrealSense 1.1.28: all changes from 1.1.25 to 1.1.28 (1.1.26 and 1.1.27 were internal builds).
+
+AngelScript
+- The project's, plugins' and engine plugins' .as scripts are in the file index: Find in Files, the Go to Text tab and
+  Go to File see them.
+- Find Usages lists a C++ symbol's uses in the scripts under "Scripts (AngelScript)", by symbol and as the scripts write
+  it (Gameplay:: for UGameplayStatics, ActorLocation for GetActorLocation(), BeginPlay overrides for ReceiveBeginPlay);
+  uses whose object type is not known are listed under their own "Uncertain". Started from a .as file, it lists a C++
+  symbol's C++, Blueprint and script uses, or a script class, function or variable's script uses.
+- Editing .as files: colours like C++ (types, functions, fields, enum values, locals), F12 / Ctrl+click to the script
+  declaration or the C++ one of a bound function, class or overridden event, completion after "." and "::" and of
+  locals, members and types elsewhere, Shift+F12 for Find Usages, Ctrl+K Ctrl+C / Ctrl+K Ctrl+U, bracket matching.
+- Option: AngelScript support (Auto/Off). Log lines start with "AngelScript:".
+
+Settings
+- Extensions > UnrealSense > Export Settings... / Import Settings... (also in the Quick Menu): options, the keys of every
+  UnrealSense command, your code templates (and which of ours you hid) and the colours you changed in Fonts and Colors,
+  in one .ussettings file.
+- Import lists every difference with the settings in use, part by part, each with a check box: nothing changes until
+  Import. Values left at their default import as the default of the version that imports them; keys are stored in
+  English and work in a Visual Studio of any language; files of older and newer versions import what this version knows
+  and say what was skipped. Templates are added or replace yours of the same name, never deleted.
+- Before importing, the settings in use are saved in %LOCALAPPDATA%\UnrealSense\Settings (the last ten): importing that
+  file undoes the import. Log lines start with "Settings:".
+
+Create a missing bound function
+- A function bound with UEnhancedInputComponent::BindAction is created as void Name(const FInputActionValue& Value),
+  also from a subclass of the input component calling the inherited BindAction and through your own bind wrappers.
+  Before, it could take the signature of an unrelated engine type named like the binder's template parameter.
+
 ## 1.1.25
 
 UnrealSense 1.1.25: all changes from 1.1.24 to 1.1.25.
