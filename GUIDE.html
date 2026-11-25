@@ -588,12 +588,22 @@
           Only the constructors the class does not have yet are listed (the FObjectInitializer one in <code>UCLASS</code>
           classes only). <kbd>Alt</kbd>+<kbd>Shift</kbd>+<kbd>D</kbd> on the new line writes its body in the <code>.cpp</code>.
         </p>
+        <p>In a <code>.cpp</code>, outside every function (at file or namespace scope), two more declare a console variable:</p>
+        <table>
+          <tr><th>Type</th><th>You get</th></tr>
+          <tr><td><code>cvar</code></td><td><code>static TAutoConsoleVariable&lt;int32&gt; CVarMyVariable(TEXT("Game.MyVariable"), 0, TEXT("Description"), ECVF_Default);</code>: read it with <code>CVarMyVariable.GetValueOnGameThread()</code></td></tr>
+          <tr><td><code>refCvar</code></td><td><code>static int32 GMyVariable = 0;</code> and an <code>FAutoConsoleVariableRef</code> bound to it: your code reads <code>GMyVariable</code> directly</td></tr>
+        </table>
+        <p>
+          <kbd>Tab</kbd> goes through type, name, console command, value, help and flags; the name typed once fills every
+          copy. <code>#include "HAL/IConsoleManager.h"</code> is added when missing.
+        </p>
         <h3 id="user-templates">Your own templates</h3>
         <p>
           Extensions › UnrealSense › <b>Code Templates...</b> (or the Quick Menu) lists ours and yours. <b>New</b> or
           <b>Duplicate</b> (on one of ours) gives you a template to edit. Choose how you call it: a <b>Shortcut</b> you type
           on its own (<code>mylog</code>) or a <b>Suffix after a value</b> (<code>Health.dbg</code>); where it is offered
-          (inside functions, inside classes or both) and in which files (<code>.h</code>, <code>.cpp</code> or both). Then
+          (inside functions, inside classes, both, or outside functions) and in which files (<code>.h</code>, <code>.cpp</code> or both). Then
           write the code it writes: the buttons above the code add a <b>Field</b> you fill with <kbd>Tab</kbd>, the
           <b>Caret at the end</b>, the <b>Log category</b> and, for a suffix, <b>The value</b> and its <b>Format</b> for
           <code>UE_LOG</code>. A field written twice (<code>TObjectPtr&lt;$Type$&gt; $Type$</code>) is filled once: the other
@@ -1037,6 +1047,11 @@
           The <b>...</b> button next to the path opens a folder tree that also shows each folder's files. <b>New Folder</b>
           (<kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>N</kbd>) adds a sub-folder there: it is created when you press OK in New Unreal
           Class (under both <code>Public</code> and <code>Private</code> for a Public class), and nothing is created if you cancel.
+        </p>
+        <p>
+          The base folder starts on <b>Public</b>. <b>Add Interface...</b> picks interfaces (<code>UINTERFACE</code>) for
+          the new class to implement: each adds <code>, public IName</code> and its <code>#include</code>. The dialog can be
+          resized to see more parent classes.
         </p>
         <figure>
           <img src="guide-img/new-unreal-class.svg?v=89fecc85" width="760" height="440" loading="lazy"

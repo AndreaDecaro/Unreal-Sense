@@ -205,12 +205,21 @@ In a class body, where you would declare a member, type one of these and pick it
 Only the constructors the class does not have yet are listed (the FObjectInitializer one in `UCLASS` classes only).
 **Alt+Shift+D** on the new line writes its body in the `.cpp`.
 
+In a `.cpp`, outside every function (at file or namespace scope), two more declare a console variable:
+
+| Type | You get |
+|---|---|
+| `cvar` | `static TAutoConsoleVariable<int32> CVarMyVariable(TEXT("Game.MyVariable"), 0, TEXT("Description"), ECVF_Default);`: read it with `CVarMyVariable.GetValueOnGameThread()` |
+| `refCvar` | `static int32 GMyVariable = 0;` and an `FAutoConsoleVariableRef` bound to it: your code reads `GMyVariable` directly |
+
+**Tab** goes through type, name, console command, value, help and flags; the name typed once fills every copy. `#include "HAL/IConsoleManager.h"` is added when missing.
+
 
 ### Your own templates
 
 Extensions › UnrealSense › **Code Templates...** (or the Quick Menu) lists ours and yours. **New** or **Duplicate** (on one
 of ours) gives you a template to edit. Choose how you call it: a **Shortcut** you type on its own (`mylog`) or a **Suffix
-after a value** (`Health.dbg`); where it is offered (inside functions, inside classes or both) and in which files (`.h`,
+after a value** (`Health.dbg`); where it is offered (inside functions, inside classes, both, or outside functions) and in which files (`.h`,
 `.cpp` or both). Then write the code it writes: the buttons above the code add a **Field** you fill with **Tab**, the
 **Caret at the end**, the **Log category** and, for a suffix, **The value** and its **Format** for `UE_LOG`. A field
 written twice (`TObjectPtr<$Type$> $Type$`) is filled once: the other copy follows. The bottom of the window shows the
@@ -444,6 +453,9 @@ files are only created and opened: nothing to regenerate.
 The **...** button next to the path opens a folder tree that also shows each folder's files. **New Folder**
 (Ctrl+Shift+N) adds a sub-folder there: it is created when you press OK in New Unreal Class (under both `Public` and
 `Private` for a Public class), and nothing is created if you cancel.
+
+The base folder starts on **Public**. **Add Interface...** picks interfaces (`UINTERFACE`) for the new class to implement:
+each adds `, public IName` and its `#include`. The dialog can be resized to see more parent classes.
 
 ![The New Unreal Class dialog](guide-img/new-unreal-class.svg?v=89fecc85)
 

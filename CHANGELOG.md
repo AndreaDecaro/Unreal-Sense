@@ -1,5 +1,26 @@
 # UnrealSense changelog
 
+## 1.1.29
+
+UnrealSense 1.1.29: all changes from 1.1.28 to 1.1.29.
+
+Code templates
+- cvar, in a .cpp outside every function and class (file or namespace scope): static TAutoConsoleVariable<int32>
+  CVarMyVariable(TEXT("Game.MyVariable"), 0, TEXT("Description"), ECVF_Default); read with GetValueOnGameThread().
+- refCvar, in the same place: static int32 GMyVariable = 0; and the FAutoConsoleVariableRef CVarMyVariable bound to it,
+  so the code reads GMyVariable directly.
+- Both: Tab goes through type, name, console command, value, help and flags; the name is typed once and fills every
+  copy; #include "HAL/IConsoleManager.h" is added when missing. Not offered inside functions, classes or headers.
+- Code Templates window: your own templates can be offered "Outside functions" (file or namespace scope). A template
+  saved with that choice is skipped by older UnrealSense versions.
+- Log: "Templates: first file-scope list with cvar, refCvar".
+
+New Unreal Class
+- Add Interface... picks UINTERFACEs of the project, its plugins and the engine for the new class to implement: each adds
+  ", public IName" and its header; a module the .Build.cs lacks is offered like the parent's.
+- The base folder starts on Public, unless the start folder is in Private or a root sub-folder.
+- The dialog can be resized: the parent list takes the extra height.
+
 ## 1.1.28
 
 UnrealSense 1.1.28: all changes from 1.1.25 to 1.1.28 (1.1.26 and 1.1.27 were internal builds).
