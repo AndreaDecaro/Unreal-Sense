@@ -248,6 +248,7 @@
     <li class="sub"><a href="#sort-members">Sort members</a></li>
     <li class="sub"><a href="#sort-includes">Sort #includes</a></li>
     <li class="sub"><a href="#remove-includes">Remove Unused #includes</a></li>
+    <li><a href="#perforce">Perforce</a></li>
     <li><a href="#settings">Settings</a></li>
     <li><a href="#problems">If something goes wrong</a></li>
   </ul>
@@ -281,7 +282,7 @@
       <tr><td><kbd>Alt</kbd>+<kbd>Shift</kbd>+<kbd>E</kbd></td><td>UnrealSense Problems window</td></tr>
       <tr><td><kbd>Alt</kbd>+click</td><td>Class hierarchy (<kbd>Shift</kbd>+click: free; both set in <span class="menu">Tools › Options › UnrealSense › General › Mouse clicks</span>)</td></tr>
     </table>
-    <p class="note">Everything else is in <span class="menu">Extensions › UnrealSense</span> and in the Quick Menu.</p>
+    <p class="note">Everything else is in the Quick Menu (<kbd>Alt</kbd>+<kbd>Shift</kbd>+<kbd>Q</kbd>, also <span class="menu">Extensions › UnrealSense › Quick Menu</span>).</p>
     <p>Used to Visual Assist's keys? <span class="menu">Extensions › UnrealSense › Import Shortcuts...</span> (also shown at
       the very first start) gives our commands the keys of Visual Assist, or of Visual Studio + Visual Assist, or our
       defaults: tick the rows, <b>Apply</b>.</p>
@@ -393,7 +394,7 @@
           Opening assets in the Unreal Editor uses its Python Remote Execution: the first time, UnrealSense offers to enable
           it in the project (restart the editor afterwards; files not checked out in Perforce are checked out by your source control extension, or made writable and listed).
           Without it, or with the editor closed, the file is shown in Explorer;
-          <span class="menu">Extensions › UnrealSense › Open Blueprints in Unreal Editor...</span> asks again.
+          <span class="menu">Quick Menu › Open Blueprints in Unreal Editor...</span> asks again.
         </p>
       </div>
     </div>
@@ -405,7 +406,7 @@
       <div>
         <h3 id="search-blueprints">Search text inside Blueprints</h3>
         <p>
-          <span class="menu">Extensions › UnrealSense › Search Text in Blueprints...</span> (or the Quick Menu) finds any
+          <span class="menu">Quick Menu › Search Text in Blueprints...</span> finds any
           text in Blueprints and data assets: comments, pin values, variable defaults and tooltips, widget texts, DataTable
           rows, String Tables; with <em>Names</em> also variable, function, pin and tag names. Each result says where it is
           (<code>EventGraph › Call PrintString › pin In String</code>). Options: <em>Match case</em>, <em>Whole word</em>,
@@ -600,7 +601,7 @@
         </p>
         <h3 id="user-templates">Your own templates</h3>
         <p>
-          Extensions › UnrealSense › <b>Code Templates...</b> (or the Quick Menu) lists ours and yours. <b>New</b> or
+          Quick Menu › <b>Code Templates...</b> lists ours and yours. <b>New</b> or
           <b>Duplicate</b> (on one of ours) gives you a template to edit. Choose how you call it: a <b>Shortcut</b> you type
           on its own (<code>mylog</code>) or a <b>Suffix after a value</b> (<code>Health.dbg</code>); where it is offered
           (inside functions, inside classes, both, or outside functions) and in which files (<code>.h</code>, <code>.cpp</code> or both). Then
@@ -670,7 +671,7 @@
         </p>
         <h3 id="problems-window">Problems window</h3>
         <p>
-          <kbd>Alt</kbd>+<kbd>Shift</kbd>+<kbd>E</kbd> (or <span class="menu">Extensions › UnrealSense › UnrealSense
+          <kbd>Alt</kbd>+<kbd>Shift</kbd>+<kbd>E</kbd> (or <span class="menu">Quick Menu › UnrealSense
           Problems</span>) lists every error and warning, Errors and Warnings apart, by file:
         </p>
         <ul>
@@ -789,7 +790,7 @@
         </figure>
         <h3 id="find-in-files">Find text in files</h3>
         <p>
-          <strong>Extensions › UnrealSense › Find in Files...</strong> (or the Quick Menu) searches text in the project,
+          <strong>Quick Menu › Find in Files...</strong> searches text in the project,
           plugins and engine (AngelScript <code>.as</code> scripts included), the open documents or the current file, starting from the word at the caret: <em>Match
           case</em>, <em>Whole word</em>, <em>Regex</em>, and a file filter (<code>*.h;*.cpp;!*.generated.h</code>, or part of a file name: <code>hor</code>
           searches only <code>HorrorCharacter.h</code>/<code>.cpp</code>, <code>hor;h</code> only the header). Results appear
@@ -898,7 +899,7 @@
       <div>
         <h3 id="explorer">Unreal Explorer</h3>
         <p>
-          <span class="menu">Extensions › UnrealSense › Unreal Explorer</span>: modules (with <code>.Build.cs</code>,
+          <span class="menu">Quick Menu › Unreal Explorer</span> (or View › Other Windows): modules (with <code>.Build.cs</code>,
           dependencies and reflected types), plugins, Blueprints by C++ parent class and config files, with search.
           Double-click opens the file.
         </p>
@@ -1040,7 +1041,7 @@
           <b>New class</b>): name, parent class (<b>Common</b> or <b>All Classes</b>) and folder, in any module. The files
           are written like the Unreal Editor's, added to the project and opened; a missing module dependency can be added to
           the <code>.Build.cs</code>. Includes stay red until <b>Generate Project Files</b>. With a <code>.uproject</code> opened
-          instead of a solution (Extensions › UnrealSense › <span class="menu">Unreal Class...</span>) the files are only
+          instead of a solution (Quick Menu › <span class="menu">New Unreal Class...</span>) the files are only
           created and opened: nothing to regenerate.
         </p>
         <p>
@@ -1157,6 +1158,30 @@
 
   </div>
 
+  <h2 id="perforce">Perforce</h2>
+  <div class="card">
+    <p style="margin-bottom:12px">
+      Off by default. Turn it on with <span class="menu">Extensions › UnrealSense › Perforce Auto-Checkout</span> (ticked while
+      on; the same switch is in the settings, <em>Perforce</em> section). When you open a solution in a Perforce workspace,
+      UnrealSense becomes the source control provider (in place of Git): no setup, the workspace is found from the file's path.
+    </p>
+    <ul>
+      <li><strong>Edit a read-only file</strong>: a dialog asks where to check it out: <em>default</em>, an existing changelist,
+        a <em>New changelist...</em> (write its description), <em>Make writable only</em> or <em>Cancel</em> (you keep editing
+        in memory; saving asks again). Tick <em>Use this changelist without asking...</em> to skip the dialog for the rest of
+        the session.</li>
+      <li><strong>UnrealSense Perforce toolbar</strong> and right-click on a document tab or on files in Solution Explorer:
+        <b>Checkout</b>, <b>Add</b>, <b>Revert</b> (asks first), <b>Diff</b> (with the depot revision), <b>Diff (P4V)</b>,
+        <b>Timelapse</b>.</li>
+      <li><strong>New files</strong> (Add New Item...) are offered for add with the same changelist choice. In
+        <b>New Unreal Class</b> the <em>Changelist</em> drop-down picks it directly (or <em>Don't add to Perforce</em>): OK opens
+        the <code>.h</code>/<code>.cpp</code> for add there.</li>
+      <li>Ticket expired: type the password in the login dialog. Server unreachable: <em>Make writable only</em>.</li>
+      <li>Every p4 command is listed in <span class="menu">Output › UnrealSense Perforce</span>.</li>
+    </ul>
+    <p style="margin-top:12px">If you used the separate <em>Perforce Auto-Checkout</em> extension, uninstall it.</p>
+  </div>
+
   <h2 id="settings">Settings</h2>
   <div class="card">
     <p style="margin-bottom:14px">
@@ -1181,7 +1206,7 @@
       <tr><td>Use the own C++ index, Index the whole engine</td><td>On by default. The index runs as <code>usindex</code> in Task Manager (about 0.3 GB for a Lyra-sized project, about 3.5 GB with the whole engine); turning the index off also turns off completion and Find Usages.</td></tr>
     </table>
     <p style="margin-top:14px">
-      <strong>Bring your settings to another PC</strong>: <span class="menu">Extensions › UnrealSense › Export Settings...</span>
+      <strong>Bring your settings to another PC</strong>: <span class="menu">Quick Menu › Export Settings...</span>
       saves the options, your keys, your code templates and the colours you changed to a <code>.ussettings</code> file. On the
       other PC (or in the other Visual Studio), <b>Import Settings...</b>, pick the file, untick what you do not want,
       <b>Import</b>. Files from older or newer versions work too. Your previous settings are saved first in
@@ -1197,7 +1222,7 @@
     </p>
     <ul>
       <li><strong>No counters</strong>: wait a few seconds; after saving Blueprints,
-        <span class="menu">Extensions › UnrealSense › Rebuild UnrealSense Index</span>.</li>
+        <span class="menu">Quick Menu › Rebuild UnrealSense Index</span>.</li>
       <li><strong>A shortcut does nothing</strong>: another extension uses it; the <code>KeyBindingCheck:</code> log line
         says which. <b>Import Shortcuts...</b> › <em>UnrealSense defaults</em> puts ours back, or change it in <span class="menu">Tools › Options › Environment › Keyboard</span> (search
         <code>UnrealSense.</code>).</li>
@@ -1206,7 +1231,7 @@
       <li><strong>All features off, with a bar about the license check</strong>: the license file was unreachable for 48
         hours; check the network or proxy and press <span class="menu">Check now</span>.</li>
       <li><strong>Find All References stopped working</strong>: run
-        <span class="menu">Extensions › UnrealSense › Restore Visual Studio Indexing</span> if shown, then restart.</li>
+        <span class="menu">Quick Menu › Restore Visual Studio Indexing</span> if shown, then restart.</li>
       <li><strong>Logs</strong>: <code>%LOCALAPPDATA%\UnrealSense\Logs</code>, one
         <code>UnrealSense_&lt;date&gt;_&lt;time&gt;_pid&lt;id&gt;.log</code> per session (last five kept). For freezes or
         crashes also attach the <code>Hangs_...log</code> of the same session.</li>

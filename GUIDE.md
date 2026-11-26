@@ -22,7 +22,7 @@ specifier suggestions, Unreal-aware completion, navigation and warnings. It work
 | **Alt+Shift+E** | UnrealSense Problems window |
 | **Alt+click** | Class hierarchy (Shift+click: free; both set in Tools › Options › UnrealSense › General › Mouse clicks) |
 
-Everything else is in **Extensions › UnrealSense** and in the Quick Menu.
+Everything else is in the Quick Menu (**Alt+Shift+Q**, also **Extensions › UnrealSense › Quick Menu**).
 
 Used to Visual Assist's keys? **Extensions › UnrealSense › Import Shortcuts...** (also shown at the very first start) gives
 our commands the keys of Visual Assist, or of Visual Studio + Visual Assist, or our defaults: tick the rows, **Apply**.
@@ -89,12 +89,12 @@ included) and in data assets. Hovering the property shows the first five values.
 
 **Opening assets in the Unreal Editor** uses its Python Remote Execution: the first time, UnrealSense offers to enable it
 in the project (restart the editor afterwards; files not checked out in Perforce are checked out by your source control extension, or made writable and listed). Without
-it, or with the editor closed, the file is shown in Explorer; **Extensions › UnrealSense › Open Blueprints in Unreal
+it, or with the editor closed, the file is shown in Explorer; **Quick Menu › Open Blueprints in Unreal
 Editor...** asks again.
 
 ### Search text inside Blueprints
 
-**Extensions › UnrealSense › Search Text in Blueprints...** (or the Quick Menu) finds any text in Blueprints and data
+**Quick Menu › Search Text in Blueprints...** finds any text in Blueprints and data
 assets: comments, pin values, variable defaults and tooltips, widget texts, DataTable rows, String Tables; with *Names*
 also variable, function, pin and tag names. Each result says where it is (`EventGraph › Call PrintString › pin In
 String`). Options: *Match case*, *Whole word*, *All assets* (textures, meshes, sounds...), *Editor caches*.
@@ -217,7 +217,7 @@ In a `.cpp`, outside every function (at file or namespace scope), two more decla
 
 ### Your own templates
 
-Extensions › UnrealSense › **Code Templates...** (or the Quick Menu) lists ours and yours. **New** or **Duplicate** (on one
+Quick Menu › **Code Templates...** lists ours and yours. **New** or **Duplicate** (on one
 of ours) gives you a template to edit. Choose how you call it: a **Shortcut** you type on its own (`mylog`) or a **Suffix
 after a value** (`Health.dbg`); where it is offered (inside functions, inside classes, both, or outside functions) and in which files (`.h`,
 `.cpp` or both). Then write the code it writes: the buttons above the code add a **Field** you fill with **Tab**, the
@@ -265,7 +265,7 @@ module can take up to a minute, the next ones a few seconds.
 
 ### Problems window
 
-**Alt+Shift+E** (or **Extensions › UnrealSense › UnrealSense Problems**) lists every error and warning, Errors and Warnings
+**Alt+Shift+E** (or **Quick Menu › UnrealSense Problems**) lists every error and warning, Errors and Warnings
 apart, by file:
 
 - **Build (Visual Studio)**: what your build (**F5**, **Build**) printed, read while it builds: only real errors, not
@@ -331,7 +331,7 @@ Go to Symbol also finds log categories and console variables by their console na
 
 ### Find text in files
 
-**Extensions › UnrealSense › Find in Files...** (or the Quick Menu) searches text in the project, plugins and engine (AngelScript `.as` scripts included), the
+**Quick Menu › Find in Files...** searches text in the project, plugins and engine (AngelScript `.as` scripts included), the
 open documents or the current file, starting from the word at the caret: *Match case*, *Whole word*, *Regex*, and a file filter
 (`*.h;*.cpp;!*.generated.h`, or part of a file name: `hor` searches only `HorrorCharacter.h`/`.cpp`, `hor;h` only the header). Results appear as they are found, grouped by file; double-click opens the line. To have
 **Ctrl+Shift+F** open it, turn on the option *Ctrl+Shift+F opens UnrealSense's Find in Files*.
@@ -385,7 +385,7 @@ its own callers. Blueprints calling a `UFUNCTION` are listed too (double-click o
 
 ### Unreal Explorer
 
-**Extensions › UnrealSense › Unreal Explorer**: modules (with `.Build.cs`, dependencies and reflected types), plugins,
+**Quick Menu › Unreal Explorer** (or View › Other Windows): modules (with `.Build.cs`, dependencies and reflected types), plugins,
 Blueprints by C++ parent class and config files, with search. Double-click opens the file.
 
 ![The Unreal Explorer window](guide-img/unreal-explorer.svg?v=794d5c6a)
@@ -447,7 +447,7 @@ Caret on a name or a macro › Quick Menu › **Add #include** (the header writt
 Solution Explorer › right-click › **Add › Unreal Class...** (or the Unreal Explorer's **New class**): name, parent class
 (**Common** or **All Classes**) and folder, in any module. The files are written like the Unreal Editor's, added to the
 project and opened; a missing module dependency can be added to the `.Build.cs`. Includes stay red until **Generate
-Project Files**. With a `.uproject` opened instead of a solution (Extensions › UnrealSense › **Unreal Class...**) the
+Project Files**. With a `.uproject` opened instead of a solution (Quick Menu › **New Unreal Class...**) the
 files are only created and opened: nothing to regenerate.
 
 The **...** button next to the path opens a folder tree that also shows each folder's files. **New Folder**
@@ -508,6 +508,24 @@ are ticked, the others are greyed out with the reason they stay. Press **Remove*
 `#include` whose hint says *no use found*, the light bulb (**Ctrl+.**) offers **Remove unused #include** when it is safe.
 Build once afterwards: other configurations (`#if` blocks) are not checked.
 
+## Perforce
+
+Off by default. Turn it on with **Extensions › UnrealSense › Perforce Auto-Checkout** (ticked while on; the same switch is
+in the settings, *Perforce* section). When you open a solution in a Perforce workspace, UnrealSense becomes the source
+control provider (in place of Git): no setup, the workspace is found from the file's path.
+
+- **Edit a read-only file**: a dialog asks where to check it out: *default*, an existing changelist, a *New changelist...*
+  (write its description), *Make writable only* or *Cancel* (you keep editing in memory; saving asks again). Tick *Use this
+  changelist without asking...* to skip the dialog for the rest of the session.
+- **UnrealSense Perforce toolbar** and right-click on a document tab or on files in Solution Explorer: **Checkout**,
+  **Add**, **Revert** (asks first), **Diff** (with the depot revision), **Diff (P4V)**, **Timelapse**.
+- **New files** (Add New Item...) are offered for add with the same changelist choice. In **New Unreal Class** the
+  *Changelist* drop-down picks it directly (or *Don't add to Perforce*): OK opens the `.h`/`.cpp` for add there.
+- Ticket expired: type the password in the login dialog. Server unreachable: *Make writable only*.
+- Every p4 command is listed in **Output › UnrealSense Perforce**.
+
+If you used the separate *Perforce Auto-Checkout* extension, uninstall it.
+
 ## Settings
 
 **Tools › Options › UnrealSense** (in Visual Studio 2026: *All Settings › UnrealSense*). Every feature can be turned off
@@ -531,7 +549,7 @@ there. The ones you may want to change:
   (about 0.3 GB for a Lyra-sized project, about 3.5 GB with the whole engine); turning the index off also turns off
   completion and Find Usages.
 
-**Bring your settings to another PC**: **Extensions › UnrealSense › Export Settings...** saves the options, your keys, your
+**Bring your settings to another PC**: **Quick Menu › Export Settings...** saves the options, your keys, your
 code templates and the colours you changed to a `.ussettings` file. On the other PC (or in the other Visual Studio),
 **Import Settings...**, pick the file, untick what you do not want, **Import**. Files from older or newer versions work too.
 Your previous settings are saved first in `%LOCALAPPDATA%\UnrealSense\Settings`: import that file to go back.
@@ -541,14 +559,14 @@ Your previous settings are saved first in `%LOCALAPPDATA%\UnrealSense\Settings`:
 Report problems at [github.com/AndreaDecaro/Unreal-Sense/issues](https://github.com/AndreaDecaro/Unreal-Sense/issues),
 with the log if you can (it contains your project paths: check it first).
 
-- **No counters**: wait a few seconds; after saving Blueprints, **Extensions › UnrealSense › Rebuild UnrealSense Index**.
+- **No counters**: wait a few seconds; after saving Blueprints, **Quick Menu › Rebuild UnrealSense Index**.
 - **A shortcut does nothing**: another extension uses it; the `KeyBindingCheck:` log line says which. **Import
   Shortcuts...** › *UnrealSense defaults* puts ours back, or change it in Tools › Options › Environment › Keyboard (search `UnrealSense.`).
 - **Nothing happens in some files**: UnrealSense works on the open solution's project only (another checkout or game is
   left alone); in a solution with several games pick one in *Unreal project*.
 - **All features off, with a bar about the license check**: the license file was unreachable for 48 hours; check the
   network or proxy and press **Check now**.
-- **Find All References stopped working**: run **Extensions › UnrealSense › Restore Visual Studio Indexing** if shown,
+- **Find All References stopped working**: run **Quick Menu › Restore Visual Studio Indexing** if shown,
   then restart.
 - **Logs**: `%LOCALAPPDATA%\UnrealSense\Logs`, one `UnrealSense_<date>_<time>_pid<id>.log` per session (last five kept).
   For freezes or crashes also attach the `Hangs_...log` of the same session.

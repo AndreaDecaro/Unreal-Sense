@@ -1,5 +1,28 @@
 # UnrealSense changelog
 
+## 1.2.0
+
+UnrealSense 1.2.0: all changes from 1.1.29 to 1.2.0.
+
+Perforce auto-checkout (off by default)
+- Turn it on with Extensions > UnrealSense > Perforce Auto-Checkout (ticked while on) or Tools > Options > UnrealSense >
+  Perforce. In a Perforce workspace UnrealSense becomes the source control provider; the workspace is found from the
+  file's path, no setup.
+- Editing a read-only file asks where to check it out: default, an existing changelist, a new changelist, Make writable
+  only, or Cancel (the edit stays in memory and saving asks again). "Use this changelist without asking" skips the dialog
+  for the rest of the session. Save All keeps saving the other files when one is cancelled.
+- UnrealSense Perforce toolbar, document tab and Solution Explorer context menus: Checkout, Add, Revert (asks first), Diff
+  against the depot revision, Diff (P4V), Timelapse.
+- New files added to a project are offered for add with the same changelist choice; New Unreal Class has its own
+  Changelist drop-down (or Don't add to Perforce) and checks out the .Build.cs it changes.
+- Expired ticket: login dialog. Every p4 command is listed in Output > UnrealSense Perforce.
+- Ported from the separate Perforce Auto-Checkout extension (1.5.3): uninstall that one, two providers make Visual Studio
+  pick one.
+
+Menus
+- Extensions > UnrealSense lists only what the Quick Menu does not: Quick Menu, IntelliSense Mode..., Import Shortcuts...,
+  Perforce Auto-Checkout. Every other command is in the Quick Menu (Alt+Shift+Q) and keeps its keys and context menus.
+
 ## 1.1.29
 
 UnrealSense 1.1.29: all changes from 1.1.28 to 1.1.29.
