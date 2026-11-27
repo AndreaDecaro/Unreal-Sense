@@ -1,5 +1,23 @@
 # UnrealSense changelog
 
+## 1.2.1
+
+UnrealSense 1.2.1: all changes from 1.2.0 to 1.2.1.
+
+Perforce
+- Reconcile on the UnrealSense Perforce toolbar: finds the text files of the project (code, scripts, config: .h, .cpp,
+  .inl, .as, .cs, .ini, .uproject, .uplugin, shaders...) changed, added or deleted outside Perforce, in the project's
+  Source, Plugins, Config, Script and Build folders. Assets are never looked at, nor Intermediate, Binaries, Saved and
+  DerivedDataCache.
+- A dialog lists every file found with its action (edit, add, delete): uncheck the ones to leave alone (All/None), pick
+  the changelist (default, a pending one or a new one) and press Reconcile.
+- Option "Reconcile text files in Content" (Tools > Options > UnrealSense > Perforce, off by default): also the text
+  files inside Content folders (.json, .txt, .py...); assets never.
+
+Code editing
+- Parameter Info shows the default values written in the declaration ("= 0", "= nullptr"...), as Quick Info does.
+- Typing "::" after a name typed by hand (e.g. FMath::) lists the scope's members instead of filtering the open list.
+
 ## 1.2.0
 
 UnrealSense 1.2.0: all changes from 1.1.29 to 1.2.0.

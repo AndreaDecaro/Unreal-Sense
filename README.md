@@ -232,6 +232,11 @@ holds the file): nothing to configure per project.
   files: **Checkout**, **Add** (files not in the depot), **Revert** (always asks; unsaved changes are discarded too),
   **Diff** (against `#have`, or `#head` when not synced, in Visual Studio's compare view), **Diff (P4V)** and **Timelapse**
   (P4V through `p4vc`). They show only while the integration is in use.
+- **Reconcile** (toolbar): finds the project's text files changed, added or deleted outside Perforce (`.h`, `.cpp`, `.as`,
+  `.cs`, `.ini`, `.uproject`, shaders, scripts...; never assets, nor `Intermediate`/`Binaries`/`Saved`, nor `Content` folders unless the option *Reconcile text files in Content* is on) with
+  `p4 reconcile -n` on `Source`, `Plugins`, `Config`, `Script` and `Build` of the active document's (or the loaded) Unreal
+  project, then a dialog lists every file with its action (edit, add, delete): uncheck the ones to leave alone, pick the
+  changelist (default, a pending one or a new one) and **Reconcile** opens them there.
 - **New files**: a file created in a Perforce workspace and not in the depot yet (Add New Item, a file added to a project)
   is offered for add with the same changelist dialog; the files reported together share one dialog. **New Unreal Class**
   asks the changelist in its own dialog (a *Changelist* drop-down: default, a pending one, a new one with its description, or

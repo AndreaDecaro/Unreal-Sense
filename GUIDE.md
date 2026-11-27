@@ -519,6 +519,8 @@ control provider (in place of Git): no setup, the workspace is found from the fi
   changelist without asking...* to skip the dialog for the rest of the session.
 - **UnrealSense Perforce toolbar** and right-click on a document tab or on files in Solution Explorer: **Checkout**,
   **Add**, **Revert** (asks first), **Diff** (with the depot revision), **Diff (P4V)**, **Timelapse**.
+- **Reconcile** (toolbar): lists the project's text files (`.h`, `.cpp`, `.as`, `.cs`, `.ini`...) changed, added or
+  deleted outside Perforce, never the assets; `Content` folders only with the option *Reconcile text files in Content*. Uncheck what to leave alone, pick the changelist, press *Reconcile*.
 - **New files** (Add New Item...) are offered for add with the same changelist choice. In **New Unreal Class** the
   *Changelist* drop-down picks it directly (or *Don't add to Perforce*): OK opens the `.h`/`.cpp` for add there.
 - Ticket expired: type the password in the login dialog. Server unreachable: *Make writable only*.
